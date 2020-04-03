@@ -32,11 +32,11 @@ CREATE TABLE calendar (
     event_description VARCHAR
 );
 
-CREATE TABLE recipe (
+CREATE TABLE recipes (
     id SERIAL PRIMARY KEY, 
     name VARCHAR, 
     ingredients TEXT [], 
-    directions TEXT []
+    directions VARCHAR
 );
  
 -- CREATE TABLE pantry_party (
@@ -53,3 +53,6 @@ INSERT INTO pantry (name, category, expiration_date)
     VALUES ('rice', 'grain', '2021-01-01'),
             ('quinoa', 'grain', '2021-01-01'),
             ('tuna', 'seafood', '2021-01-01');
+
+INSERT INTO recipes(name, ingredients, direction)
+    VALUES ('Nachos', ARRAY['tortilla chips', 'sourcream', 'jalapeños', 'pico'], 'lay the tortilla chips down first and place all of the ingredients on top but keep in mind to distribute thorougly' );
