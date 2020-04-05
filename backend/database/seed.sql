@@ -13,42 +13,36 @@ CREATE TABLE users (
     history VARCHAR 
 );
 
-CREATE TABLE pantry (
-    id SERIAL PRIMARY KEY, 
-    name VARCHAR, 
-    category VARCHAR, 
-    expiration_date DATE
-);
-
-CREATE TABLE shoppinglist (
-    id SERIAL PRIMARY KEY, 
-    food_item INT REFERENCES pantry(id), 
-    food_name VARCHAR REFERENCES pantry(name)
-); 
-
-CREATE TABLE calendar (
-    id SERIAL PRIMARY KEY, 
-    user_id INT REFERENCES users(id), 
-    event_date DATE 
-);
-
-CREATE TABLE recipes (
-    id SERIAL PRIMARY KEY, 
-    recipe_name VARCHAR, 
-    ingredients TEXT [], 
-    directions VARCHAR
-);
- 
 CREATE TABLE groups (
     id SERIAL PRIMARY KEY,
     group_name VARCHAR,
-    group_members ARRAY 
+    group_description VARCHAR, 
+    group_avatar VARCHAR, 
+    host_id INT REFERENCES users(id) 
 );
 
-CREATE TABLE event_group (
+CREATE TABLE group_affiliation (
     id SERIAL PRIMARY KEY, 
-    host_id INT REFERENCES users(id),
-    group_members 
+    user_id INT REFERENCES users(id), 
+    group_id INT REFERENCES groups(id)
+);
+
+CREATE TABLE pantry (
+    id SERIAL PRIMARY KEY, 
+    user_id INT REFERENCES users(id), 
+);
+
+CREATE TABLE pantryitem (
+    id SERIAL PRIMARY KEY,
+    pantry_id INT REFERENCES pantry(id),
+    item_name VARCHAR, 
+    expiration_date DATE,
+    volume INT
+);
+
+CREATE TABLE calendar (
+    id SERIAL PRIMARY KEY, 
+    user_id INT REFERENCES users(id),  
 );
 
 CREATE TABLE pantry_party (
@@ -60,6 +54,25 @@ CREATE TABLE pantry_party (
     recipe_info INT REFERENCES recipes(id)
 );
 
+CREATE TABLE notifications (
+    id SERIAL PRIMARY KEY, 
+    group_id INT REFERENCES groups(id),
+    pantry_item_id INT REFERENCES pantryitem(id), 
+    status INT, 
+    user_id INT REFERENCES users(id),
+    party_id INT REFERENCES pantry_party(id), 
+    friend_id INT REFERENCES users(id)
+);
+
+CREATE TABLE grocerylist (
+    id SERIAL PRIMARY KEY, 
+    user_id INT REFERENCES users(id), 
+    item_name VARCHAR, 
+    party_id INT REFERENCES pantry_party(id),
+); 
+
+
+
 
 INSERT INTO users (firstname, lastname, email, password)
     VALUES ('Suzette', 'Islam', 'suzette@gmail.com', '123ok'), 
@@ -70,6 +83,3 @@ INSERT INTO pantry (name, category, expiration_date)
     VALUES ('rice', 'grain', '2021-01-01'),
             ('quinoa', 'grain', '2021-01-01'),
             ('tuna', 'seafood', '2021-01-01');
-
-INSERT INTO recipes(name, ingredients, direction)
-    VALUES ('Nachos', ARRAY['tortilla chips', 'sourcream', 'jalapeños', 'pico'], 'lay the tortilla chips down first and place all of the ingredients on top but keep in mind to distribute thorougly' );
