@@ -13,6 +13,12 @@ CREATE TABLE users (
     history VARCHAR 
 );
 
+CREATE TABLE friends (
+    id SERIAL PRIMARY KEY, 
+    user_id INT REFERENCES users(id), 
+    friend_id INT REFERENCES users(id)
+);
+
 CREATE TABLE groups (
     id SERIAL PRIMARY KEY,
     group_name VARCHAR,
@@ -70,8 +76,6 @@ CREATE TABLE grocerylist (
     item_name VARCHAR, 
     party_id INT REFERENCES pantry_party(id),
 ); 
-
-
 
 
 INSERT INTO users (firstname, lastname, email, password)
