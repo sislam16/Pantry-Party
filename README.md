@@ -49,7 +49,7 @@ Our application allows users to host a virtual cooking party. Users will have th
   * `status`: String
 
 ### Diagram 
-![database](./database_schemaG7.png)
+![database](./assets/database_schemaG7.png)
 
 ## Backend Routes/API
 * __Users__
@@ -107,4 +107,4 @@ Our application allows users to host a virtual cooking party. Users will have th
 |/signup| User will be able to sign up for account to our application by filling out the required fields of the form.|
 
 ### Wireframes
-Find wireframes [here](./wireframes.md).
+Find wireframes [here](./assets/wireframes.md).
