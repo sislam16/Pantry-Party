@@ -7,7 +7,7 @@ Pantry
 ---
 #### Tables and Columns 
 * __Users__
-..*
+.*
 * __Recipes__
 
 * __Followers__
@@ -21,10 +21,10 @@ Pantry
 ### Backend Routes/API
 ---
 * __Users__
-..* GET
-..* POST
-..* PATCH
-..* DELETE
+.* GET
+.* POST
+.* PATCH
+.* DELETE
 
 * __Recipes__
 * __Followers__
