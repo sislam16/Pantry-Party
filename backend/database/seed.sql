@@ -8,74 +8,44 @@ CREATE TABLE users (
     lastname VARCHAR, 
     email VARCHAR, 
     password VARCHAR, 
-    user_avi VARCHAR, 
-    user_bio VARCHAR, 
-    history VARCHAR 
-);
-
-CREATE TABLE friends (
-    id SERIAL PRIMARY KEY, 
-    user_id INT REFERENCES users(id), 
-    friend_id INT REFERENCES users(id)
-);
-
-CREATE TABLE groups (
-    id SERIAL PRIMARY KEY,
-    group_name VARCHAR,
-    group_description VARCHAR, 
-    group_avatar VARCHAR, 
-    host_id INT REFERENCES users(id) 
-);
-
-CREATE TABLE group_affiliation (
-    id SERIAL PRIMARY KEY, 
-    user_id INT REFERENCES users(id), 
-    group_id INT REFERENCES groups(id)
-);
-
-CREATE TABLE pantry (
-    id SERIAL PRIMARY KEY, 
-    user_id INT REFERENCES users(id), 
-);
-
-CREATE TABLE pantryitem (
-    id SERIAL PRIMARY KEY,
-    pantry_id INT REFERENCES pantry(id),
-    item_name VARCHAR, 
-    expiration_date DATE,
-    volume INT
+    avatar VARCHAR, 
+    bio VARCHAR, 
+    history VARCHAR, 
+    active BOOLEAN 
 );
 
 CREATE TABLE calendar (
     id SERIAL PRIMARY KEY, 
-    user_id INT REFERENCES users(id),  
+    user_id INT REFERENCES users(id), 
+    active BOOLEAN 
 );
 
-CREATE TABLE pantry_party (
+CREATE TABLE recipes(
     id SERIAL PRIMARY KEY, 
-    group INT REFERENCES event_group(id),
+    user_id INT REFERENCES users(id),
+    recipe_name VARCHAR, 
+    ingredients VARCHAR, 
+    directions VARCHAR, 
+    location VARCHAR,
+    type VARCHAR
+);
+
+CREATE TABLE event (
+    id SERIAL PRIMARY KEY, 
     party_name VARCHAR, 
-    party_date REFERENCES calendar(date),
-    party_description VARCHAR,
+    calendar_id REFERENCES calendar(id),
+    event_description VARCHAR,
     recipe_info INT REFERENCES recipes(id)
 );
 
 CREATE TABLE notifications (
     id SERIAL PRIMARY KEY, 
-    group_id INT REFERENCES groups(id),
-    pantry_item_id INT REFERENCES pantryitem(id), 
-    status INT, 
     user_id INT REFERENCES users(id),
-    party_id INT REFERENCES pantry_party(id), 
-    friend_id INT REFERENCES users(id)
+    event_id INT REFERENCES event(id), 
+    recipe_id INT REFERENCES recipe(id),
+    follower INT REFERENCES followers(follower_id),
+    status VARCHAR,
 );
-
-CREATE TABLE grocerylist (
-    id SERIAL PRIMARY KEY, 
-    user_id INT REFERENCES users(id), 
-    item_name VARCHAR, 
-    party_id INT REFERENCES pantry_party(id),
-); 
 
 
 INSERT INTO users (firstname, lastname, email, password)
