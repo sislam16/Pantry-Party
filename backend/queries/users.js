@@ -6,20 +6,20 @@ const getUserById = async (id) => {
 
 const createUser = async (email, password, firstname, lastname) => {
     const insertQuery = `
-    INSERT INTO users(email, password, firsname, lastname) 
-    VALUES ($1, $2, $3, $4) 
+    INSERT INTO users(email, password, firsname, lastname, avatar, bio) 
+    VALUES ($1, $2, $3, $4, $5, $6) 
     RETURNING * 
     `
     return await db.one(insertQuery, [email, password, firstname, lastname])
 }
 
-const updateUserInfo = async (id, email, firstname, lastname, user_avi, user_bio) => {
+const updateUserInfo = async (id, email, firstname, lastname, avatar, bio) => {
     const updateQuery = `
-    UPDATE users SET email=$2, firstname=$3, lastname=$4, user_avi=$5, user_bio=$6
+    UPDATE users SET email=$2, firstname=$3, lastname=$4, avatar=$5, biobio=$6
     WHERE id=$1 
     RETURNING *
     `
-    return await db.one(updateQuery, [id, email, firstname, lastname, user_avi, user_bio])
+    return await db.one(updateQuery, [id, email, firstname, lastname, avatar, bio])
 }
 
 const updatePassword = async (id, password) => {
