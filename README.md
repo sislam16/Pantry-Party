@@ -1,13 +1,12 @@
 # Pantry-Party
 Pantry
 
-### Wireframes
+## Wireframes
 
-### Database Schema
----
-#### Tables and Columns 
+## Database Schema
+### Tables and Columns 
 * __Users__
-.*
+  *
 * __Recipes__
 
 * __Followers__
@@ -15,19 +14,20 @@ Pantry
 * __Events__
 * __Notifications__
 
-#### Diagram 
+### Diagram 
 ![database](./capstone_g7.png)
 
-### Backend Routes/API
----
+## Backend Routes/API
 * __Users__
-.* GET
-.* POST
-.* PATCH
-.* DELETE
+  * GET
+  * POST
+  * PATCH
+  * DELETE
 
 * __Recipes__
 * __Followers__
 * __Calendar__
 * __Events__
 * __Notifications__
+
+
