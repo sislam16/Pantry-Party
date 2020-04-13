@@ -1,8 +1,33 @@
 # Pantry-Party
+Pantry
 
-Our application is the so
+### Wireframes
 
 ### Database Schema
-![schema](https://github.com/sislam16/Pantry-Party/master/path/to/capstone_g7.png "Database Schema")
+---
+#### Tables and Columns 
+* __Users__
+..*
+* __Recipes__
 
+* __Followers__
+* __Calendar__
+* __Events__
+* __Notifications__
 
+#### Diagram 
+![database](./capstone_g7.png)
+
+### Backend Routes/API
+---
+* __Users__
+..* GET
+..* POST
+..* PATCH
+..* DELETE
+
+* __Recipes__
+* __Followers__
+* __Calendar__
+* __Events__
+* __Notifications__
