@@ -1,5 +1,5 @@
 # Pantry-Party
-
+Our application allows users to host a cooking party. Users will have the option to find recipes and follow an interactactive cooking video for recipes or input their personal recipe and follow the directions on a streaming platform. Pantry Party allows users to virtually interact with others and cook a meal in the comfort of their home - giving them the ability to share a meal together while apart.
 
 ## Database Schema
 ### Tables and Columns 
@@ -100,4 +100,11 @@
   |GET|
 
 ## Frontend
+### Routes
+| Route | Feature  |
+|--------|-----------|
+|/ | Landing page will direct you to a log in form where registered users are able to input their credentials to log in. It will also provide a link to a sign up form.|
+|/signup| User will be able to sign up for account to our application by filling out the required fields of the form.|
+
 ### Wireframes
+Find wireframes [here](./wireframes.md).
