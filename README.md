@@ -5,15 +5,51 @@ Pantry
 ### Tables and Columns 
 * __Users__
   * `id` : Integer Primary Key
+  * `firstname`: String
+  * `lastname`: String
+  * `email`: String
+  * `password`: String
+  * `avatar`: String
+  * `bio`: String
+  * `active`: Boolean
+  
 * __Recipes__
-
+  * `id` : Integer Primary Key
+  * `user_id`: Integer REFERENCES users(id)
+  * `recipe_name`: String
+  * `directions`: String
+  * `recipe_img`: String
+  * `ingredients`: String
+  * `location`: String
+  * `type`: String
+  
 * __Followers__
+  * `id`: Integer Primary Key
+  * `user_id`: Integer REFERENCES users(id)
+  * `follower_id`: Integer REFERENCES users(id)
+  
 * __Calendar__
+  * `id`: Integer Primary Key
+  * `user_id`: Integer REFERENCES users(id)
+  * `active`: BOOLEAN
+  
 * __Events__
+  * `id`: Integer Primary Key
+  * `party_name`: String
+  * `calendar_id`: Integer REFERENCES calendar(id)
+  * `party_description`: String
+  * `recipe_id`: Integer REFERENCES recipe(id)
+  
 * __Notifications__
+  * `id`: Integer Primary Key
+  * `event_id`: Integer REFERENCES event(id)
+  * `users_id`: Integer REFERENCES users(id)
+  * `recipe_id`: Integer REFERENCES recipe(id)
+  * `follower`: Integer REFERENCES followers(follower_id)
+  * `status`: String
 
 ### Diagram 
-![database](./capstone_g7.png)
+![database](./database_schemaG7.png)
 
 ## Backend Routes/API
 * __Users__
@@ -38,11 +74,18 @@ Pantry
   * DELETE `/followers/:user_id/:follower_id`: Delete single follow.
   
 * __Calendar__
-  * GET
-  * 
+  * GET `/calendar/:user_id`: Get calendar for user.
+  * PATCH `/calendar/update/:user_id`: Update single calendar.
+  
 * __Events__
-  *
+  * GET `/event/all/:calendar_id`: Gets all event for user.
+  * GET `/event/:event_id`: Get single event.
+  * POST `/event/new/:calendar_id`: Create new event.
+  * PATCH `/event/update/:event_id`: Update single event.
+  * DELETE `/event/remove/:event_id`: Delete single event.
+  
 * __Notifications__
+  *
 
 ## Frontend
 ### Wireframes
