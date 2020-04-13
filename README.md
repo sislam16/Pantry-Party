@@ -1,5 +1,5 @@
 # Pantry-Party
-Pantry
+
 
 ## Database Schema
 ### Tables and Columns 
@@ -53,39 +53,51 @@ Pantry
 
 ## Backend Routes/API
 * __Users__
-  * GET `/users`: Gets all of the users.
-  * GET `/users/:id`: Get a single user by id.
-  * POST `/users/new`: Creates new user.
-  * PATCH `/users/update/:id`: Update single user.
-  * DELETE `/users/remove/:id`: Delete single user.
+  | Method | Endpoint  | Description    | Body Data    |
+  |--------|-----------|----------------|--------------|
+  |GET| `/users`| Gets all of the users.| N/A|
+  |GET| `/users/:id`| Get a single user by id.| N/A|
+  |POST| `/users/new`| Creates new user.| firstname, lastname, email, password, avatar, bio, active|
+  |PATCH| `/users/update/:id`| Update single user.|firstname, lastname, email, password, avatar, bio, active|
+  |DELETE| `/users/remove/:id`| Delete single user.|N/A|
 
 * __Recipes__
-  * GET `/recipe/:recipe_id`: Gets single recipe in users database. 
-  * GET `/recipe/search/:recipe_type`: Get single recipe by type of dish.
-  * GET `/recipe/search/:ingredient`: Get single recipe by ingredient.
-  * GET `/recipe/search/:location`: Get single recipe by location of origin.
-  * POST `/recipe/new`: Create new recipe.
-  * PATCH `/recipe/update/:recipe_id`: Update single recipe.
+  | Method | Endpoint  | Description    | Body Data    |
+  |--------|-----------|----------------|--------------|
+  |GET| `/recipe/:recipe_id`| Gets single recipe in users database.| N/A|
+  |GET| `/recipe/search/:recipe_type`| Get single recipe by type of dish.| N/A|
+  |GET| `/recipe/search/:ingredient`| Get single recipe by ingredient.| N/A|
+  |GET | `/recipe/search/:location`| Get single recipe by location of origin.| N/A|
+  |POST| `/recipe/new`| Create new recipe.| recipe_name, directions, recipe_img, ingredients, location, type|
+  |PATCH| `/recipe/update/:recipe_id`| Update single recipe.| recipe_name, directions, recipe_img, ingredients, location, type|
  
 * __Followers__
-  * GET `/followers/all/:user_id`: Gets all followers for user.
-  * GET `/followers/following/all/:user_id`: Gets all accounts user is following.
-  * POST `/followers/:user_id/:follower_id`: Create new follower.
-  * DELETE `/followers/:user_id/:follower_id`: Delete single follow.
+  | Method | Endpoint  | Description    | Body Data    |
+  |--------|-----------|----------------|--------------|
+  |GET| `/followers/all/:user_id`| Gets all followers for user.| N/A|
+  |GET| `/followers/following/all/:user_id`| Gets all accounts user is following.| N/A|
+  |POST | `/followers/:user_id/:follower_id`| Create new follower. |follower_id|
+  |DELETE| `/followers/:user_id/:follower_id`| Delete single follow. | N/A|
   
 * __Calendar__
-  * GET `/calendar/:user_id`: Get calendar for user.
-  * PATCH `/calendar/update/:user_id`: Update single calendar.
+  | Method | Endpoint  | Description    | Body Data    |
+  |--------|-----------|----------------|--------------|
+  |GET| `/calendar/:user_id`| Get calendar for user.| N/A|
+  |PATCH| `/calendar/update/:user_id`| Update single calendar.| active|
   
 * __Events__
-  * GET `/event/all/:calendar_id`: Gets all event for user.
-  * GET `/event/:event_id`: Get single event.
-  * POST `/event/new/:calendar_id`: Create new event.
-  * PATCH `/event/update/:event_id`: Update single event.
-  * DELETE `/event/remove/:event_id`: Delete single event.
+  | Method | Endpoint  | Description    | Body Data    |
+  |--------|-----------|----------------|--------------|
+  |GET |`/event/all/:calendar_id`| Gets all event for user.|N/A|
+  |GET | `/event/:event_id`| Get single event. | N/A|
+  |POST|`/event/new/:calendar_id`| Create new event.|party_name, calendar_id, party_description, recipe_id|
+  |PATCH| `/event/update/:event_id`| Update single event.|party_name, calendar_id, party_description, recipe_id|
+  |DELETE| `/event/remove/:event_id`| Delete single event.| N/A|
   
 * __Notifications__
-  *
+  | Method | Endpoint  | Description    | Body Data    |
+  |--------|-----------|----------------|--------------|
+  |GET|
 
 ## Frontend
 ### Wireframes
