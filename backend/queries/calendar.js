@@ -11,3 +11,8 @@ const getCalendarByEventDate = async (event_date) =>{
 //     const updateQuery = `UPDATE calendar SET `
 //     return await 
 // }
+
+module.exports = {
+    getCalendarByUser, 
+    getCalendarByUser
+}
