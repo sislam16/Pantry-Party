@@ -15,12 +15,12 @@ const createUser = async (email, password, firstname, lastname) => {
     return await db.one(insertQuery, [email, password, firstname, lastname])
 }
 
-const updateUserInfo = async ( email, firstname, lastname, avatar, bio) => {
+const updateUserInfo = async (id, email, firstname, lastname, avatar, bio) => {
     const updateQuery = `
     UPDATE users SET email=$2, firstname=$3, lastname=$4, avatar=$5, bio=$6
     WHERE id=$1 
     `
-    return await db.one(updateQuery, [email, firstname, lastname, avatar, bio])
+    return await db.one(updateQuery, [id, email, firstname, lastname, avatar, bio])
 }
 
 const updatePassword = async (id, password) => {
