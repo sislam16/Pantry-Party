@@ -35,7 +35,7 @@ router.get('/:id', async(req, res, next)=>{
     };
 
 //post new user
-router.post('/new', async(req, res, next)=>{
+router.post('/new', async (req, res, next)=>{
     try{
         let postNewUser = await userQueries.postNewUser()
         res.json({
@@ -51,7 +51,7 @@ router.post('/new', async(req, res, next)=>{
 });
 
 //update user info
-router.patch('/update/info/:id', async(req, res, next)=>{
+router.patch('/update/info/:id', async (req, res, next)=>{
     const id = req.params.id
     const { email, firstname, lastname, avatar, bio } = req.body
 
