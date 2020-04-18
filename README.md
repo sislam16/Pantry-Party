@@ -101,29 +101,59 @@ Our application allows users to host a virtual cooking party. Users will have th
 
 ## Frontend
 ### Routes
-| Route | Feature  |
-|--------|-----------|
-|/ | Landing page will direct you to a log in form where registered users are able to input their credentials to log in. It will also provide a link to a sign up form.|
-|/signup| User will be able to sign up for account to our application by filling out the required fields of the form.|
-|/home| Will display user dashboard.|
-|/profile| Displays logged in users profile.|
-|/profile/:user_id| Displays user profile of another user with their id.|
-|/recipes/search| Reroutes to a new page that allows user to make a search.|
-|/recipes/add| Displays a form that allows user to input a recipe to their cookbook.|
-|/recipes/search/name/:name| Search recipe by name.
-|/recipes/search/ingredient/:ingredient| Search by ingredient.|
-|/recipes/search/hashtag/:hashtag| Search by hashtag.|
-|/recipes/search/location/:location| Search by location.|
-|recipes/update/:recipe_id| Update the recipe that user input.|
-|/cookbook|Get all recipe the current user has input.|
-|/cookbook/:user_id|Displays all recipes of specific user with user_id.|
-|/calendar|Displays current users calendar.|
-|/calendar/:user_id| Displays calendar for another user with their id id the calendar is public.|
-|/events/:event_id| Displays the information for a specific event.|
-|/discover| Displays 4 random users for new users.|
-|/discover/search/:username| Users can search for others by username.|
-|/discover/search/:hashtag| Users can different hashtags relating to recipes.|
-|/stream/:event_id|Creates stream for a specific event.|
+
+#### Landing
+  | Route | Feature  |
+  |--------|-----------|
+  |/ | Landing page will direct you to a log in form where registered users are able to input their credentials to log in. It will also provide a link to a sign up form.|
+  |/signup| User will be able to sign up for account to our application by filling out the required fields of the form.|
+  |/home| Will display user dashboard.|
+
+#### Profile 
+  | Route | Feature  |
+  |--------|-----------|
+  |/profile| Displays logged in users profile.|
+  |/profile/:user_id| Displays user profile of another user with their id.|
+
+#### Recipes 
+  | Route | Feature  |
+  |--------|-----------|
+  |/recipes/search| Reroutes to a new page that allows user to make a search.|
+  |/recipes/add| Displays a form that allows user to input a recipe to their cookbook.|
+  |/recipes/search/name/:name| Search recipe by name.
+  |/recipes/search/ingredient/:ingredient| Search by ingredient.|
+  |/recipes/search/hashtag/:hashtag| Search by hashtag.|
+  |/recipes/search/location/:location| Search by location.|
+  |recipes/update/:recipe_id| Update the recipe that user input.|
+
+#### Cookbook
+  | Route | Feature  |
+  |--------|-----------|
+  |/cookbook|Get all recipe the current user has input.|
+  |/cookbook/:user_id|Displays all recipes of specific user with user_id.|
+
+#### Calendar
+  | Route | Feature  |
+  |--------|-----------|
+  |/calendar|Displays current users calendar.|
+  |/calendar/:user_id| Displays calendar for another user with their id id the calendar is public.|
+  
+#### Events
+  | Route | Feature  |
+  |--------|-----------|
+  |/events/:event_id| Displays the information for a specific event.|
+
+#### Discover
+  | Route | Feature  |
+  |--------|-----------|
+  |/discover| Displays 4 random users for new users.|
+  |/discover/search/:username| Users can search for others by username.|
+  |/discover/search/:hashtag| Users can different hashtags relating to recipes.|
+
+#### Stream 
+  | Route | Feature  |
+  |--------|-----------|
+  |/stream/:event_id|Creates stream for a specific event.|
 
 ### Wireframes
 Find wireframes [here](./assets/wireframes.md).
