@@ -22,7 +22,7 @@ router.get('/', async(req, res, next)=>{
 router.get('/:event_id', async(req, res, next)=>{
     const event_id = req.params.event_id
     try{
-        let eventById = await eventsQueries.getEventById()
+        let eventById = await eventsQueries.getEventById(event_id)
         res.json({
             payload: eventById,
             message: 'Success. Event has been retrieved.'
