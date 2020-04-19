@@ -18,7 +18,6 @@ CREATE TABLE recipes (
     id SERIAL PRIMARY KEY, 
     user_id INT REFERENCES users(id),
     recipe_name VARCHAR, 
-    ingredients VARCHAR, 
     directions VARCHAR
 );
 
