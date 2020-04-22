@@ -32,7 +32,8 @@ router.get('/:id', async(req, res, next)=>{
             payload: null, 
             message: 'Error. Unable to retrieve user.'
         })
-    };
+    }
+});
 
 //post new user
 router.post('/new', async (req, res, next)=>{

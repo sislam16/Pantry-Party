@@ -3,8 +3,10 @@ Recipes Route | Server | Tost-Host/Pantry Party Web App
 GROUP 7: Suzette Islam, Douglas MacKrell, Maliq Taylor
 */
 
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
+let recipesQueries = require('../queries/recipes')
+
 
 /* ROUTE HANDLES */
 
@@ -12,7 +14,7 @@ var router = express.Router();
 router.get("/api/recipe/:recipe_id", async (req, res, next) => {
     try {
         const recipeId = req.params.recipe_id
-        const recipe = await getRecipeById(recipeId);
+        const recipe = await recipesQueries.getRecipeById(recipeId);
         console.log(recipe)
         res.json({
             status: "success",
@@ -33,7 +35,7 @@ router.get("/api/recipe/:recipe_id", async (req, res, next) => {
 router.get("/api/user/:user_id", async (req, res, next) => {
     try {
         const userId = req.params.user_id
-        const allRecipesByUser = await getAllRecipesByUserId(userId);
+        const allRecipesByUser = await recipesQueries.getAllRecipesByUserId(userId);
         res.json({
             status: "success",
             message: `All recipes of user ${userId} retrieved`,
