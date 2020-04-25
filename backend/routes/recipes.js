@@ -7,6 +7,8 @@ let express = require('express');
 let router = express.Router();
 let recipesQueries = require('../queries/recipes')
 
+// DATABASE CONNECTION
+const db = require('../database/db')
 
 /* ROUTE HANDLES */
 
@@ -18,7 +20,7 @@ router.get("/api/recipe/:recipe_id", async (req, res, next) => {
         console.log(recipe)
         res.json({
             status: "success",
-            message: `Recipe ${recipeId} retrieved`,
+            message: `Recipe ${recipeId} retrieved!`,
             payload: recipe
         });
     } catch (err) {
@@ -38,7 +40,7 @@ router.get("/api/user/:user_id", async (req, res, next) => {
         const allRecipesByUser = await recipesQueries.getAllRecipesByUserId(userId);
         res.json({
             status: "success",
-            message: `All recipes of user ${userId} retrieved`,
+            message: `All recipes of user ${userId} retrieved!`,
             payload: allRecipesByUser
         });
     } catch (err) {
@@ -51,6 +53,86 @@ router.get("/api/user/:user_id", async (req, res, next) => {
     }
 });
 
+// createRecipe: create a new core recipe instance
+router.post("/api/new/:user_id", async (req, res, next) => {
+    try {
+        const user_id = req.params.user_id;
+        const recipe_name = req.body.recipe_name;
+        const directions = req.body.directions;
+        const recipe_img = req.body.recipe_img;
+        const recipe_active = req.body.recipe_active;
+        const recipe_public = req.body.recipe_public;
+        const response = await recipesQueries.createRecipe({
+            user_id: user_id,
+            recipe_name: recipe_name,
+            directions: directions,
+            recipe_img: recipe_img,
+            recipe_active: recipe_active,
+            recipe_public: recipe_public
+        });
+        res.json({
+            status: "success",
+            message: `New recipe, ${recipe_name} created!`,
+            payload: response
+        });
+    } catch (err) {
+        res.json({
+            status: "failure",
+            message: "Oops! All Errors!",
+            payload: null
+        })
+        throw err;
+    }
+});
+
+//  rewriteRecipe: edit a recipe by recipe_id
+router.patch("/api/edit/:recipe_id", async (req, res, next) => {
+    const id = req.params.recipe_id;
+    console.log(id)
+    const { recipe_name, directions, recipe_img, recipe_active, recipe_public } = req.body;
+    console.log(req.body)
+    try {
+        // if (req.body.recipe_name) {
+        //     const recipe_name = req.body.recipe_name
+        // }
+        // if (req.body.directions) {
+        //     const directions = req.body.directions
+        // }
+        // if (req.body.recipe_img) {
+        //     const recipe_img = req.body.recipe_img
+        // }
+        // if (req.body.recipe_active) {
+        //     const recipe_active = req.body.recipe_active
+        // }
+        // if (req.body.recipe_public) {
+        //     const recipe_public = req.body.recipe_public
+        // }
+
+        const editedRecipe = await recipesQueries.rewriteRecipe({
+            id,
+            recipe_name,
+            directions,
+            recipe_img,
+            recipe_active,
+            recipe_public
+        })
+        console.log('edited recipe', editedRecipe)
+
+        res.json({
+            status: `Successfully edited recipe ${id}`,
+            payload: editedRecipe,
+            error: null
+        })
+
+    } catch (err) {
+        res.status(500).json({
+            status: "failure",
+            message: "Oops! All Errors!",
+            payload: null
+        })
+        throw err;
+    }
+});
 
 
 module.exports = router;
