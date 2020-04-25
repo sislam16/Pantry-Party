@@ -88,36 +88,11 @@ router.post("/api/new/:user_id", async (req, res, next) => {
 //  rewriteRecipe: edit a recipe by recipe_id
 router.patch("/api/edit/:recipe_id", async (req, res, next) => {
     const id = req.params.recipe_id;
-    console.log(id)
-    const { recipe_name, directions, recipe_img, recipe_active, recipe_public } = req.body;
-    console.log(req.body)
     try {
-        // if (req.body.recipe_name) {
-        //     const recipe_name = req.body.recipe_name
-        // }
-        // if (req.body.directions) {
-        //     const directions = req.body.directions
-        // }
-        // if (req.body.recipe_img) {
-        //     const recipe_img = req.body.recipe_img
-        // }
-        // if (req.body.recipe_active) {
-        //     const recipe_active = req.body.recipe_active
-        // }
-        // if (req.body.recipe_public) {
-        //     const recipe_public = req.body.recipe_public
-        // }
-
         const editedRecipe = await recipesQueries.rewriteRecipe({
             id,
-            recipe_name,
-            directions,
-            recipe_img,
-            recipe_active,
-            recipe_public
+            ...req.body
         })
-        console.log('edited recipe', editedRecipe)
-
         res.json({
             status: `Successfully edited recipe ${id}`,
             payload: editedRecipe,
