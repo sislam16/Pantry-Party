@@ -1,15 +1,15 @@
 /*
-Recipes Route | Server | Tost-Host/Pantry Party Web App
+Ingredients Route | Server | Tost-Host/Pantry Party Web App
 GROUP 7: Suzette Islam, Douglas MacKrell, Maliq Taylor
 */
 
 let express = require('express');
 let router = express.Router();
-let recipesQueries = require('../queries/recipes')
+let ingredientsQueries = require('../queries/ingredients')
 
 /* ROUTE HANDLES */
 
-// getRecipeById: get a single recipe by recipe ID.
+// getIngredientsByRecipeId: Get all ingredients by recipe ID.
 router.get("/api/recipe/:recipe_id", async (req, res, next) => {
     try {
         const recipeId = req.params.recipe_id
