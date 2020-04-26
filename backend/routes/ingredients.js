@@ -10,15 +10,15 @@ let ingredientsQueries = require('../queries/ingredients')
 /* ROUTE HANDLES */
 
 // getIngredientsByRecipeId: Get all ingredients by recipe ID.
-router.get("/api/recipe/:recipe_id", async (req, res, next) => {
+router.get("/:recipe_id", async (req, res, next) => {
     try {
         const recipeId = req.params.recipe_id
-        const recipe = await recipesQueries.getRecipeById(recipeId);
-        console.log(recipe)
+        const ingredients = await recipesQueries.getIngredientsByRecipeId(recipeId);
+        console.log(ingredients)
         res.json({
             status: "success",
-            message: `Recipe ${recipeId} retrieved!`,
-            payload: recipe
+            message: `Ingredients for Recipe #${recipeId} retrieved!`,
+            payload: ingredients
         });
     } catch (err) {
         res.json({
