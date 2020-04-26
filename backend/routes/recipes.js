@@ -7,9 +7,6 @@ let express = require('express');
 let router = express.Router();
 let recipesQueries = require('../queries/recipes')
 
-// DATABASE CONNECTION
-const db = require('../database/db')
-
 /* ROUTE HANDLES */
 
 // getRecipeById: get a single recipe by recipe ID.
