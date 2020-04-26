@@ -9,7 +9,7 @@ let hashtagsQueries = require('../queries/hashtags')
 
 /* ROUTE HANDLES */
 
-// getHashtagsByRecipeId: Get all ingredients by recipe ID.
+// getHashtagsByRecipeId: Get all hashtags by recipe ID.
 router.get("/:recipe_id", async (req, res, next) => {
     try {
         const recipeId = req.params.recipe_id
