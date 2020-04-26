@@ -21,7 +21,7 @@ const createIngredient = async (bodyObj) => {
             amount,
             measurement,
             recipe_id
-        ) VALUES ($1, $2, $3, $4, $5, $6)
+        ) VALUES ($1, $2, $3, $4)
         RETURNING *;`;
 
     let recipe = await db.one(postQuery, [bodyObj.ingredient_name, bodyObj.amount, bodyObj.measurement, bodyObj.recipe_id]);
@@ -30,7 +30,7 @@ const createIngredient = async (bodyObj) => {
 }
 
 //PATCH
-const rewriteIngredient = async (recipe) => {
+const rewriteIngredient = async (ingredient) => {
     let { ingredient_name, amount, measurement } = ingredient;
     try {
         let patchQuery = `UPDATE ingredients SET `
@@ -47,7 +47,6 @@ const rewriteIngredient = async (recipe) => {
         patchQuery = patchQuery.slice(0, patchQuery.length - 1);
 
         patchQuery += ` WHERE id = $/id/ RETURNING *`
-        console.log(patchQuery)
         return await db.one(patchQuery, ingredient);
     } catch (err) {
         throw (err);

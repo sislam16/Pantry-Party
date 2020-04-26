@@ -13,8 +13,7 @@ let ingredientsQueries = require('../queries/ingredients')
 router.get("/:recipe_id", async (req, res, next) => {
     try {
         const recipeId = req.params.recipe_id
-        const ingredients = await recipesQueries.getIngredientsByRecipeId(recipeId);
-        console.log(ingredients)
+        const ingredients = await ingredientsQueries.getAllIngredientsByRecipeId(recipeId);
         res.json({
             status: "success",
             message: `Ingredients for Recipe #${recipeId} retrieved!`,
@@ -37,7 +36,7 @@ router.post("/:recipe_id", async (req, res, next) => {
         const ingredient_name = req.body.ingredient_name;
         const amount = req.body.amount;
         const measurement = req.body.measurement;
-        const response = await recipesQueries.createIngredient({
+        const response = await ingredientsQueries.createIngredient({
             ingredient_name,
             amount,
             measurement,
@@ -62,12 +61,12 @@ router.post("/:recipe_id", async (req, res, next) => {
 router.patch("/:ingredient_id", async (req, res, next) => {
     const id = req.params.ingredient_id;
     try {
-        const editedIngredient = await recipesQueries.rewriteIngredient({
+        const editedIngredient = await ingredientsQueries.rewriteIngredient({
             id,
             ...req.body
         })
         res.json({
-            status: `Successfully edited ingredient ${ingredient_id}`,
+            status: `Successfully edited ingredient ${id}`,
             payload: editedIngredient,
             error: null
         })
