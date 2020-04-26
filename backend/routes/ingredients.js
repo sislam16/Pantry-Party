@@ -59,16 +59,16 @@ router.post("/:recipe_id", async (req, res, next) => {
 });
 
 //  rewriteIngredient: edit a recipe by recipe_id
-router.patch("/api/edit/:recipe_id", async (req, res, next) => {
-    const id = req.params.recipe_id;
+router.patch("/:ingredient_id", async (req, res, next) => {
+    const id = req.params.ingredient_id;
     try {
-        const editedRecipe = await recipesQueries.rewriteRecipe({
+        const editedIngredient = await recipesQueries.rewriteIngredient({
             id,
             ...req.body
         })
         res.json({
-            status: `Successfully edited recipe ${id}`,
-            payload: editedRecipe,
+            status: `Successfully edited ingredient ${ingredient_id}`,
+            payload: editedIngredient,
             error: null
         })
 

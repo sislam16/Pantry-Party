@@ -16,7 +16,7 @@ const getAllIngredientsByRecipeId = async (recipeId) => {
 //POST
 const createIngredient = async (bodyObj) => {
     const postQuery = `
-        INSERT INTO recipes (
+        INSERT INTO ingredients (
             ingredient_name,
             amount,
             measurement,
@@ -31,30 +31,24 @@ const createIngredient = async (bodyObj) => {
 
 //PATCH
 const rewriteIngredient = async (recipe) => {
-    let { recipe_name, directions, recipe_img, recipe_active, recipe_public } = recipe;
+    let { ingredient_name, amount, measurement } = ingredient;
     try {
-        let patchQuery = `UPDATE recipes SET `
-        if (recipe_name) {
-            patchQuery += `recipe_name = $/recipe_name/,`
+        let patchQuery = `UPDATE ingredients SET `
+        if (ingredient_name) {
+            patchQuery += `ingredient_name = $/ingredient_name/,`
         }
-        if (directions) {
-            patchQuery += `directions = $/directions/,`
+        if (amount) {
+            patchQuery += `amount = $/amount/,`
         }
-        if (recipe_img) {
-            patchQuery += `recipe_img = $/recipe_img/,`
-        }
-        if (recipe_active) {
-            patchQuery += `recipe_active = $/recipe_active/,`
-        }
-        if (recipe_public) {
-            patchQuery += `recipe_public = $/recipe_public/,`
+        if (measurement) {
+            patchQuery += `measurement = $/measurement/,`
         }
 
         patchQuery = patchQuery.slice(0, patchQuery.length - 1);
 
         patchQuery += ` WHERE id = $/id/ RETURNING *`
         console.log(patchQuery)
-        return await db.one(patchQuery, recipe);
+        return await db.one(patchQuery, ingredient);
     } catch (err) {
         throw (err);
     }
