@@ -29,22 +29,18 @@ router.get("/:recipe_id", async (req, res, next) => {
     }
 });
 
-// createIngredient: Create a new ingredient
+// createHashtag: Create a new hashtag
 router.post("/:recipe_id", async (req, res, next) => {
     try {
         const recipe_id = req.params.recipe_id;
-        const ingredient_name = req.body.ingredient_name;
-        const amount = req.body.amount;
-        const measurement = req.body.measurement;
-        const response = await ingredientsQueries.createIngredient({
-            ingredient_name,
-            amount,
-            measurement,
+        const tag_body = req.body.ingredient_name;
+        const response = await hashtagsQueries.createHashtag({
+            tag_body,
             recipe_id
         });
         res.json({
             status: "success",
-            message: `New ingredient, ${ingredient_name} created!`,
+            message: `New hashtag, "${tag_body}" created!`,
             payload: response
         });
     } catch (err) {

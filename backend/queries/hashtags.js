@@ -14,17 +14,15 @@ const getAllHashtagsByRecipeId = async (recipeId) => {
 }
 
 //POST
-const createIngredient = async (bodyObj) => {
+const createHashtag = async (bodyObj) => {
     const postQuery = `
-        INSERT INTO ingredients (
-            ingredient_name,
-            amount,
-            measurement,
+        INSERT INTO hashtags (
+            tag_body
             recipe_id
-        ) VALUES ($1, $2, $3, $4)
+        ) VALUES ($1, $2)
         RETURNING *;`;
 
-    let recipe = await db.one(postQuery, [bodyObj.ingredient_name, bodyObj.amount, bodyObj.measurement, bodyObj.recipe_id]);
+    let recipe = await db.one(postQuery, [bodyObj.tag_body, bodyObj.recipe_id]);
 
     return recipe
 }
@@ -56,7 +54,7 @@ const rewriteIngredient = async (ingredient) => {
 /* EXPORT */
 module.exports = {
     getAllHashtagsByRecipeId,
-    createIngredient,
+    createHashtag,
     rewriteIngredient
 }
 
