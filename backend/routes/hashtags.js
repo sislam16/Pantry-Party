@@ -13,11 +13,11 @@ let hashtagsQueries = require('../queries/hashtags')
 router.get("/:recipe_id", async (req, res, next) => {
     try {
         const recipeId = req.params.recipe_id
-        const ingredients = await ingredientsQueries.getAllIngredientsByRecipeId(recipeId);
+        const hashtags = await hashtagsQueries.getAllHashtagsByRecipeId(recipeId);
         res.json({
             status: "success",
-            message: `Ingredients for Recipe #${recipeId} retrieved!`,
-            payload: ingredients
+            message: `Hashtags for Recipe #${recipeId} retrieved!`,
+            payload: hashtags
         });
     } catch (err) {
         res.json({
