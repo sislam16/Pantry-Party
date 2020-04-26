@@ -28,24 +28,18 @@ const createHashtag = async (bodyObj) => {
 }
 
 //PATCH
-const rewriteIngredient = async (ingredient) => {
-    let { ingredient_name, amount, measurement } = ingredient;
+const rewriteHashtag = async (hashtag) => {
+    let { tag_body } = hashtag;
     try {
         let patchQuery = `UPDATE ingredients SET `
-        if (ingredient_name) {
-            patchQuery += `ingredient_name = $/ingredient_name/,`
-        }
-        if (amount) {
-            patchQuery += `amount = $/amount/,`
-        }
-        if (measurement) {
-            patchQuery += `measurement = $/measurement/,`
+        if (tag_body) {
+            patchQuery += `tag_body = $/tag_body/,`
         }
 
         patchQuery = patchQuery.slice(0, patchQuery.length - 1);
 
         patchQuery += ` WHERE id = $/id/ RETURNING *`
-        return await db.one(patchQuery, ingredient);
+        return await db.one(patchQuery, hashtag);
     } catch (err) {
         throw (err);
     }
@@ -55,6 +49,6 @@ const rewriteIngredient = async (ingredient) => {
 module.exports = {
     getAllHashtagsByRecipeId,
     createHashtag,
-    rewriteIngredient
+    rewriteHashtag
 }
 

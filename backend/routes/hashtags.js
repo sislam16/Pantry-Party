@@ -20,7 +20,7 @@ router.get("/:recipe_id", async (req, res, next) => {
             payload: hashtags
         });
     } catch (err) {
-        res.json({
+        res.status(500).json({
             status: "failure",
             message: "Oops! All Errors!!",
             payload: null
@@ -44,7 +44,7 @@ router.post("/:recipe_id", async (req, res, next) => {
             payload: response
         });
     } catch (err) {
-        res.json({
+        res.status(500).json({
             status: "failure",
             message: "Oops! All Errors!",
             payload: null
@@ -53,17 +53,17 @@ router.post("/:recipe_id", async (req, res, next) => {
     }
 });
 
-//  rewriteIngredient: edit a recipe by recipe_id
-router.patch("/:ingredient_id", async (req, res, next) => {
-    const id = req.params.ingredient_id;
+//  rewriteHashtag: edit a hashtag by id
+router.patch("/:hashtag_id", async (req, res, next) => {
+    const id = req.params.hashtag_id;
     try {
-        const editedIngredient = await ingredientsQueries.rewriteIngredient({
+        const editedHashtag = await hashtagsQueries.rewriteHashtag({
             id,
             ...req.body
         })
         res.json({
-            status: `Successfully edited ingredient ${id}`,
-            payload: editedIngredient,
+            status: `Successfully edited hashtag ${id}`,
+            payload: editedHashtag,
             error: null
         })
 
