@@ -6,38 +6,31 @@ GROUP 7: Suzette Islam, Douglas MacKrell, Maliq Taylor
 // DATABASE CONNECTION
 const db = require('../database/db')
 
-//GET
-const getRecipeById = async (id) => {
-    return await db.one('SELECT * FROM recipes WHERE id=$1', id)
-}
-
 //GET 
-const getAllRecipesByUserId = async (userId) => {
-    const getQuery = `SELECT * FROM recipes WHERE user_id = $1;`;
-    let recipes = await db.any(getQuery, [userId]);
-    return recipes
+const getAllIngredientsByRecipeId = async (recipeId) => {
+    const getQuery = `SELECT * FROM ingredients WHERE recipe_id = $1;`;
+    let ingredients = await db.any(getQuery, [recipeId]);
+    return ingredients
 }
 
 //POST
-const createRecipe = async (bodyObj) => {
+const createIngredient = async (bodyObj) => {
     const postQuery = `
         INSERT INTO recipes (
-            user_id,
-            recipe_name,
-            directions,
-            recipe_img,
-            recipe_active,
-            recipe_public
+            ingredient_name,
+            amount,
+            measurement,
+            recipe_id
         ) VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING *;`;
 
-    let recipe = await db.one(postQuery, [bodyObj.user_id, bodyObj.recipe_name, bodyObj.directions, bodyObj.recipe_img, bodyObj.recipe_active, bodyObj.recipe_public]);
+    let recipe = await db.one(postQuery, [bodyObj.ingredient_name, bodyObj.amount, bodyObj.measurement, bodyObj.recipe_id]);
 
     return recipe
 }
 
 //PATCH
-const rewriteRecipe = async (recipe) => {
+const rewriteIngredient = async (recipe) => {
     let { recipe_name, directions, recipe_img, recipe_active, recipe_public } = recipe;
     try {
         let patchQuery = `UPDATE recipes SET `
@@ -69,9 +62,8 @@ const rewriteRecipe = async (recipe) => {
 
 /* EXPORT */
 module.exports = {
-    getRecipeById,
-    getAllRecipesByUserId,
-    createRecipe,
-    rewriteRecipe
+    getAllIngredientsByRecipeId,
+    createIngredient,
+    rewriteIngredient
 }
 
