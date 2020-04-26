@@ -17,7 +17,7 @@ const getAllHashtagsByRecipeId = async (recipeId) => {
 const createHashtag = async (bodyObj) => {
     const postQuery = `
         INSERT INTO hashtags (
-            tag_body
+            tag_body,
             recipe_id
         ) VALUES ($1, $2)
         RETURNING *;`;
@@ -31,7 +31,7 @@ const createHashtag = async (bodyObj) => {
 const rewriteHashtag = async (hashtag) => {
     let { tag_body } = hashtag;
     try {
-        let patchQuery = `UPDATE ingredients SET `
+        let patchQuery = `UPDATE hashtags SET `
         if (tag_body) {
             patchQuery += `tag_body = $/tag_body/,`
         }

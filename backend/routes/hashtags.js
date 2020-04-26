@@ -33,14 +33,14 @@ router.get("/:recipe_id", async (req, res, next) => {
 router.post("/:recipe_id", async (req, res, next) => {
     try {
         const recipe_id = req.params.recipe_id;
-        const tag_body = req.body.ingredient_name;
+        const tag_body = req.body.tag_body;
         const response = await hashtagsQueries.createHashtag({
             tag_body,
             recipe_id
         });
         res.json({
             status: "success",
-            message: `New hashtag, "${tag_body}" created!`,
+            message: `New hashtag, ${tag_body} created!`,
             payload: response
         });
     } catch (err) {
