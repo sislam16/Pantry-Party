@@ -35,6 +35,23 @@ router.get('/:event_id', async(req, res, next)=>{
     }
 });
 
+//get event by user_id
+router.get('/user/:user_id', async (req, res, next) =>{
+    const user_id = req.params.user_id
+    try{
+        let eventByUser = await eventsQueries.getEventByUserId(user_id)
+        res.json({
+            payload: eventByUser,
+            message: 'Success. Events by user has been retrieved.'
+        })
+    }catch(error){
+        res.status(500).json({
+            payload: null, 
+            message: 'Error. Unable to retrieve events by user'
+        })
+    }
+})
+
 // post a new event.
 router.post('/new', async(req, res, next) =>{
     try{

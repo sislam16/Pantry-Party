@@ -8,6 +8,10 @@ const getEventById = async(id) =>{
     return await db.one(`SELECT * FROM events WHERE id=$1`, id)
 }
 
+const getEventByUserId = async (user_id) =>{
+    return await db.any(`SELECT * FROM events WHERE user_id=$1`, user_id)
+}
+
 const createNewEvent = async (event) =>{
     const insertQuery = `INSERT INTO events(event_name, event_date, event_description, recipe_info) 
     VALUES ($2, $3, $4, $5)`
@@ -29,7 +33,8 @@ const removeEvent = async(id) => {
 
 module.exports = {
     getAllEvents, 
-    getEventById, 
+    getEventById,
+    getEventByUserId, 
     createNewEvent, 
     updateSingleEvent, 
     removeEvent
