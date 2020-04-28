@@ -35,22 +35,6 @@ router.get('/:id', async(req, res, next)=>{
     }
 });
 
-//post new user
-router.post('/new', async (req, res, next)=>{
-    try{
-        let postNewUser = await userQueries.postNewUser()
-        res.json({
-            payload: postNewUser,
-            message: 'Success! New user has been posted.'
-        })
-    } catch(error) {
-        res.status(500).json({
-            payload: null, 
-            message: 'Error. Unable to post user.'
-        })
-    }
-});
-
 //update user info
 router.patch('/update/info/:id', async (req, res, next)=>{
     const id = req.params.id
