@@ -7,6 +7,7 @@ CREATE TABLE users (
     firstname VARCHAR, 
     lastname VARCHAR, 
     email VARCHAR, 
+    username VARCHAR, 
     password VARCHAR, 
     avatar VARCHAR, 
     bio VARCHAR, 
