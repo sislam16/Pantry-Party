@@ -14,7 +14,8 @@ const getEventByUserId = async (user_id) =>{
 
 const createNewEvent = async (event) =>{
     const insertQuery = `INSERT INTO events(event_name, event_date, event_description, recipe_info) 
-    VALUES ($2, $3, $4, $5)`
+    VALUES ($2, $3, $4, $5)
+    RETURNING *`
     return await db.none(insertQuery, [event.event_name, event.event_date, event.event_description, event.recipe_info])
 }
 
