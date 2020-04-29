@@ -1,26 +1,43 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const session = require('express-session');
+const passport = require('./auth/passport');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const eventsRouter = require('./routes/events');
+const authRouter = require('./routes/auth')
 var recipesRouter = require('./routes/recipes');
 var ingredientsRouter = require('./routes/ingredients');
 var hashtagsRouter = require('./routes/hashtags');
 
-var app = express();
+
+const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser('NOT_A_GOOD_SECRET'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+    secret:'NOT_A_GOOD_SECRET', 
+    resave: false, 
+    saveUninitialized: true
+})
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', indexRouter);
+app.use('/auth', authRouter)
 app.use('/users', usersRouter);
+app.use('/events', eventsRouter);
 app.use('/recipes', recipesRouter);
 app.use('/api/ingredients', ingredientsRouter);
 app.use('/api/hashtags', hashtagsRouter);
+
 
 module.exports = app;

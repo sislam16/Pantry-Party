@@ -1,18 +1,18 @@
 const db = require('../database/db')
 
 const getAllUsers = async() =>{
-    return await db.any(`SELECT * FROM users`)
+    return await db.any(`SELECT id, email, username, firstname, lastname, avatar, bio FROM users`)
 }
-const getUserById = async (id) => {
-    return await db.one('SELECT * FROM users WHERE id=$1', id)
+const getUserByUsername = async (username) => {
+    return await db.oneOrNone('SELECT * FROM users WHERE username=$1', username)
 }
-
-const createUser = async (email, password, firstname, lastname) => {
+const createUser = async (user) => {
     const insertQuery = `
-    INSERT INTO users(email, password, firsname, lastname, avatar, bio) 
-    VALUES ($1, $2, $3, $4, $5, $6) 
+    INSERT INTO users(email, password, username, firstname, lastname, avatar, bio) 
+    VALUES ($1, $2, $3, $4, $5, $6,$7)
+    RETURNING id, username, firstname, lastname, avatar, bio 
     `
-    return await db.one(insertQuery, [email, password, firstname, lastname])
+    return await db.one(insertQuery, [user.email, user.password, user.username, user.firstname, user.lastname, user.avatar, user.bio])
 }
 
 const updateUserInfo = async (id, email, firstname, lastname, avatar, bio) => {
@@ -38,7 +38,7 @@ const deleteUser = async (id) => {
 
 module.exports = {
     getAllUsers,
-    getUserById,
+    getUserByUsername,
     createUser,
     updateUserInfo,
     updatePassword,

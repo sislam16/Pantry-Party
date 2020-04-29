@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const userQueries = require('../queries/users')
+const {loginRequired} = require('../auth/helpers')
 
 //retrieves all users
-router.get('/', async(req, res, next)=>{
+router.get('/', loginRequired,  async(req, res, next)=>{
+    console.log(req.session)
     try{
         let allUsers = await userQueries.getAllUsers()
         res.json({
@@ -32,24 +34,7 @@ router.get('/:id', async(req, res, next)=>{
             payload: null, 
             message: 'Error. Unable to retrieve user.'
         })
-    }
-});
 
-//post new user
-router.post('/new', async (req, res, next)=>{
-    try{
-        let postNewUser = await userQueries.postNewUser()
-        res.json({
-            payload: postNewUser,
-            message: 'Success! New user has been posted.'
-        })
-    } catch(error) {
-        res.status(500).json({
-            payload: null, 
-            message: 'Error. Unable to post user.'
-        })
-    }
-});
 
 //update user info
 router.patch('/update/info/:id', async (req, res, next)=>{
