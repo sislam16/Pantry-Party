@@ -34,8 +34,7 @@ router.get('/:id', async(req, res, next)=>{
             payload: null, 
             message: 'Error. Unable to retrieve user.'
         })
-    }
-});
+
 
 //update user info
 router.patch('/update/info/:id', async (req, res, next)=>{
