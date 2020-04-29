@@ -4,6 +4,7 @@ const userQueries = require('../queries/users')
 
 //retrieves all users
 router.get('/', async(req, res, next)=>{
+    console.log(req.session)
     try{
         let allUsers = await userQueries.getAllUsers()
         res.json({
