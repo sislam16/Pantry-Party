@@ -67,11 +67,35 @@ const rewriteRecipe = async (recipe) => {
     }
 }
 
+//GET
+const getWholeRecipeById = async (id) => {
+    const call1 = await db.one(
+        `SELECT *
+        FROM recipes R
+        WHERE R.id=$1
+        `, id)
+
+    const call2 = await db.any(
+        `SELECT *
+        FROM ingredients I
+        WHERE I.recipe_id=$1
+        `, id)
+
+    const call3 = await db.any(
+        `SELECT *
+        FROM hashtags H
+        WHERE H.recipe_id=$1
+        `, id)
+    
+    return [call1, call2, call3]
+}
+
 /* EXPORT */
 module.exports = {
     getRecipeById,
     getAllRecipesByUserId,
     createRecipe,
-    rewriteRecipe
+    rewriteRecipe,
+    getWholeRecipeById
 }
 

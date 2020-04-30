@@ -10,7 +10,7 @@ let recipesQueries = require('../queries/recipes')
 /* ROUTE HANDLES */
 
 // getRecipeById: get a single recipe by recipe ID.
-router.get("/api/recipe/:recipe_id", async (req, res, next) => {
+router.get("/:recipe_id", async (req, res, next) => {
     try {
         const recipeId = req.params.recipe_id
         const recipe = await recipesQueries.getRecipeById(recipeId);
@@ -31,7 +31,7 @@ router.get("/api/recipe/:recipe_id", async (req, res, next) => {
 });
 
 // allRecipesByUser: get all of a single user's recipes.
-router.get("/api/user/:user_id", async (req, res, next) => {
+router.get("/user/:user_id", async (req, res, next) => {
     try {
         const userId = req.params.user_id
         const allRecipesByUser = await recipesQueries.getAllRecipesByUserId(userId);
@@ -51,7 +51,7 @@ router.get("/api/user/:user_id", async (req, res, next) => {
 });
 
 // createRecipe: create a new core recipe instance
-router.post("/api/new/:user_id", async (req, res, next) => {
+router.post("/new/:user_id", async (req, res, next) => {
     try {
         const user_id = req.params.user_id;
         const recipe_name = req.body.recipe_name;
@@ -83,7 +83,7 @@ router.post("/api/new/:user_id", async (req, res, next) => {
 });
 
 //  rewriteRecipe: edit a recipe by recipe_id
-router.patch("/api/edit/:recipe_id", async (req, res, next) => {
+router.patch("/:recipe_id", async (req, res, next) => {
     const id = req.params.recipe_id;
     try {
         const editedRecipe = await recipesQueries.rewriteRecipe({
@@ -106,5 +106,25 @@ router.patch("/api/edit/:recipe_id", async (req, res, next) => {
     }
 });
 
+// getWholeRecipeById: get a single recipe and all ingredients and hashtags by recipe ID.
+router.get("/full/:recipe_id", async (req, res, next) => {
+    try {
+        const recipeId = req.params.recipe_id
+        const fullRecipe = await recipesQueries.getWholeRecipeById(recipeId);
+        console.log(fullRecipe)
+        res.json({
+            status: "success",
+            message: `Full recipe ${recipeId} retrieved!`,
+            payload: fullRecipe
+        });
+    } catch (err) {
+        res.json({
+            status: "failure",
+            message: "Oops! All Errors!!",
+            payload: null
+        })
+        throw err;
+    }
+});
 
 module.exports = router;
