@@ -90,12 +90,54 @@ const getWholeRecipeById = async (id) => {
     return [call1, call2, call3]
 }
 
+//GET 
+const getAllFullRecipesByUserId = async (userId) => {
+    let test1 = await getAllRecipesByUserId(userId)
+    // console.log(test1)
+    let fullRecipeArr = []
+    let ingredientsArr = []
+    let hashtagsArr = []
+    for (let ingredient of test1) {
+        let recipeId = ingredient.id
+        ingredientsArr.push(await db.any(`
+        SELECT *
+        FROM ingredients
+        WHERE recipe_id=$1`, recipeId))
+    }
+    for (let hashtag of test1) {
+        let recipeId = hashtag.id
+        hashtagsArr.push(await db.any(`
+        SELECT *
+        FROM hashtags
+        WHERE recipe_id=$1`, recipeId))
+    }
+    // console.log(ingredientsArr)
+    for (let i = 0; i < test1.length; i++){
+        fullRecipeArr.push(test1[i], ingredientsArr[i], hashtagsArr[i])
+    }
+    console.log(fullRecipeArr)
+
+
+
+
+    // const call1 = 
+    // `SELECT * FROM recipes WHERE user_id = $1;`;
+    // let recipes = await db.any(call1, [userId]);
+    // let ingredientsArr = []
+    // for (let recipe of recipes) {
+    //     call2 = `SELECT * FROM ingredients I WHERE I.recipe_id = $1`;
+    //     ingredientsArr.push(await db.any(call2, [recipe.id]))
+    // }
+    // return 
+}
+
 /* EXPORT */
 module.exports = {
     getRecipeById,
     getAllRecipesByUserId,
     createRecipe,
     rewriteRecipe,
-    getWholeRecipeById
+    getWholeRecipeById,
+    getAllFullRecipesByUserId
 }
 

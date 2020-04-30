@@ -127,4 +127,26 @@ router.get("/full/:recipe_id", async (req, res, next) => {
     }
 });
 
+// allFullRecipesByUser: get all of a single user's recipes.
+router.get("/full/user/:user_id", async (req, res, next) => {
+    try {
+        const userId = req.params.user_id
+        const allFullRecipesByUser = await recipesQueries.getAllFullRecipesByUserId(userId);
+        res.json({
+            status: "success",
+            message: `All full recipes of user ${userId} retrieved!`,
+            payload: allFullRecipesByUser
+        });
+    } catch (err) {
+        res.json({
+            status: "failure",
+            message: "Oops! All Errors!",
+            payload: null
+        })
+        throw err;
+    }
+});
+
+
+
 module.exports = router;
