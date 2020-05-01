@@ -127,7 +127,7 @@ router.get("/full/:recipe_id", async (req, res, next) => {
     }
 });
 
-// allFullRecipesByUser: get all of a single user's recipes.
+// allFullRecipesByUser: get all of a single user's full recipes.
 router.get("/full/user/:user_id", async (req, res, next) => {
     try {
         const userId = req.params.user_id
@@ -147,6 +147,40 @@ router.get("/full/user/:user_id", async (req, res, next) => {
     }
 });
 
-
+// createFullRecipe: create a new full recipe with all ingredients and hashtags
+router.post("full/new/:user_id", async (req, res, next) => {
+    try {
+        const user_id = req.params.user_id;
+        const recipe_name = req.body.recipe_name;
+        const directions = req.body.directions;
+        const recipe_img = req.body.recipe_img;
+        const recipe_active = req.body.recipe_active;
+        const recipe_public = req.body.recipe_public;
+        const ingredients = req.body.ingredients;
+        const hashtags = req.body.hashtags;
+        const response = await recipesQueries.createRecipe({
+            user_id,
+            recipe_name,
+            directions,
+            recipe_img,
+            recipe_active,
+            recipe_public,
+            ingredients,
+            hashtags
+        });
+        res.json({
+            status: "success",
+            message: `New full recipe, ${recipe_name} created!`,
+            payload: response
+        });
+    } catch (err) {
+        res.json({
+            status: "failure",
+            message: "Oops! All Errors!",
+            payload: null
+        })
+        throw err;
+    }
+});
 
 module.exports = router;

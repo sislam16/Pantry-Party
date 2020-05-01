@@ -115,20 +115,38 @@ const getAllFullRecipesByUserId = async (userId) => {
     for (let i = 0; i < test1.length; i++){
         fullRecipeArr.push(test1[i], ingredientsArr[i], hashtagsArr[i])
     }
-    console.log(fullRecipeArr)
+    return fullRecipeArr
+}
 
+//POST
+const createFullRecipe = async (bodyObj) => {
+    const call1 = `
+        INSERT INTO recipes (
+            user_id,
+            recipe_name,
+            directions,
+            recipe_img,
+            recipe_active,
+            recipe_public
+        ) VALUES ($1, $2, $3, $4, $5, $6)
+        RETURNING *;`;
 
+    let recipe = await db.one(call1, [bodyObj.user_id, bodyObj.recipe_name, bodyObj.directions, bodyObj.recipe_img, bodyObj.recipe_active, bodyObj.recipe_public])
+    let ingredients = bodyObj.ingredients
+    let ingredientsArr = []
+    for (let ingredient of ingredients) {
+        ingredientsArr.push(await db.one(`
+        INSERT INTO ingredients (
+            ingredient_name,
+            amount,
+            measurement,
+            recipe_id
+        ) VALUES ($1, $2, $3, $4)
+        RETURNING *;`, [ingredient.ingredient_name, ingredient.amount, ingredient.measurement, bodyObj.recipe_id])
+        )
+    }
 
-
-    // const call1 = 
-    // `SELECT * FROM recipes WHERE user_id = $1;`;
-    // let recipes = await db.any(call1, [userId]);
-    // let ingredientsArr = []
-    // for (let recipe of recipes) {
-    //     call2 = `SELECT * FROM ingredients I WHERE I.recipe_id = $1`;
-    //     ingredientsArr.push(await db.any(call2, [recipe.id]))
-    // }
-    // return 
+    return [recipe, ingredientsArr]
 }
 
 /* EXPORT */
@@ -138,6 +156,7 @@ module.exports = {
     createRecipe,
     rewriteRecipe,
     getWholeRecipeById,
-    getAllFullRecipesByUserId
+    getAllFullRecipesByUserId,
+    createFullRecipe
 }
 
