@@ -174,7 +174,6 @@ router.post("/full/new/:user_id", async (req, res, next) => {
             payload: response
         });
     } catch (err) {
-        console.log(err)
         res.json({
             status: "failure",
             message: "Oops! All Errors!",

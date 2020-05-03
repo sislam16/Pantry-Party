@@ -3,6 +3,7 @@ Recipes Queries | Server | Tost-Host/Pantry Party Web App
 GROUP 7: Suzette Islam, Douglas MacKrell, Maliq Taylor
 */
 
+// QUERY HELPER FUNCTIONS
 const ingredientsQueries = require('./ingredients')
 const hashtagsQueries = require('./hashtags')
 
@@ -63,7 +64,6 @@ const rewriteRecipe = async (recipe) => {
         patchQuery = patchQuery.slice(0, patchQuery.length - 1);
 
         patchQuery += ` WHERE id = $/id/ RETURNING *`
-        console.log(patchQuery)
         return await db.one(patchQuery, recipe);
     } catch (err) {
         throw (err);
@@ -121,16 +121,9 @@ const getAllFullRecipesByUserId = async (userId) => {
     return fullRecipeArr
 }
 
-//HELP1
-const getRecipeByName = async (str) => {
-    return await db.one('SELECT id FROM recipes WHERE recipe_name=$1', str)
-}
-
 //POST
 const createFullRecipe = async (bodyObj) => {
     let call1 = await createRecipe(bodyObj)
-
-    // let call2 = await getRecipeByName(bodyObj.recipe_name)
 
     let ingredients_list = bodyObj.ingredients
 
@@ -152,13 +145,6 @@ const createFullRecipe = async (bodyObj) => {
         await hashtagsQueries.createHashtag(hashtag2)
     }
 
-
-    console.log("call1", call1)
-
-    console.log("ingredients_list", ingredients_list)
-
-    console.log("hashtags_list", hashtags_list)
-
     return [call1, ingredients_list, hashtags_list]
 }
 
@@ -170,7 +156,6 @@ module.exports = {
     rewriteRecipe,
     getWholeRecipeById,
     getAllFullRecipesByUserId,
-    getRecipeByName,
     createFullRecipe
 }
 
