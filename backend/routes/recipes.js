@@ -148,7 +148,7 @@ router.get("/full/user/:user_id", async (req, res, next) => {
 });
 
 // createFullRecipe: create a new full recipe with all ingredients and hashtags
-router.post("full/new/:user_id", async (req, res, next) => {
+router.post("/full/new/:user_id", async (req, res, next) => {
     try {
         const user_id = req.params.user_id;
         const recipe_name = req.body.recipe_name;
@@ -158,7 +158,7 @@ router.post("full/new/:user_id", async (req, res, next) => {
         const recipe_public = req.body.recipe_public;
         const ingredients = req.body.ingredients;
         const hashtags = req.body.hashtags;
-        const response = await recipesQueries.createRecipe({
+        const response = await recipesQueries.createFullRecipe({
             user_id,
             recipe_name,
             directions,
@@ -174,6 +174,7 @@ router.post("full/new/:user_id", async (req, res, next) => {
             payload: response
         });
     } catch (err) {
+        console.log(err)
         res.json({
             status: "failure",
             message: "Oops! All Errors!",

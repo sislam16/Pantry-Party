@@ -3,6 +3,9 @@ Recipes Queries | Server | Tost-Host/Pantry Party Web App
 GROUP 7: Suzette Islam, Douglas MacKrell, Maliq Taylor
 */
 
+const ingredientsQueries = require('./ingredients')
+const hashtagsQueries = require('./hashtags')
+
 // DATABASE CONNECTION
 const db = require('../database/db')
 
@@ -118,35 +121,45 @@ const getAllFullRecipesByUserId = async (userId) => {
     return fullRecipeArr
 }
 
+//HELP1
+const getRecipeByName = async (str) => {
+    return await db.one('SELECT id FROM recipes WHERE recipe_name=$1', str)
+}
+
 //POST
 const createFullRecipe = async (bodyObj) => {
-    const call1 = `
-        INSERT INTO recipes (
-            user_id,
-            recipe_name,
-            directions,
-            recipe_img,
-            recipe_active,
-            recipe_public
-        ) VALUES ($1, $2, $3, $4, $5, $6)
-        RETURNING *;`;
+    let call1 = await createRecipe(bodyObj)
 
-    let recipe = await db.one(call1, [bodyObj.user_id, bodyObj.recipe_name, bodyObj.directions, bodyObj.recipe_img, bodyObj.recipe_active, bodyObj.recipe_public])
-    let ingredients = bodyObj.ingredients
-    let ingredientsArr = []
-    for (let ingredient of ingredients) {
-        ingredientsArr.push(await db.one(`
-        INSERT INTO ingredients (
-            ingredient_name,
-            amount,
-            measurement,
-            recipe_id
-        ) VALUES ($1, $2, $3, $4)
-        RETURNING *;`, [ingredient.ingredient_name, ingredient.amount, ingredient.measurement, bodyObj.recipe_id])
-        )
+    // let call2 = await getRecipeByName(bodyObj.recipe_name)
+
+    let ingredients_list = bodyObj.ingredients
+
+    let hashtags_list = bodyObj.hashtags
+
+    for(let ingredient of ingredients_list) {
+        ingredient.recipe_id = call1.id
     }
 
-    return [recipe, ingredientsArr]
+    for(let ingredient2 of ingredients_list) {
+        await ingredientsQueries.createIngredient(ingredient2)
+    }
+
+    for(let hashtag of hashtags_list) {
+        hashtag.recipe_id = call1.id
+    }
+
+    for(let hashtag2 of hashtags_list) {
+        await hashtagsQueries.createHashtag(hashtag2)
+    }
+
+
+    console.log("call1", call1)
+
+    console.log("ingredients_list", ingredients_list)
+
+    console.log("hashtags_list", hashtags_list)
+
+    return [call1, ingredients_list, hashtags_list]
 }
 
 /* EXPORT */
@@ -157,6 +170,7 @@ module.exports = {
     rewriteRecipe,
     getWholeRecipeById,
     getAllFullRecipesByUserId,
+    getRecipeByName,
     createFullRecipe
 }
 
