@@ -39,7 +39,7 @@ class Signup extends Component {
 
     try {
       let { data } = await Axios.post(
-        "http://localhost:3000/users/signup",
+        "http://localhost:3001/users/signup",
         payload
       );
       console.log(data);

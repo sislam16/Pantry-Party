@@ -1,9 +1,11 @@
 
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
-import Error from "./Components/Error";
-import Signup from "./Components/Signup";
-import LogIn from "./Components/LogIn";
+import Error from "./components/Error";
+import Signup from "./components/Signup";
+import LogIn from "./components/LogIn";
+import AuthContainer from "./containers/AuthContainer";
+import Users from "./components/Users";
 
 class App extends Component {
   constructor(props) {
@@ -22,8 +24,9 @@ class App extends Component {
     return (
       <div className="App">
         <Switch>
-          <Route exact path="/signup" render={() => <Signup />} />
-          <Route exact path="/login" render={() => <LogIn />} />
+          <Route exact path="/signup" component={AuthContainer} render={() => <Signup />} />
+          <Route exact path="/login" component={AuthContainer} render={() => <LogIn />} />
+          <Route exact path = '/users' component = {Users} />
           <Route path="*" render={() => <Error />} />
         </Switch>
       </div>
