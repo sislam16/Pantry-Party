@@ -35,7 +35,7 @@ app.use('/', indexRouter);
 app.use('/auth', authRouter)
 app.use('/users', usersRouter);
 app.use('/events', eventsRouter);
-app.use('/recipes', recipesRouter);
+app.use('/api/recipes', recipesRouter);
 app.use('/api/ingredients', ingredientsRouter);
 app.use('/api/hashtags', hashtagsRouter);
 
