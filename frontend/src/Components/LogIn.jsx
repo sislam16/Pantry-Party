@@ -1,50 +1,34 @@
 import React, { Component } from "react";
-import { Link} from "react-router-dom";
+import { Link, Redirect} from "react-router-dom";
 
-class Landing extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: "",
-      user_password: "",
-    };
-  }
+const Landing =({username, password, setUsername, setPassword, isLoggedIn, setLoggedIn, loginUser}) => {
 
+const handleSubmit = (e) =>{
+  e.preventDefault()
+  loginUser()
+}
 
-  submitForm = async (event) => {
-    event.preventDefault();
-
-    let { email, user_password } = this.state;
-  };
-
-  handleInput = ({ target: { name, value } }) =>
-    this.setState({ [name]: value });
-
-  render() {
-    let {
-      state: { email, user_password, redirect, error },
-      submitForm,
-      handleInput,
-    } = this;
-
+if(isLoggedIn){
+  return <Redirect to='/home'/>
+} 
     return (
       <>
         <div className="container">
           <div>
-            <form onSubmit={submitForm}>
+            <form onSubmit={handleSubmit}>
               <h2>Log-In Page</h2>
               <div>
                 <div>
                   <input
                     className="validate"
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={email}
-                    onChange={handleInput}
+                    type="username"
+                    id="username"
+                    name="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                     required
                   />
-                  <label htmlFor="email">Email</label>
+                  <label htmlFor="username">Username</label>
                 </div>
               </div>
               <div>
@@ -52,13 +36,13 @@ class Landing extends Component {
                   <input
                     className="validate"
                     type="password"
-                    id="user_password"
-                    name="user_password"
-                    value={user_password}
-                    onChange={handleInput}
+                    id="password"
+                    name="password"
+                    value={password}
+                    onChange={(e)=>setPassword(e.target.value)}
                     required
                   />
-                  <label htmlFor="user_password">Password</label>
+                  <label htmlFor="password">Password</label>
                 </div>
               </div>
               <div>
@@ -75,7 +59,7 @@ class Landing extends Component {
                   </Link>
                 </div>
                 <div>
-                  <button type="submit" name="action" onClick={this.notify}>
+                  <button type="submit" name="action">
                     Log-In
                   </button>
                 </div>
@@ -85,7 +69,6 @@ class Landing extends Component {
         </div>
       </>
     );
-  }
 }
 
 export default Landing;
