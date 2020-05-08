@@ -37,6 +37,25 @@ router.get('/:id', async(req, res, next)=>{
     }
 })
 
+//retrieves user by username
+router.get('/username', async(req, res, next) =>{
+    const username = req.body.user
+    console.log('user:', username)
+    try{
+        let userByUsername = await userQueries.getUserByUsername(username)
+        res.json({
+            payload: userByUsername,
+            message: 'Success! User retrieved.'
+        })
+    }catch(error){
+        console.log(error)
+        res.json({
+            payload: error, 
+            message: 'Error. Unable to retrieve user.'
+        })
+    }
+})
+
 //update user info
 router.patch('/update/info/:id', async (req, res, next)=>{
     const id = req.params.id
