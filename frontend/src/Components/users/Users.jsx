@@ -12,7 +12,7 @@ class Users extends Component {
 
     async componentDidMount() {
         try {
-            let { data } = await axios.get('http://localhost:3001/users')
+            let { data } = await axios.get('/users')
             console.log(data.payload)
             this.setState({
                 users: data.payload

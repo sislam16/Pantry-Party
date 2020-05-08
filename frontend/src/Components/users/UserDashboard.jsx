@@ -9,6 +9,7 @@ const getRandomRecipeFromAPI = async () => {
         this.setState({
             recipeAPI: randomRecipe
         })
+        console.log(this.state)
     } catch (error) {
         console.log('err:', error)
     }
@@ -36,7 +37,7 @@ class UserDashboard extends Component {
         return (
             <div className='user-dashboard'>
                 <div className='dashboard-header'>
-
+                    <h1>hey</h1>
                 </div>
 
                 <div className='dashboard-live'>

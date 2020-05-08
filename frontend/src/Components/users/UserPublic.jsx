@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const getUserInfo = async () => {
     try{
-
+        const loggedInUser = await axios.get('/users/')
 
     }catch(error){
         console.log('err:', error)
