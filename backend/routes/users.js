@@ -4,7 +4,7 @@ const userQueries = require('../queries/users')
 const {loginRequired} = require('../auth/helpers')
 
 //retrieves all users
-router.get('/', loginRequired,  async(req, res, next)=>{
+router.get('/', /*loginRequired,*/  async(req, res, next)=>{
     console.log(req.session)
     try{
         let allUsers = await userQueries.getAllUsers()

@@ -1,92 +1,36 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Axios from "axios";
 import { Redirect, Link } from "react-router-dom";
 
-class Signup extends Component {
-  constructor(props) {
-    super(props);
-    this.initialState = {
-      email: "",
-      firstname: "",
-      lasttname: "",
-      displayname: "",
-      user_password: "",
-      redirect: false,
-    };
-    this.state = this.initialState;
+
+const  Signup = ({ username, password, email, firstname, lastname, isLoggedIn, signupUser, setUsername, setPassword, setEmail, setFirstname, setLastname, setLoggedIn}) =>{
+  const handleSubmit = (e) =>{
+    e.preventDefault()
+    signupUser()
   }
 
-  submitForm = async (event) => {
-    event.preventDefault();
-
-    let {
-      bio,
-      email,
-      firstname,
-      lastname,
-      displayname,
-      user_password,
-    } = this.state;
-
-    let payload = {
-      bio,
-      email,
-      firstname,
-      lastname,
-      displayname,
-      user_password,
-    };
-
-    try {
-      let { data } = await Axios.post(
-        "http://localhost:3000/users/signup",
-        payload
-      );
-      console.log(data);
-      console.log("user id", data.id);
-      this.changeID(data.id);
-      this.setState({ redirect: true });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  handleInput = ({ target: { name, value } }) =>
-    this.setState({ [name]: value });
-
-  render() {
-    let {
-      state: {email, firstname, lastname, displayname, user_password },
-      submitForm,
-      handleInput,
-    } = this;
 
     return (
       <>
         <div className="container">
           <div>
-            <form onSubmit={submitForm}>
+            <form onSubmit={handleSubmit}>
               <h2>Sign-Up</h2>
               <div>
                 <div>
                   <input
                     type="text"
-                    id="displayname"
-                    name="displayname"
-                    value={displayname}
-                    onChange={handleInput}
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value) }
                     required
                   />
-                  <label htmlFor="displayname">Username </label>
+                  <label htmlFor="username">Username </label>
                 </div>
                 <div>
                   <input
                     type="text"
-                    id="firstname"
-                    name="firstname"
                     value={firstname}
-                    onChange={handleInput}
-                    className="validate"
+                    onChange={(e)=>(setFirstname(e.target.value))}
                     required
                   />
                   <label htmlFor="firstname">First Name </label>
@@ -94,24 +38,20 @@ class Signup extends Component {
                 <div>
                   <input
                     type="text"
-                    id="firstname"
-                    name="firstname"
                     value={lastname}
-                    onChange={handleInput}
+                    onChange={(e)=>(setLastname(e.target.value))}
                     className="validate"
                     required
                   />
-                  <label htmlFor="firstname">Last Name </label>
+                  <label htmlFor="lastname">Last Name </label>
                 </div>
               </div>
               <div>
                 <div>
                   <input
                     type="email"
-                    id="email"
-                    name="email"
                     value={email}
-                    onChange={handleInput}
+                    onChange={(e)=>(setEmail( e.target.value))}
                     className="validate"
                     required
                   />
@@ -120,25 +60,22 @@ class Signup extends Component {
                 <div className>
                   <input
                     type="password"
-                    id="user_password"
-                    name="user_password"
-                    value={user_password}
-                    onChange={handleInput}
+                    value={password}
+                    onChange={(e)=>(setPassword(e.target.value))}
                     className="validate"
                     required
                   />
-                  <label htmlFor="user_password">Password </label>
+                  <label htmlFor="password">Password </label>
                 </div>
               </div>
-              <div className="row">
-                <div className="input-field col s6">
+              <div>
+                <div>
                   <Link
                     className="buttonlink"
                     to="/login"
                     style={{ color: "white" }}
                   >
                     <button
-                      className="btn btn-large btn-register waves-effect waves-light"
                       type="button"
                       name="action"
                     >
@@ -148,14 +85,14 @@ class Signup extends Component {
                     </button>
                   </Link>
                 </div>
-                <div className="input-field col s6">
+                <div>
                   <button
-                    className="btn btn-large btn-register waves-effect waves-light"
                     type="submit"
                     name="action"
                   >
                     Register
                   </button>
+                  
                 </div>
               </div>
             </form>
@@ -164,6 +101,5 @@ class Signup extends Component {
       </>
     );
   }
-}
 
 export default Signup;
