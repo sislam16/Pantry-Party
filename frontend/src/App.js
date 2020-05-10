@@ -5,6 +5,7 @@ import Error from "./components/Error";
 import AuthContainer from "./containers/AuthContainer";
 import Users from "./components/users/Users";
 import UserDashboard from './components/users/UserDashboard'
+import SingleRecipe from "./Components/SingleRecipe";
 
 const App = ()=> {
 
@@ -52,6 +53,7 @@ const App = ()=> {
           </Route>
           <Route exact path ='/home' component = {UserDashboard} />
           <Route exact path = '/users' component = {Users} />
+          <Route exact path = '/singlerecipe' component = {SingleRecipe} />
 
           <Route path="*" render={() => <Error />} />
         </Switch>
