@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Signup from "../components/Signup";
 import LogIn from "../components/LogIn";
 import axios from 'axios';
 
 const AuthContainer = ({ username, password, firstname, lastname, email, user, setUser, isLoggedIn, setUsername, setFirstname, setLastname, setPassword, setEmail, setLoggedIn }) => {
-
 
     const signupUser = async () => {
         let payload = {
@@ -21,9 +20,8 @@ const AuthContainer = ({ username, password, firstname, lastname, email, user, s
                 "/auth/signup",
                 payload
             );
-            console.log(data);
-            console.log("user id", data.id);
-            return <Redirect to='login' />
+            console.log(data)
+            loginUser()
         } catch (error) {
             console.log(error);
         }
@@ -31,17 +29,19 @@ const AuthContainer = ({ username, password, firstname, lastname, email, user, s
     }
 
     const loginUser = async () => {
-        let payload = {
+        let user = {
             username,
             password
         }
 
         try {
-            const { data } = await axios.post('/auth/login', payload)
+            const { data } = await axios.post('/auth/login', user)
             console.log(data)
             setUser(data.payload)
+            console.log('it me:',user);
             setLoggedIn(true)
-            return <Redirect to='/home' />
+            this.props.history.push('/home') // redirect user to login page
+            return <Redirect to='/home' user={user}/>
         } catch (error) {
             console.log('err:', error)
         }
@@ -49,9 +49,12 @@ const AuthContainer = ({ username, password, firstname, lastname, email, user, s
 
     }
 
+   
+
     if (isLoggedIn) {
         return <Redirect to='/home' />
     }
+    
     return (
 
         <div>
@@ -85,6 +88,7 @@ const AuthContainer = ({ username, password, firstname, lastname, email, user, s
                         setUser={setUser}
                     />
                 </Route>
+                
             </Switch>
         </div>
     )
