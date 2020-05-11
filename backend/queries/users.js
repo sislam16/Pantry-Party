@@ -6,6 +6,10 @@ const getAllUsers = async() =>{
 const getUserByUsername = async (username) => {
     return await db.oneOrNone('SELECT * FROM users WHERE username=$1', username)
 }
+
+const getUserById = async (id) =>{
+    return await db.oneOrNone('SELECT * FROM users WHERE id=$1', id)
+}
 const createUser = async (user) => {
     const insertQuery = `
     INSERT INTO users(email, password, username, firstname, lastname, avatar, bio) 

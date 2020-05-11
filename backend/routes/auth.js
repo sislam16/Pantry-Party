@@ -34,16 +34,27 @@ router.post('/signup', async (req, res, next)=>{
      }
  });
 
- router.post('/login', passport.authenticate('local'), (req, res, next) =>{
+router.post('/login', passport.authenticate('local'), (req, res, next) =>{
     console.log(req.body)
     res.json({
         payload: req.user, 
-        message: 'user has successfully logged in'
+        message: 'user has successfully logged in.'
     })
  });
 
- router.get('/logout', (req, res, next) =>{
-    res.send('/logout route')
+router.get('/logout', /*loginRequired,*/ (req, res, next) =>{
+    req.logOut()
+    res.json({
+        payload:null, 
+        message: 'user has logged out successfully.'
+    })
  });
+
+// router.get('/isUserLoggedIn', loginRequired,  (req, res) =>{
+// res.json({
+//     payload: req.user, 
+//     message: 'User is logged in. Session active'
+// })
+//  })
 
  module.exports = router;
