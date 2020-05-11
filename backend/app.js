@@ -33,9 +33,9 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter)
-app.use('/users', usersRouter);
-app.use('/events', eventsRouter);
-app.use('/recipes', recipesRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/events', eventsRouter);
+app.use('/api/recipes', recipesRouter);
 app.use('/api/ingredients', ingredientsRouter);
 app.use('/api/hashtags', hashtagsRouter);
 
