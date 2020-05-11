@@ -4,7 +4,7 @@ const userQueries = require('../queries/users')
 const {loginRequired} = require('../auth/helpers')
 
 //retrieves all users
-router.get('/', /*loginRequired,*/  async(req, res, next)=>{
+router.get('/', loginRequired,  async(req, res, next)=>{
     console.log(req.session)
     try{
         let allUsers = await userQueries.getAllUsers()
@@ -20,8 +20,8 @@ router.get('/', /*loginRequired,*/  async(req, res, next)=>{
     }
 });
 
-//retrieves user by id
-router.get('/:id', async(req, res, next)=>{
+// //retrieves user by id
+router.get('/id/:id', async(req, res, next)=>{
     const id = req.params.id
     try{
         let userById = await userQueries.getUserById(id)
@@ -49,7 +49,7 @@ router.get('/username', async(req, res, next) =>{
         })
     }catch(error){
         console.log(error)
-        res.json({
+        res.status(500).json({
             payload: error, 
             message: 'Error. Unable to retrieve user.'
         })
