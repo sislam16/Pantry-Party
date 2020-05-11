@@ -27,8 +27,8 @@ CREATE TABLE recipes (
     recipe_name VARCHAR, 
     directions VARCHAR,
     recipe_img VARCHAR,
-    recipe_active BOOLEAN,
-    recipe_public BOOLEAN
+    recipe_active BOOLEAN DEFAULT TRUE,
+    recipe_public BOOLEAN DEFAULT TRUE
 );
 
 CREATE TABLE hashtags (

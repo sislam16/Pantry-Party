@@ -3,6 +3,10 @@ Recipes Queries | Server | Tost-Host/Pantry Party Web App
 GROUP 7: Suzette Islam, Douglas MacKrell, Maliq Taylor
 */
 
+// QUERY HELPER FUNCTIONS
+const ingredientsQueries = require('./ingredients')
+const hashtagsQueries = require('./hashtags')
+
 // DATABASE CONNECTION
 const db = require('../database/db')
 
@@ -60,11 +64,88 @@ const rewriteRecipe = async (recipe) => {
         patchQuery = patchQuery.slice(0, patchQuery.length - 1);
 
         patchQuery += ` WHERE id = $/id/ RETURNING *`
-        console.log(patchQuery)
         return await db.one(patchQuery, recipe);
     } catch (err) {
         throw (err);
     }
+}
+
+//GET
+const getWholeRecipeById = async (id) => {
+    const call1 = await db.one(
+        `SELECT *
+        FROM recipes R
+        WHERE R.id=$1
+        `, id)
+
+    const call2 = await db.any(
+        `SELECT *
+        FROM ingredients I
+        WHERE I.recipe_id=$1
+        `, id)
+
+    const call3 = await db.any(
+        `SELECT *
+        FROM hashtags H
+        WHERE H.recipe_id=$1
+        `, id)
+    
+    return [call1, call2, call3]
+}
+
+//GET 
+const getAllFullRecipesByUserId = async (userId) => {
+    let test1 = await getAllRecipesByUserId(userId)
+    // console.log(test1)
+    let fullRecipeArr = []
+    let ingredientsArr = []
+    let hashtagsArr = []
+    for (let ingredient of test1) {
+        let recipeId = ingredient.id
+        ingredientsArr.push(await db.any(`
+        SELECT *
+        FROM ingredients
+        WHERE recipe_id=$1`, recipeId))
+    }
+    for (let hashtag of test1) {
+        let recipeId = hashtag.id
+        hashtagsArr.push(await db.any(`
+        SELECT *
+        FROM hashtags
+        WHERE recipe_id=$1`, recipeId))
+    }
+    // console.log(ingredientsArr)
+    for (let i = 0; i < test1.length; i++){
+        fullRecipeArr.push(test1[i], ingredientsArr[i], hashtagsArr[i])
+    }
+    return fullRecipeArr
+}
+
+//POST
+const createFullRecipe = async (bodyObj) => {
+    let call1 = await createRecipe(bodyObj)
+
+    let ingredients_list = bodyObj.ingredients
+
+    let hashtags_list = bodyObj.hashtags
+
+    for(let ingredient of ingredients_list) {
+        ingredient.recipe_id = call1.id
+    }
+
+    for(let ingredient2 of ingredients_list) {
+        await ingredientsQueries.createIngredient(ingredient2)
+    }
+
+    for(let hashtag of hashtags_list) {
+        hashtag.recipe_id = call1.id
+    }
+
+    for(let hashtag2 of hashtags_list) {
+        await hashtagsQueries.createHashtag(hashtag2)
+    }
+
+    return [call1, ingredients_list, hashtags_list]
 }
 
 /* EXPORT */
@@ -72,6 +153,9 @@ module.exports = {
     getRecipeById,
     getAllRecipesByUserId,
     createRecipe,
-    rewriteRecipe
+    rewriteRecipe,
+    getWholeRecipeById,
+    getAllFullRecipesByUserId,
+    createFullRecipe
 }
 
