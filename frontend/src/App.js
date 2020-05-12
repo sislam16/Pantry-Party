@@ -5,6 +5,7 @@ import Error from "./components/Error";
 import AuthContainer from "./containers/AuthContainer";
 import Users from "./components/users/Users";
 import UserDashboard from './components/users/UserDashboard'
+import SingleRecipe from "./components/SingleRecipe";
 import NavBar from './components/Nav'
 import axios from 'axios';
 
@@ -41,18 +42,6 @@ const App = ()=> {
         }
     }
 
-    const renderAuthContainer = (routeProps) =>{
-      return <AuthContainer setUser = {setUser} {...routeProps}
-      username = {username} 
-          password={password}
-          user={user} 
-          isLoggedIn={isLoggedIn}
-          setUsername = {setUsername}
-          setPassword = {setPassword}
-          setLoggedIn = {setLoggedIn}
-          setUser={setUser}/>
-    }
-
     return (
       <div className="App">
         <NavBar 
@@ -61,28 +50,27 @@ const App = ()=> {
         />
 
         <Switch>
-          <Route exact path="/signup" render ={renderAuthContainer} >
-          {/* <AuthContainer
-          username={username} 
-          firstname = {firstname} 
-          lastname = {lastname} 
-          password = {password} 
-          email ={email} 
-          user={user}
-          isLoggedIn={isLoggedIn}
-          setUsername = {setUsername}
-          setFirstname = {setFirstname}
-          setLastname = {setLastname}
-          setEmail = {setEmail}
-          setPassword = {setPassword}
-          setLoggedIn = {setLoggedIn}
-          setUser = {setUser}
-          routeProps = {routeProps}
-          /> */}
+          <Route exact path="/signup" >
+            <AuthContainer
+            username={username} 
+            firstname = {firstname} 
+            lastname = {lastname} 
+            password = {password} 
+            email ={email} 
+            user={user}
+            isLoggedIn={isLoggedIn}
+            setUsername = {setUsername}
+            setFirstname = {setFirstname}
+            setLastname = {setLastname}
+            setEmail = {setEmail}
+            setPassword = {setPassword}
+            setLoggedIn = {setLoggedIn}
+            setUser = {setUser}
+            />
           </Route>
           
-          <Route exact path="/login" render ={renderAuthContainer}>
-          {/* <AuthContainer 
+          <Route exact path="/login" >
+          <AuthContainer 
           username = {username} 
           password={password}
           user={user} 
@@ -91,7 +79,7 @@ const App = ()=> {
           setPassword = {setPassword}
           setLoggedIn = {setLoggedIn}
           setUser={setUser}
-          /> */}
+          />
           </Route>
 
           <Route exact path ='/home'> 
@@ -101,6 +89,7 @@ const App = ()=> {
           </Route>
 
           <Route exact path = '/users' component = {Users} />
+          <Route exact path = '/singlerecipe' component = {SingleRecipe} />
 
           <Route exact path='/logout'></Route>
           <Route path="*" render={() => <Error />} />

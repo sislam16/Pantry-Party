@@ -9,7 +9,7 @@ router.post('/signup', async (req, res, next)=>{
     console.log('body', req.body)
     try{
         const passwordHash = await authHelpers.hashPassword(req.body.password)
-
+        console.log(passwordHash)
         const userInfo ={
              email: req.body.email, 
              password: passwordHash, 
@@ -21,6 +21,7 @@ router.post('/signup', async (req, res, next)=>{
          } 
  
          let newUser = await userQueries.createUser(userInfo)
+         console.log(newUser)
          res.json({
              payload: newUser,
              message: 'Success! New user has been added.'
