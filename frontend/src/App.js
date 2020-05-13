@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import Error from "./components/Error";
@@ -6,11 +5,10 @@ import AuthContainer from "./containers/AuthContainer";
 import Users from "./components/users/Users";
 import UserDashboard from './components/users/UserDashboard'
 import UserPublic from './components/users/UserPublic';
-import SingleRecipe from "./components/SingleRecipe";
+import SingleRecipe from "./components/recipes/SingleRecipe";
 import NavBar from './components/Nav'
 import axios from 'axios';
-
-
+import Settings from "./components/users/Settings";
 
 
 const App = () => {
@@ -94,6 +92,11 @@ const App = () => {
           <UserPublic
             user={user}
           />
+        </Route>
+        <Route exact path ='/settings'>
+          <Settings
+          user={user}
+           />
         </Route>
         <Route exact path='/singlerecipe' component={SingleRecipe} />
 
