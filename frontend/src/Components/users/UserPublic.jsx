@@ -1,40 +1,21 @@
-import React, {Component} from 'react'
+import React from 'react'
 import axios from 'axios';
 
 //do axios call to get all info about the user 
 
-const getUserInfo = async () => {
-    try{
-        const loggedInUser = await axios.get('/users/')
+const UserPublic = ({ user }) => {
 
-    }catch(error){
-        console.log('err:', error)
-    }
-}
-
- class UserPublic extends Component{
-     constructor(){
-        super()
-
-        this.state = {
-            username: '',
-            avatar: '',
-            bio:''
-
-        }
-     }
-     render(){
-    return(
+    return (
         <div className='user-public'>
             <div className='userInfo'>
-                <img src ='#'className='user-avatar'/>
-                <h2 className='username'>USERNAME</h2>
-                <p className='user-bio'><span>Bio:</span></p>
+                <img src={user.avatar} className='user-avatar' />
+                <h2 className='username'>{user.username}</h2>
+                <p className='user-bio'><span><strong>About Me:</strong></span>{user.bio}</p>
             </div>
 
         </div>
     )
-     }
 }
+
 
 export default UserPublic;
