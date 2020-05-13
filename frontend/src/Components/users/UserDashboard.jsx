@@ -13,14 +13,16 @@ const UserDashboard = ({ user }) => {
 
     //similar to component did mount
     useEffect(() => {
-        populateRecipeArr()
+        populateRecipeArr();
+        suggestedRecipeThumbnail();
+        getEvents();
     }, [])
 
     //gets random recipe from API
     const getRandomRecipeFromAPI = async () => {
         try {
             let { data } = await axios.get('https://www.themealdb.com/api/json/v1/1/random.php')
-            let recipe = data.meals
+            let recipe = data.meals[0]
             return recipe
 
         } catch (error) {
@@ -45,16 +47,10 @@ const UserDashboard = ({ user }) => {
         console.log('arr:', recipeArr)
     }
 
-    // const getCookbookRecipes = async () => {
-    //     try {
-
-    //     } catch (error) {
-    //         console.log('err:', error)
-    //     }
-    // }
 
     const getEvents = async () => {
         let user_id = user.id
+        console.log(user_id)
         try {
             let loggedinUserEvents = await axios.get(`/events/user/${user_id}`)
             console.log(loggedinUserEvents)
@@ -64,6 +60,7 @@ const UserDashboard = ({ user }) => {
     }
 
     const suggestedRecipeThumbnail = () => {
+        console.log('creating thumbnail')
         recipeArr.map(el => (
             <SuggestedRecipeCard
                 imgSrc={el.strMealThumb}
@@ -78,7 +75,7 @@ const UserDashboard = ({ user }) => {
     return (
         <div className='user-dashboard'>
             <div className='dashboard-header'>
-                <h1>hey{user.username}</h1>
+                <h1>hey {user.username}</h1>
             </div>
 
             <div className='dashboard-suggestions'>
@@ -86,7 +83,7 @@ const UserDashboard = ({ user }) => {
             </div>
 
             <div className='dashboard-cookbook'>
-
+                {suggestedRecipeThumbnail}
             </div>
 
             <div className='dashboard-events'>
