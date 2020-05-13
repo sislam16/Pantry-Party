@@ -14,7 +14,6 @@ const UserDashboard = ({ user }) => {
     //similar to component did mount
     useEffect(() => {
         populateRecipeArr();
-        suggestedRecipeThumbnail();
         getEvents();
     }, [])
 
@@ -59,9 +58,8 @@ const UserDashboard = ({ user }) => {
         }
     }
 
-    const suggestedRecipeThumbnail = () => {
-        console.log('creating thumbnail')
-        recipeArr.map(el => (
+    const suggestedRecipeThumbnail =  
+        recipeArr.forEach(el => (
             <SuggestedRecipeCard
                 imgSrc={el.strMealThumb}
                 recipeName={el.strMeal}
@@ -70,7 +68,8 @@ const UserDashboard = ({ user }) => {
                 {el}
             </SuggestedRecipeCard>
         ))
-    }
+    
+    
 
     return (
         <div className='user-dashboard'>
