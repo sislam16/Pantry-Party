@@ -5,7 +5,7 @@ import SuggestedRecipeCard from '../SuggestedRecipeCard'
 
 
 const UserDashboard = ({ user }) => {
-    console.log(user)
+    // console.log(user)
 
     const [recipeArr, setRecipeArr] = useState([])
     const [cbrecipeArr, setCbRecipeArr] = useState([])
@@ -14,7 +14,8 @@ const UserDashboard = ({ user }) => {
     //similar to component did mount
     useEffect(() => {
         populateRecipeArr();
-        getEvents();
+        // suggestedRecipeThumbnail()
+        // getEvents();
     }, [])
 
     //gets random recipe from API
@@ -43,13 +44,13 @@ const UserDashboard = ({ user }) => {
         let r4 = await getRandomRecipeFromAPI()
         recipeArr.push(r4)
 
-        console.log('arr:', recipeArr)
+        // console.log('arr:', recipeArr)
     }
 
 
     const getEvents = async () => {
         let user_id = user.id
-        console.log(user_id)
+        // console.log(user_id)
         try {
             let loggedinUserEvents = await axios.get(`/events/user/${user_id}`)
             console.log(loggedinUserEvents)
@@ -58,18 +59,20 @@ const UserDashboard = ({ user }) => {
         }
     }
 
-    const suggestedRecipeThumbnail =  
-        recipeArr.forEach(el => (
-            <SuggestedRecipeCard
-                imgSrc={el.strMealThumb}
-                recipeName={el.strMeal}
-                alt='db recipe'
-            >
-                {el}
-            </SuggestedRecipeCard>
-        ))
+    const suggestedRecipeThumbnail = recipeArr.map(el => (
+        <SuggestedRecipeCard
+            id={el.idMeal}
+            imgSrc={el.strMealThumb}
+            recipeName={el.strMeal}
+            alt='db recipe'
+        >
+            {el}
+        </SuggestedRecipeCard>
+    ))
+    console.log(suggestedRecipeThumbnail)
+    console.log(recipeArr)
     
-    
+
 
     return (
         <div className='user-dashboard'>
@@ -78,11 +81,11 @@ const UserDashboard = ({ user }) => {
             </div>
 
             <div className='dashboard-suggestions'>
-
+                <h1>hi</h1> {suggestedRecipeThumbnail}
             </div>
 
             <div className='dashboard-cookbook'>
-                {suggestedRecipeThumbnail}
+
             </div>
 
             <div className='dashboard-events'>
