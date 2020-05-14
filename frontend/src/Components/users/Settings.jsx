@@ -1,9 +1,13 @@
 import React from 'react'
 
+
+
+
 const Settings = ({user}) =>{
 return(
     <div>
-        <form action="">
+        <h1>Settings</h1>
+        <form>
           <h4>username:</h4>  <p>{user.username}</p>
           <h4>firstname:</h4>  <p>{user.firstname}</p>
           <h4>lastname:</h4>  <p>{user.lastname}</p>
