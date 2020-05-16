@@ -4,10 +4,14 @@ import { Link } from "react-router-dom";
 const NavBar = ({ logoutUser, isLoggedIn }) => {
   if (isLoggedIn) {
     return (
-      <>
-        <nav className="NavBar">
+      <div className="navbar-fixed">
+        <nav>
           <div className="nav-wrapper">
-            <a href="#!" className="brand-logo left" style={{fontSize:'15px'}}>
+            <a
+              href="#!"
+              className="brand-logo left"
+              style={{ fontSize: "15px" }}
+            >
               Pantry Party
             </a>
             <ul className="right">
@@ -27,7 +31,7 @@ const NavBar = ({ logoutUser, isLoggedIn }) => {
             </ul>
           </div>
         </nav>
-      </>
+      </div>
     );
   }
   return (

@@ -1,99 +1,57 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Link, Route } from 'react-router-dom'
-import SuggestedRecipeCard from '../SuggestedRecipeCard'
-
+import React, { useEffect, useState, useRef } from "react";
+import axios from "axios";
+import { Link, Route } from "react-router-dom";
+import Dashcard from "./DashCard";
 
 const UserDashboard = ({ user }) => {
-     console.log(user)
+  console.log(user);
 
-    const [recipeArr, setRecipeArr] = useState([])
-    const [cbrecipeArr, setCbRecipeArr] = useState([])
-    const [eventsArr, setEventsArr] = useState([])
+  const [apiRecipes, setApiRecipe] = useState([]);
+  const [fetched, setFetched] = useState(false);
+  //   const [cbrecipeArr, setCbRecipeArr] = useState([]);
+  //   const [eventsArr, setEventsArr] = useState([]);
 
-    //similar to component did mount
-    useEffect(() => {
-        populateRecipeArr();
-        // suggestedRecipeThumbnail()
-        // getEvents();
-    }, [])
+  //similar to component did mount
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      const resultArr = [];
+      while (resultArr.length < 4) {
+        const { data } = await axios.get(
+          "https://www.themealdb.com/api/json/v1/1/random.php"
+        );
+        resultArr.push(data.meals[0]);
+      }
+      setApiRecipe(resultArr);
+    };
 
-    //gets random recipe from API
-    const getRandomRecipeFromAPI = async () => {
-        try {
-            let { data } = await axios.get('https://www.themealdb.com/api/json/v1/1/random.php')
-            let recipe = data.meals[0]
-            return recipe
+    fetchRecipes();
+  }, []);
 
-        } catch (error) {
-            console.log('err:', error)
-        }
-    }
+  //   const getEvents = async () => {
+  //     let user_id = user.id;
+  //     // console.log(user_id)
+  //     try {
+  //       let loggedinUserEvents = await axios.get(`/events/user/${user_id}`);
+  //       console.log(loggedinUserEvents);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
 
-    // creates array of 4 recipes from the API
-    const populateRecipeArr = async () => {
-        let r1 = await getRandomRecipeFromAPI()
-        recipeArr.push(r1)
-
-        let r2 = await getRandomRecipeFromAPI()
-        recipeArr.push(r2)
-
-        let r3 = await getRandomRecipeFromAPI()
-        recipeArr.push(r3)
-
-        let r4 = await getRandomRecipeFromAPI()
-        recipeArr.push(r4)
-
-        // console.log('arr:', recipeArr)
-    }
-
-
-    const getEvents = async () => {
-        let user_id = user.id
-        // console.log(user_id)
-        try {
-            let loggedinUserEvents = await axios.get(`/events/user/${user_id}`)
-            console.log(loggedinUserEvents)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    const suggestedRecipeThumbnail = recipeArr.map(el => (
-        <SuggestedRecipeCard
-            id={el.idMeal}
-            imgSrc={el.strMealThumb}
-            recipeName={el.strMeal}
-            alt='db recipe'
-        >
-            {el}
-        </SuggestedRecipeCard>
-    ))
-    console.log(suggestedRecipeThumbnail)
-    console.log(recipeArr)
-    
-
-
-    return (
-        <div className='user-dashboard'>
-            <div className='dashboard-header'>
-                <h1>hey {user.username}</h1>
-            </div>
-
-            <div className='dashboard-suggestions'>
-                <h1>hi</h1> {suggestedRecipeThumbnail}
-            </div>
-
-            <div className='dashboard-cookbook'>
-
-            </div>
-
-            <div className='dashboard-events'>
-
-            </div>
+  return (
+    <>
+      <div className="container">
+        <div class="row">
+          <Dashcard src="https://www.biggerbolderbaking.com/wp-content/uploads/2019/07/15-Minute-Pizza-WS-Thumbnail.png"></Dashcard>
+          <Dashcard src="https://t3.ftcdn.net/jpg/00/87/64/82/240_F_87648201_jO23xggA2W2EjCdfqCTqliX9typRG9rp.jpg"></Dashcard>
         </div>
-    )
-}
-
+        <div class="row">
+          <Dashcard src="https://media3.s-nbcnews.com/i/newscms/2019_41/3044956/191009-cooking-vegetables-al-1422_ae181a762406ae9dce02dd0d5453d1ba.jpg"></Dashcard>
+          <Dashcard src="https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F9%2F-0001%2F11%2F30%2Fcooking-saucepan-GettyImages-562452049.jpg"></Dashcard>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default UserDashboard;
