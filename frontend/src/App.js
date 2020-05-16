@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import Error from "./components/Error";
 import AuthContainer from "./containers/AuthContainer";
 import Users from "./components/users/Users";
@@ -8,6 +8,7 @@ import UserPublic from "./components/users/UserPublic";
 import SingleRecipe from "./components/recipes/SingleRecipe";
 import RandomRecipes from "./components/recipes/RandomRecipes";
 import NavBar from "./components/Nav";
+import CreateEvent from "./components/events/CreateEvent";
 import axios from "axios";
 import Settings from "./components/users/Settings";
 
@@ -98,6 +99,9 @@ const App = () => {
 
         <Route exact path="/home">
           <UserDashboard user={user} />
+        </Route>
+        <Route exact path="/event/create">
+          <CreateEvent user={user} />
         </Route>
 
         <Route exact path="/recipes/random">

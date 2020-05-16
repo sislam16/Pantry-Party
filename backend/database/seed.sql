@@ -71,12 +71,12 @@ INSERT INTO users (firstname, lastname, email, password)
             ('Maliq', 'Taylor', 'maliq@gmail.com', 'ok123'),
             ('Douglas', 'MacKrell', 'douglas@gmail.com', 'ok123');
 
-INSERT INTO events (event_name, event_date, event_description, recipe_info)
-    VALUES ('hey', '2020-04-04', 'cooking with friends', null), 
-        ('why', '2020-03-04', 'cooking with friends', null),
-        ('omg', '2020-01-04', 'cooking with parents', null),
-        ('no', '2020-03-04', 'cooking with friends', null), 
-        ('hey', '2020-02-04', 'cooking with friends', null);
+INSERT INTO events (event_name, event_date, event_description, recipe_info, user_id)
+    VALUES ('hey', '2020-04-04', 'cooking with friends', null,1), 
+        ('why', '2020-03-04', 'cooking with friends', null,1),
+        ('omg', '2020-01-04', 'cooking with parents', null,1),
+        ('no', '2020-03-04', 'cooking with friends', null,1), 
+        ('hey', '2020-02-04', 'cooking with friends', null,1);
 
 INSERT INTO followers (followed_id, follower_id)
     VALUES( 1,2),

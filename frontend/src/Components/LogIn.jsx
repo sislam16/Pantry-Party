@@ -48,16 +48,17 @@ const Landing = ({
                   required
                 />
               </div>
-            
+
               <div>
-                <button style={{marginLeft:'25%' }} type="submit" name="action">
+                <button
+                  style={{ marginTop: "20px" }}
+                  type="submit"
+                  name="action"
+                >
                   Log-In
                 </button>
-                <Link to="/signup">
-                  <button>Sign-Up</button>
-                </Link>
               </div>
-              </div>
+            </div>
           </form>
         </div>
       </div>
