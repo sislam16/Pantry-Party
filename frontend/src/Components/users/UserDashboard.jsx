@@ -5,7 +5,7 @@ import SuggestedRecipeCard from '../SuggestedRecipeCard'
 
 
 const UserDashboard = ({ user }) => {
-    console.log(user)
+    // console.log(user)
 
     const [recipeArr, setRecipeArr] = useState([])
     const [cbrecipeArr, setCbRecipeArr] = useState([])
@@ -13,14 +13,16 @@ const UserDashboard = ({ user }) => {
 
     //similar to component did mount
     useEffect(() => {
-        populateRecipeArr()
+        populateRecipeArr();
+        // suggestedRecipeThumbnail()
+        // getEvents();
     }, [])
 
     //gets random recipe from API
     const getRandomRecipeFromAPI = async () => {
         try {
             let { data } = await axios.get('https://www.themealdb.com/api/json/v1/1/random.php')
-            let recipe = data.meals
+            let recipe = data.meals[0]
             return recipe
 
         } catch (error) {
@@ -42,19 +44,13 @@ const UserDashboard = ({ user }) => {
         let r4 = await getRandomRecipeFromAPI()
         recipeArr.push(r4)
 
-        console.log('arr:', recipeArr)
+        // console.log('arr:', recipeArr)
     }
 
-    // const getCookbookRecipes = async () => {
-    //     try {
-
-    //     } catch (error) {
-    //         console.log('err:', error)
-    //     }
-    // }
 
     const getEvents = async () => {
         let user_id = user.id
+        // console.log(user_id)
         try {
             let loggedinUserEvents = await axios.get(`/events/user/${user_id}`)
             console.log(loggedinUserEvents)
@@ -63,26 +59,29 @@ const UserDashboard = ({ user }) => {
         }
     }
 
-    const suggestedRecipeThumbnail = () => {
-        recipeArr.map(el => (
-            <SuggestedRecipeCard
-                imgSrc={el.strMealThumb}
-                recipeName={el.strMeal}
-                alt='db recipe'
-            >
-                {el}
-            </SuggestedRecipeCard>
-        ))
-    }
+    const suggestedRecipeThumbnail = recipeArr.map(el => (
+        <SuggestedRecipeCard
+            id={el.idMeal}
+            imgSrc={el.strMealThumb}
+            recipeName={el.strMeal}
+            alt='db recipe'
+        >
+            {el}
+        </SuggestedRecipeCard>
+    ))
+    console.log(suggestedRecipeThumbnail)
+    console.log(recipeArr)
+    
+
 
     return (
         <div className='user-dashboard'>
             <div className='dashboard-header'>
-                <h1>hey{user.username}</h1>
+                <h1>hey {user.username}</h1>
             </div>
 
             <div className='dashboard-suggestions'>
-
+                <h1>hi</h1> {suggestedRecipeThumbnail}
             </div>
 
             <div className='dashboard-cookbook'>

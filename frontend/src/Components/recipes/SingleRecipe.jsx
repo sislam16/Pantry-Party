@@ -11,15 +11,15 @@ import { Link, Route } from 'react-router-dom'
 const SingleRecipe = () => {
 
     const [recipe, setRecipe] = useState({})
-    const [id, setId] = useState(0)
 
     useEffect(() => {
-        displayRecipe(id);
+        displayRecipe();
     }, [])
 
     const displayRecipe = async (recipeId) => {
         try {
             let { recipe } = await axios.get(`/full/${recipeId}`)
+            console.log(recipe)
             let singleRecipe = recipe.payload
             console.log(singleRecipe)
             setRecipe(singleRecipe)  

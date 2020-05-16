@@ -1,9 +1,20 @@
 import React from 'react'
 
-const Settings = () =>{
+
+
+
+const Settings = ({user}) =>{
 return(
     <div>
-        <h1>SETTINGS PAGE</h1>
+        <h1>Settings</h1>
+        <form>
+          <h4>username:</h4>  <p>{user.username}</p>
+          <h4>firstname:</h4>  <p>{user.firstname}</p>
+          <h4>lastname:</h4>  <p>{user.lastname}</p>
+          <h4>Bio:</h4> <p>{user.bio}</p>
+           <button>Edit</button> <button>Deactivate Account</button>
+
+        </form>
     </div>
 )
 }
