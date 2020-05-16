@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import Error from "./components/Error";
 import AuthContainer from "./containers/AuthContainer";
@@ -6,6 +6,7 @@ import Users from "./components/users/Users";
 import UserDashboard from "./components/users/UserDashboard";
 import UserPublic from "./components/users/UserPublic";
 import SingleRecipe from "./components/recipes/SingleRecipe";
+import RandomRecipes from "./components/recipes/RandomRecipes";
 import NavBar from "./components/Nav";
 import axios from "axios";
 import Settings from "./components/users/Settings";
@@ -18,6 +19,23 @@ const App = () => {
   const [password, setPassword] = useState("");
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState({ user: null });
+  const [apiRecipes, setApiRecipe] = useState([]);
+
+  //similar to component did mount
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      const resultArr = [];
+      while (resultArr.length < 4) {
+        const { data } = await axios.get(
+          "https://www.themealdb.com/api/json/v1/1/random.php"
+        );
+        resultArr.push(data.meals[0]);
+      }
+      setApiRecipe(resultArr);
+    };
+
+    fetchRecipes();
+  }, []);
 
   const checkUserLoggedIn = async () => {
     try {
@@ -38,6 +56,8 @@ const App = () => {
       console.log("err:", error);
     }
   };
+
+  console.log(apiRecipes);
 
   return (
     <div className="App">
@@ -78,6 +98,10 @@ const App = () => {
 
         <Route exact path="/home">
           <UserDashboard user={user} />
+        </Route>
+
+        <Route exact path="/recipes/random">
+          <RandomRecipes user={user} apiRecipes={apiRecipes} />
         </Route>
 
         <Route exact path="/users" component={Users} />

@@ -36,7 +36,7 @@ const NavBar = ({ logoutUser, isLoggedIn }) => {
   }
   return (
     <nav className="NavBar">
-      <a href="#!" className="brand-logo left">
+      <a href="/" className="brand-logo left">
         Pantry Party
       </a>
       <ul className="right">
