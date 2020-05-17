@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
-import Signup from "../components/Signup";
-import LogIn from "../components/LogIn";
+import Signup from "../Components/Signup";
+import LogIn from "../Components/LogIn";
 import axios from 'axios';
 
 const AuthContainer = ({ username, password, firstname, lastname, email, user, setUser, isLoggedIn, setUsername, setFirstname, setLastname, setPassword, setEmail, setLoggedIn }) => {
