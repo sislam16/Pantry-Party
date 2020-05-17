@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import Error from "./Components/Error";
 import AuthContainer from "./containers/AuthContainer";
-import Users from "./Components/users/Users";
 import UserDashboard from './Components/users/UserDashboard'
 import UserPublic from './Components/users/UserPublic';
 import SingleRecipe from "./Components/recipes/SingleRecipe";
@@ -87,7 +86,6 @@ const App = () => {
           />
         </Route>
 
-        <Route exact path='/users' component={Users} />
         <Route exact path='/profile'>
           <UserPublic
             user={user}
