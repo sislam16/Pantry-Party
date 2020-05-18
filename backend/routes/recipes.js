@@ -13,8 +13,9 @@ let recipesQueries = require('../queries/recipes')
 router.get("/:recipe_id", async (req, res, next) => {
     try {
         const recipeId = req.params.recipe_id
-        const recipe = await recipesQueries.getRecipeById(recipeId);
-        console.log(recipe)
+        // const recipe = await recipesQueries.getRecipeById(recipeId);
+        const recipe = await recipesQueries.getSingleRecipeById(recipeId);
+        // console.log(recipe)
         res.json({
             status: "success",
             message: `Recipe ${recipeId} retrieved!`,
@@ -34,7 +35,8 @@ router.get("/:recipe_id", async (req, res, next) => {
 router.get("/user/:user_id", async (req, res, next) => {
     try {
         const userId = req.params.user_id
-        const allRecipesByUser = await recipesQueries.getAllRecipesByUserId(userId);
+        // const allRecipesByUser = await recipesQueries.getAllRecipesByUserId(userId);
+        const allRecipesByUser = await recipesQueries.getRecipesByUserId(userId);
         res.json({
             status: "success",
             message: `All recipes of user ${userId} retrieved!`,

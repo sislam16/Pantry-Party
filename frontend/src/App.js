@@ -98,7 +98,8 @@ const App = () => {
           user={user}
            />
         </Route>
-        <Route exact path='/singlerecipe' component={SingleRecipe} />
+        {/* <Route exact path='/singlerecipe' component={SingleRecipe} /> */}
+        <Route exact path='/recipe/:recipeId' component={SingleRecipe} />
 
         <Route exact path='/logout'></Route>
         <Route path="*" render={() => <Error />} />

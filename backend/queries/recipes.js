@@ -148,6 +148,40 @@ const createFullRecipe = async (bodyObj) => {
     return [call1, ingredients_list, hashtags_list]
 }
 
+// GET A SINGLE RECIPE: this will probably replace gitRecipeById and/or getWholeRecipeById
+const getSingleRecipeById = async (recipeId) => {
+    const selectQuery = `
+        SELECT
+            recipe_name, 
+            directions, 
+            recipe_img, 
+            ARRAY_AGG(DISTINCT ingredient_name || ': ' || amount || ' ' || measurement) AS ingredient_list,
+            ARRAY_AGG(DISTINCT tag_body) AS hashtag_list
+        FROM recipes INNER JOIN ingredients ON recipes.id = ingredients.recipe_id
+            INNER JOIN hashtags on recipes.id = hashtags.recipe_id
+        WHERE recipes.id = $1
+        GROUP BY recipes.id
+    `
+    return db.one(selectQuery, recipeId);
+}
+
+// GET A ALL RECIPES BY USER ID: this will probably replace getAllRecipesByUserId and/or getAllFullRecipesByUserId
+const getRecipesByUserId = async (userId) => {
+    const selectQuery = `
+        SELECT
+            recipe_name, 
+            directions, 
+            recipe_img, 
+            ARRAY_AGG(DISTINCT ingredient_name || ': ' || amount || ' ' || measurement) AS ingredient_list,
+            ARRAY_AGG(DISTINCT tag_body) AS hashtag_list
+        FROM recipes INNER JOIN ingredients ON recipes.id = ingredients.recipe_id
+            INNER JOIN hashtags on recipes.id = hashtags.recipe_id
+        WHERE recipes.user_id = $1
+        GROUP BY recipes.id
+    `
+    return db.any(selectQuery, userId);
+}
+
 /* EXPORT */
 module.exports = {
     getRecipeById,
@@ -156,6 +190,8 @@ module.exports = {
     rewriteRecipe,
     getWholeRecipeById,
     getAllFullRecipesByUserId,
-    createFullRecipe
+    createFullRecipe,
+    getSingleRecipeById,
+    getRecipesByUserId,
 }
 
