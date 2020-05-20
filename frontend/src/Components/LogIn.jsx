@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import { Link, Redirect} from "react-router-dom";
 
 const Landing =({username, password, setUsername, setPassword, isLoggedIn, setLoggedIn, loginUser}) => {
