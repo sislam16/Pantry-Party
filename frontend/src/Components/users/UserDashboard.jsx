@@ -1,7 +1,4 @@
-import React, { useEffect, useState, useLayoutEffect, useRef } from 'react';
-import axios from 'axios';
-import { Link, Route } from 'react-router-dom'
-import SuggestedRecipeCard from '../recipes/SuggestedRecipeCard'
+import React from 'react';
 import ApiRecipesComponent from '../recipes/ApiRecipeComponent';
 import EventComponentUD from '../events/EventsComponent'
 
