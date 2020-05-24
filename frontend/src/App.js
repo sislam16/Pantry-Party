@@ -99,7 +99,7 @@ const App = () => {
            />
         </Route>
         <Route exact path='/singlerecipe' component={SingleRecipe} />
-        <Route exact path ='/randomrecipe'>
+        <Route exact path ='/recipe/random/:id'>
           <APIRecipe 
           user={user}
           />
