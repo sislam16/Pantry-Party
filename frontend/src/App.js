@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route, Switch, withRouter, useHistory } from "react-router-dom";
+import { Route, Switch, withRouter, useHistory, useParams } from "react-router-dom";
 import Error from "./Components/Error";
 import AuthContainer from "./containers/AuthContainer";
 import UserDashboard from './Components/users/UserDashboard'
@@ -42,6 +42,10 @@ const App = () => {
     }
   }
 
+  // const { id } = useParams()
+  // console.log(id)
+
+  
   return (
     <div className="App">
       <NavBar
@@ -93,15 +97,15 @@ const App = () => {
             user={user}
           />
         </Route>
-        <Route exact path ='/settings'>
+        <Route exact path='/settings'>
           <Settings
-          user={user}
-           />
+            user={user}
+          />
         </Route>
         <Route exact path='/singlerecipe' component={SingleRecipe} />
-        <Route exact path ='/recipe/random/:id'>
-          <APIRecipe 
-          user={user}
+        <Route exact path='/recipe/random/:recipe_id'>
+          <APIRecipe
+            user={user}
           />
         </Route>
 
