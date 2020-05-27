@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 const SuggestedRecipeCard = ({recipeName, imgSrc, id}) => {
     console.log(recipeName, imgSrc)
     return(
-        <Link to={`/recipe/${id}`}>
+        <Link to={`/recipe/random/${id}`}>
         <div className='api-recipe' id={id} > 
         {/*  make a function that expands thumbnail to recipe page */ }
             <img src ={imgSrc} />

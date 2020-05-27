@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Route, Switch, withRouter, useHistory } from "react-router-dom";
 import Error from "./Components/Error";
 import AuthContainer from "./containers/AuthContainer";
-import Users from "./Components/users/Users";
 import UserDashboard from './Components/users/UserDashboard'
 import UserPublic from './Components/users/UserPublic';
 import SingleRecipe from "./Components/recipes/SingleRecipe";
 import NavBar from './Components/Nav'
 import axios from 'axios';
 import Settings from "./Components/users/Settings";
+import APIRecipe from "./Components/recipes/ApiRecipeExpand";
 
 
 const App = () => {
@@ -20,6 +20,7 @@ const App = () => {
   const [password, setPassword] = useState("")
   const [isLoggedIn, setLoggedIn] = useState(false)
   const [user, setUser] = useState({ user: null })
+  const history = useHistory()
 
   const checkUserLoggedIn = async () => {
     try {
@@ -33,9 +34,9 @@ const App = () => {
     try {
       await axios.get('/auth/logout')
       console.log('logout clicked')
-      setUser(null)
+      setUser({})
       setLoggedIn(false)
-      this.props.history.push('/login') // redirect user to login page
+      history.push('/login') // redirect user to login page
     } catch (error) {
       console.log('err:', error)
     }
@@ -87,7 +88,6 @@ const App = () => {
           />
         </Route>
 
-        <Route exact path='/users' component={Users} />
         <Route exact path='/profile'>
           <UserPublic
             user={user}
@@ -99,6 +99,11 @@ const App = () => {
            />
         </Route>
         <Route exact path='/singlerecipe' component={SingleRecipe} />
+        <Route exact path ='/recipe/random/:id'>
+          <APIRecipe 
+          user={user}
+          />
+        </Route>
 
         <Route exact path='/logout'></Route>
         <Route path="*" render={() => <Error />} />
