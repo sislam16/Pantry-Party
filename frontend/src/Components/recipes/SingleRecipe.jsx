@@ -1,42 +1,42 @@
 /*
 Recipe Page | Front End | Tost-Host/Pantry Party Web App
-GROUP 7: Suzette Islam, Douglas MacKrell, Maliq Taylor
+GROUP 7: Suzette Islam, Douglas MacKrell
 */
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link, Route } from 'react-router-dom'
-
+import { useParams } from 'react-router-dom';
 
 const SingleRecipe = () => {
-
     const [recipe, setRecipe] = useState({})
+    const { recipe_id } = useParams()
 
     useEffect(() => {
+        const displayRecipe = async () => {
+            try {
+                let { data } = await axios.get(`/api/recipes/full/${recipe_id}`)
+                console.log(data.payload)
+                let singleRecipe = data.payload
+                console.log(singleRecipe)
+                setRecipe(singleRecipe)
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
         displayRecipe();
     }, [])
 
-    const displayRecipe = async (recipeId) => {
-        try {
-            let { recipe } = await axios.get(`/full/${recipeId}`)
-            console.log(recipe)
-            let singleRecipe = recipe.payload
-            console.log(singleRecipe)
-            setRecipe(singleRecipe)  
-    
-        } catch (error) {
-            console.log(error)
-        }
-    }
+
 
     return (
         <div className='recipe-page'>
             <div className='Recipe-header'>
-                <h1>test</h1>
+                {/* <h1>{recipe.recipe_name}</h1> */}
             </div>
 
             <div className='Recipe-img'>
-
+                {/* <img src={recipe_img} /> */}
             </div>
 
             <div className='Recipe-ingredients'>
