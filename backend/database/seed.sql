@@ -51,7 +51,7 @@ CREATE TABLE events (
     event_name VARCHAR, 
     event_date DATE, 
     event_description VARCHAR,
-    recipe_info INT REFERENCES recipes(id),
+    recipe_id INT REFERENCES recipes(id),
     active BOOLEAN 
 );
 
@@ -71,7 +71,7 @@ INSERT INTO users (firstname, lastname, email, password)
             ('Maliq', 'Taylor', 'maliq@gmail.com', 'ok123'),
             ('Douglas', 'MacKrell', 'douglas@gmail.com', 'ok123');
 
-INSERT INTO events (event_name, event_date, event_description, recipe_info)
+INSERT INTO events (event_name, event_date, event_description, recipe_id)
     VALUES ('hey', '2020-04-04', 'cooking with friends', null), 
         ('why', '2020-03-04', 'cooking with friends', null),
         ('omg', '2020-01-04', 'cooking with parents', null),
