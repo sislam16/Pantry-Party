@@ -17,19 +17,50 @@ const getEventsByActive = async () => {
 }
 
 const createNewEvent = async (event) =>{
-    const insertQuery = `INSERT INTO events(event_name, event_date, event_description, recipe_info) 
-    VALUES ($2, $3, $4, $5)
-    RETURNING *`
-    return await db.none(insertQuery, [event.event_name, event.event_date, event.event_description, event.recipe_info])
+    const insertQuery = `INSERT INTO events(
+        user_id,
+        event_name, 
+        event_date, 
+        event_description, 
+        recipe_info) 
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING *;`
+    return await db.none(insertQuery, [event.user_id, event.event_name, event.event_date, event.event_description, event.recipe_info])
 }
 
-const updateSingleEvent = async(id, event_name, event_date, event_description, recipe_info) => {
-    const updateQuery = `
-    UPDATE events 
-    SET event_name=$2, event_date=$3, event_description=$4, recipe_info=$5 
-    WHERE id=$1`
+const updateSingleEvent = async(event) => {
+    let { event_name, event_date, event_description, recipe_info, active, broadcast_id } = event;
+    try {
+        let patchQuery = `UPDATE events SET `
+        if (event_name) {
+            patchQuery += `event_name = $/event_name/,`
+        }
+        if (event_date) {
+            patchQuery += `event_date = $/event_date/,`
+        }
+        if (event_description) {
+            patchQuery += `event_description = $/event_description/,`
+        }
+        if (event_date) {
+            patchQuery += `event_date = $/event_date/,`
+        }
+        if (recipe_info) {
+            patchQuery += `recipe_info = $/recipe_info/,`
+        }
+        if (active) {
+            patchQuery += `active = $/active/,`
+        }
+        if (broadcast_id) {
+            patchQuery += `broadcast_id = $/broadcast_id/,`
+        }
 
-    return await db.one(updateQuery, [id, event_name, event_date, event_description, recipe_info])
+        patchQuery = patchQuery.slice(0, patchQuery.length - 1);
+
+        patchQuery += ` WHERE id = $/id/ RETURNING *;`
+        return await db.one(patchQuery, event);
+    } catch (err) {
+        throw (err);
+    }
 }
 
 const removeEvent = async(id) => {

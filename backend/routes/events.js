@@ -72,10 +72,21 @@ router.get('/user/:user_id', async (req, res, next) => {
 // post a new event.
 router.post('/new', async (req, res, next) => {
     try {
-        let postNewEvent = eventsQueries.createNewEvent()
+        const user_id = req.body.user_id;
+        const event_name = req.body.event_name;
+        const event_date = req.body.event_date;
+        const event_description = req.body.event_description;
+        const recipe_info = req.body.recipe_info;
+        let postNewEvent = eventsQueries.createNewEvent({
+            user_id,
+            event_name,
+            event_date,
+            event_description,
+            recipe_info
+        })
         res.json({
             payload: postNewEvent,
-            message: 'Success. Event has been posted.'
+            message: `Success. Event ${event_name} has been posted.`
         })
     } catch (error) {
         res.status(500).json({
@@ -87,13 +98,15 @@ router.post('/new', async (req, res, next) => {
 
 //update event
 router.patch('/update/:event_id', async (req, res, next) => {
-    const event_id = req.params.event_id
-    const { event_name, event_date, event_description, recipe_info } = req.body
+    const id = req.params.event_id
     try {
-        let updateEvents = eventsQueries.updateSingleEvent(event_id, event_name, event_date, event_description, recipe_info)
+        let updatedEvent = eventsQueries.updateSingleEvent({
+            id, 
+            ...req.body
+        })
         res.json({
-            payload: updateEvents,
-            message: 'Success. Event has been updated'
+            payload: updatedEvent,
+            message: `Success. Event ${id} has been updated`
         })
     } catch (error) {
         res.status(500).json({
