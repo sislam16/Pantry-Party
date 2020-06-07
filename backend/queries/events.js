@@ -1,7 +1,7 @@
 const db = require('../database/db')
 
 const getAllEvents = async() =>{
-    return await db.any( `SELECT * FROM events;`)
+    return await db.any(`SELECT * FROM events;`)
 }
 
 const getEventById = async(id) =>{
@@ -10,6 +10,10 @@ const getEventById = async(id) =>{
 
 const getEventByUserId = async (user_id) =>{
     return await db.any(`SELECT * FROM events WHERE user_id=$1`, user_id)
+}
+
+const getEventsByActive = async () => {
+    return await db.any(`SELECT * FROM events WHERE active = true;`)
 }
 
 const createNewEvent = async (event) =>{
@@ -36,6 +40,7 @@ module.exports = {
     getAllEvents, 
     getEventById,
     getEventByUserId, 
+    getEventsByActive,
     createNewEvent, 
     updateSingleEvent, 
     removeEvent
