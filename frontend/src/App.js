@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './App.css';
 import { Route, Switch, withRouter, useHistory, useParams } from "react-router-dom";
 import Error from "./Components/Error";
 import AuthContainer from "./containers/AuthContainer";
@@ -11,9 +12,9 @@ import Settings from "./Components/users/Settings";
 import APIRecipe from "./Components/recipes/ApiRecipeExpand";
 import NewEvent from "./Components/events/NewEvent";
 import NewRecipe from './Components/recipes/NewRecipe'
+import Landing from './Components/Landing'
 
 const App = () => {
-
   const [username, setUsername] = useState("")
   const [firstname, setFirstname] = useState("")
   const [lastname, setLastname] = useState("")
@@ -130,6 +131,7 @@ const App = () => {
           />
         </Route>
         <Route exact path='/logout'></Route>
+        <Route exact path ='/'><Landing/></Route>
         <Route path="*" render={() => <Error />} />
       </Switch>
 
