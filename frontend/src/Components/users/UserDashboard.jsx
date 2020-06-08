@@ -10,8 +10,10 @@ const UserDashboard = ({ user, eventsArr }) => {
         <div className='user-dashboard'>
             <h1>Welcome {user.username}</h1>
             <ApiRecipesComponent />
-            <UserDashCookbook/>
-            <EventComponentUD/>
+            <UserDashCookbook
+            user={user}/>
+            <EventComponentUD
+            user ={user}/>
         </div>
     )
 }
