@@ -51,36 +51,11 @@ const APIRecipe = ({ user }) => {
 
     }, [apiRecipe])
 
-    // const apiIngredientsList = (apiRecipe) => {
-    //     let ingredientObj = {}
-    //     let measurementArr = []
-    //     for (let measurement in apiRecipe) {
-    //         if (measurement.includes('strMeasure') && apiRecipe[measurement] !== ' ' && apiRecipe[measurement] !== null) {
-    //             measurementArr.push(apiRecipe[measurement])
-    //         }
-    //     }
-    //     let index = 0;
-    //     for (let ingredient in apiRecipe) {
-    //         if (ingredient.includes('strIngredient') && apiRecipe[ingredient] !== '' && apiRecipe[ingredient] !== null) {
-    //             ingredientObj[apiRecipe[ingredient]] = measurementArr[index]
-    //             index++
-    //         }
-    //     }
-    //     setIngredientList(ingredientObj)
-    // }
-    
-    // apiIngredientsList(apiRecipe)
-
-
 
     const directionList = directionsArr.map((el) => (
-
         <li>{el}</li>
-
-
     ))
-        console.log(ingredientList)
-    // console.log(apiIngredientsList(apiRecipe))
+    console.log('ingredientList', ingredientList)
     return (
 
         <div className="meal-db-recipe">
