@@ -18,6 +18,22 @@ router.get('/', async (req, res, next) => {
     }
 });
 
+//get events by active
+router.get('/active', async (req, res, next) => {
+    try {
+        let eventsByActive = await eventsQueries.getEventsByActive()
+        res.json({
+            payload: eventsByActive,
+            message: 'Success. All active events have been retrieved.'
+        })
+    } catch (error) {
+        res.status(500).json({
+            payload: null,
+            message: 'Error. Unable to retrieve active events'
+        })
+    }
+})
+
 //get event by id
 router.get('/:event_id', async (req, res, next) => {
     const event_id = req.params.event_id
@@ -52,6 +68,7 @@ router.get('/user/:user_id', async (req, res, next) => {
     }
 })
 
+
 // post a new event.
 router.post('/new', async (req, res, next) => {
     const { event_name, event_date, event_description, recipe_id } = req.body
@@ -66,9 +83,10 @@ router.post('/new', async (req, res, next) => {
     try {
         let postNewEvent = await eventsQueries.createNewEvent(event)
         console.log(postNewEvent)
+
         res.json({
             payload: postNewEvent,
-            message: 'Success. Event has been posted.'
+            message: `Success. Event ${event_name} has been posted.`
         })
     } catch (error) {
         console.log(error)
@@ -81,13 +99,16 @@ router.post('/new', async (req, res, next) => {
 
 //update event
 router.patch('/update/:event_id', async (req, res, next) => {
-    const event_id = req.params.event_id
-    const { event_name, event_date, event_description, recipe_id } = req.body
+
+    const id = req.params.event_id
     try {
-        let updateEvents = await eventsQueries.updateSingleEvent(event_id, event_name, event_date, event_description, recipe_id)
+        let updatedEvent = eventsQueries.updateSingleEvent({
+            id, 
+            ...req.body
+        })
         res.json({
-            payload: updateEvents,
-            message: 'Success. Event has been updated'
+            payload: updatedEvent,
+            message: `Success. Event ${id} has been updated`
         })
     } catch (error) {
         res.status(500).json({
