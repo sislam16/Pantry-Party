@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import {TextField, Button, Typography} from '@material-ui/core'
+import {authStyles} from './styling/AuthStyling'
 
 const  Signup = ({ username, password, email, firstname, lastname, isLoggedIn, signupUser, setUsername, setPassword, setEmail, setFirstname, setLastname, setLoggedIn}) =>{
   const handleSubmit = (e) =>{
@@ -14,57 +15,68 @@ const  Signup = ({ username, password, email, firstname, lastname, isLoggedIn, s
         <div className="container">
           <div>
             <form onSubmit={handleSubmit}>
-              <h2>Sign-Up</h2>
+              <Typography
+              variant='h3'>Sign-Up</Typography>
               <div>
                 <div>
-                  <input
+                  <TextField
+                  variant='filled'
+                  margin='normal'
                     type="text"
                     value={username}
+                    label='Username'
                     onChange={(e) => setUsername(e.target.value) }
                     required
                   />
-                  <label htmlFor="username">Username </label>
                 </div>
                 <div>
-                  <input
+                  <TextField
+                  variant='filled'
+                  margin='normal'
                     type="text"
                     value={firstname}
+                    label='First Name'
                     onChange={(e)=>(setFirstname(e.target.value))}
                     required
                   />
-                  <label htmlFor="firstname">First Name </label>
                 </div>
                 <div>
-                  <input
+                  <TextField
+                  variant='filled'
+                  margin='normal'
                     type="text"
                     value={lastname}
+                    label='Last Name'
                     onChange={(e)=>(setLastname(e.target.value))}
                     className="validate"
                     required
                   />
-                  <label htmlFor="lastname">Last Name </label>
                 </div>
               </div>
               <div>
                 <div>
-                  <input
+                  <TextField
+                  variant='filled'
+                  margin='normal'
                     type="email"
                     value={email}
+                    label='Email'
                     onChange={(e)=>(setEmail( e.target.value))}
                     className="validate"
                     required
                   />
-                  <label htmlFor="email">Email </label>
                 </div>
                 <div className>
-                  <input
+                  <TextField
+                  variant='filled'
+                  margin='normal'
                     type="password"
                     value={password}
+                    label='Password'
                     onChange={(e)=>(setPassword(e.target.value))}
                     className="validate"
                     required
                   />
-                  <label htmlFor="password">Password </label>
                 </div>
               </div>
               <div>
@@ -74,23 +86,20 @@ const  Signup = ({ username, password, email, firstname, lastname, isLoggedIn, s
                     to="/login"
                     style={{ color: "white" }}
                   >
-                    <button
-                      type="button"
-                      name="action"
-                    >
+                  
                       Already have an account?
                       <br />
                       Log In here.
-                    </button>
+                    
                   </Link>
                 </div>
                 <div>
-                  <button
+                  <Button
                     type="submit"
                     name="action"
                   >
                     Register
-                  </button>
+                  </Button>
                   
                 </div>
               </div>
