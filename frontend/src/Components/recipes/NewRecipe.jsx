@@ -24,7 +24,7 @@ const NewRecipe = () => {
             console.log('error:', error)
         }
     }
-    const addIngredient = (e) =>{
+    const addIngredient = (e) => {
         e.preventDefault()
     }
     return (
@@ -33,16 +33,16 @@ const NewRecipe = () => {
 
             <form action="" className='newRecipeForm' onSubmit={handleSubmit}>
                 <TextField variant='filled' id="standard-size-small" type="text" label='Recipe Name' onChange={e => setRecipeName(e.target.value)} margin='normal' /> <br />
-                <TextField variant='filled' id="standard-size-small" type='text' label='recipe_img' onChange={e=>setRecipeImg(e.target.value)} margin='normal'/><br/>
-                <TextField variant='filled' id="standard-size-small" type="text" label='Directions' onChange={e => setDirections(e.target.value) } margin='normal'helperText="Separate steps by ','" /><br />
-                <TextField variant='filled' id="standard-size-small" type="text" label='Directions' onChange={e => setDirections(e.target.value) } margin='normal' /><br />
+                <TextField variant='filled' id="standard-size-small" type='text' label='recipe_img' onChange={e => setRecipeImg(e.target.value)} margin='normal' /><br />
+                <TextField variant='filled' id="standard-size-small" type="text" label='Directions' onChange={e => setDirections(e.target.value)} margin='normal' helperText="Separate steps by ','" /><br />
+                <TextField variant='filled' id="standard-size-small" type="text" label='Directions' onChange={e => setDirections(e.target.value)} margin='normal' /><br />
                 <div>
                     <TextField variant='filled' id="standard-size-small" type='number' label='Ingredient Amount' />
                     <TextField variant='filled' id="standard-size-small" type='text' label='Measurement' />
                     <TextField variant='filled' id="standard-size-small" type="text" label='Ingredients' onChange={e => setIngredients(e.target.value)} />
                     <Button>+</Button><br />
                 </div>
-                    <TextField variant='filled' id="standard-size-small" type='text' label='Hashtags' margin='normal' helperText="Separate hashtags by ','" /> <br />
+                <TextField variant='filled' id="standard-size-small" type='text' label='Hashtags' margin='normal' helperText="Separate hashtags by ','" /> <br />
                 <Button>Submit</Button>
             </form>
         </div>
