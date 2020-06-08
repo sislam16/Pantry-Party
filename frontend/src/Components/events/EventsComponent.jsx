@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 import EventsDisplayCard from '../events/EventsDisplayCard'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
+import {Button} from '@material-ui/core'
 
-const EventComponentUD = ({ user}) => {
+const EventComponentUD = ({user}) => {
     const [eventsArr, setEventsArr] = useState([])
     useEffect(() => {
         const getEvents = async () => {
@@ -17,7 +18,7 @@ const EventComponentUD = ({ user}) => {
                 console.log(error)
             }
         }
-        getEvents()
+        // getEvents()
     }, [])
 
     const eventsThumbnail = eventsArr.map(el=>(
@@ -36,7 +37,7 @@ console.log('hey', eventsArr)
 if(eventsArr.length === 0){
     return(
         <div>
-       <Link to='/events/new'><button>Create Event</button> </Link>
+       <Link to='/events/new'><Button>Create Event</Button> </Link>
         </div>
     )
 } else{
