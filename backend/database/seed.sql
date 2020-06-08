@@ -51,7 +51,7 @@ CREATE TABLE events (
     event_name VARCHAR, 
     event_date DATE, 
     event_description VARCHAR,
-    recipe_info INT REFERENCES recipes(id),
+    recipe_id INT REFERENCES recipes(id),
     active BOOLEAN DEFAULT FALSE,
     broadcast_id VARCHAR DEFAULT NULL
 );
@@ -136,7 +136,7 @@ INSERT INTO ingredients (ingredient_name, amount, measurement, recipe_id)
         ('Ranch Dressing', '3', 'tbsp', 3),
         ('Chives', '2', 'tbsp', 3);
 
-INSERT INTO events (event_name, user_id, event_date, event_description, recipe_info, active, broadcast_id)
+INSERT INTO events (event_name, user_id, event_date, event_description, recipe_id, active, broadcast_id)
     VALUES ('hey', 1, '2020-04-04', 'cooking with friends', 1, true, '1234'), 
         ('why', 2, '2020-03-04', 'cooking with friends', 2, true, '2345'),
         ('omg', 3, '2020-01-04', 'cooking with parents', 3, true, '3456'),

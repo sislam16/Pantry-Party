@@ -71,24 +71,25 @@ router.get('/user/:user_id', async (req, res, next) => {
 
 // post a new event.
 router.post('/new', async (req, res, next) => {
+    const { event_name, event_date, event_description, recipe_id } = req.body
+
+    let event = {
+        user_id: req.user.id,
+        event_name, 
+        event_date, 
+        event_description, 
+        recipe_id
+    }
     try {
-        const user_id = req.body.user_id;
-        const event_name = req.body.event_name;
-        const event_date = req.body.event_date;
-        const event_description = req.body.event_description;
-        const recipe_info = req.body.recipe_info;
-        let postNewEvent = eventsQueries.createNewEvent({
-            user_id,
-            event_name,
-            event_date,
-            event_description,
-            recipe_info
-        })
+        let postNewEvent = await eventsQueries.createNewEvent(event)
+        console.log(postNewEvent)
+
         res.json({
             payload: postNewEvent,
             message: `Success. Event ${event_name} has been posted.`
         })
     } catch (error) {
+        console.log(error)
         res.status(500).json({
             payload: null,
             message: 'Error. Unable to post event.'
@@ -98,6 +99,7 @@ router.post('/new', async (req, res, next) => {
 
 //update event
 router.patch('/update/:event_id', async (req, res, next) => {
+
     const id = req.params.event_id
     try {
         let updatedEvent = eventsQueries.updateSingleEvent({
@@ -119,7 +121,7 @@ router.patch('/update/:event_id', async (req, res, next) => {
 //delete event
 router.delete('/remote', async (req, res, next) => {
     try {
-        let deleteEvent = eventsQueries.removeEvent()
+        let deleteEvent = await eventsQueries.removeEvent()
         res.json({
             payload: deleteEvent,
             message: 'Success. Event has been deleted'

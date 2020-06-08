@@ -15,9 +15,17 @@ const getRecipeById = async (id) => {
     return await db.one('SELECT * FROM recipes WHERE id=$1', id)
 }
 
-//GET 
+//GET with arrAGG
 const getAllRecipesByUserId = async (userId) => {
-    const getQuery = `SELECT * FROM recipes WHERE user_id = $1;`;
+    const getQuery = `
+    SELECT recipes.id, recipes.recipe_name, recipes.directions, recipes.recipe_img, 
+    ARRAY_AGG(ingredients.amount || ' '|| ingredients.measurement|| ' '|| ingredients.ingredient_name) AS ingredient_list, 
+    ARRAY_AGG(hashtags.tag_body) AS hashtag_list
+    FROM recipes
+    JOIN ingredients ON recipes.id = ingredients.recipe_id
+    JOIN hashtags ON recipes.id = hashtags.recipe_id
+    WHERE recipes.user_id = $1
+    GROUP BY recipes.id`;
     let recipes = await db.any(getQuery, [userId]);
     return recipes
 }

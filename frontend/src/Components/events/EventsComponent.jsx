@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import EventsDisplayCard from '../events/EventsDisplayCard'
 import axios from 'axios'
+import {Link} from 'react-router-dom'
 
-const EventComponentUD = ({ user }) => {
-
+const EventComponentUD = ({ user}) => {
     const [eventsArr, setEventsArr] = useState([])
     useEffect(() => {
         const getEvents = async () => {
@@ -17,7 +17,7 @@ const EventComponentUD = ({ user }) => {
                 console.log(error)
             }
         }
-
+        getEvents()
     }, [])
 
     const eventsThumbnail = eventsArr.map(el=>(
@@ -26,18 +26,25 @@ const EventComponentUD = ({ user }) => {
             event_name={el.event_name}
             event_date={el.event_date}
             event_description={el.event_description}
-            recipe_info={el.event_description}
+            recipe_id={el.recipe_id}
         />
     ))
 
+console.log('thumbnail', eventsThumbnail)
+console.log('hey', eventsArr)
 
-
-
+if(eventsArr.length === 0){
+    return(
+        <div>
+       <Link to='/events/new'><button>Create Event</button> </Link>
+        </div>
+    )
+} else{
     return (
         <div className = 'events-componentUD'>
             {eventsThumbnail}
         </div>
     )
 }
-
+}
 export default EventComponentUD

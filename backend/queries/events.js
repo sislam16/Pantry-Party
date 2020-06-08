@@ -1,14 +1,16 @@
 const db = require('../database/db')
 
+
 const getAllEvents = async() =>{
+
     return await db.any(`SELECT * FROM events;`)
 }
 
-const getEventById = async(id) =>{
+const getEventById = async (id) => {
     return await db.one(`SELECT * FROM events WHERE id=$1`, id)
 }
 
-const getEventByUserId = async (user_id) =>{
+const getEventByUserId = async (user_id) => {
     return await db.any(`SELECT * FROM events WHERE user_id=$1`, user_id)
 }
 
@@ -22,14 +24,14 @@ const createNewEvent = async (event) =>{
         event_name, 
         event_date, 
         event_description, 
-        recipe_info) 
+        recipe_id) 
     VALUES ($1, $2, $3, $4, $5)
     RETURNING *;`
-    return await db.none(insertQuery, [event.user_id, event.event_name, event.event_date, event.event_description, event.recipe_info])
+    return await db.none(insertQuery, [event.user_id, event.event_name, event.event_date, event.event_description, event.recipe_id])
 }
 
 const updateSingleEvent = async(event) => {
-    let { event_name, event_date, event_description, recipe_info, active, broadcast_id } = event;
+    let { event_name, event_date, event_description, recipe_id, active, broadcast_id } = event;
     try {
         let patchQuery = `UPDATE events SET `
         if (event_name) {
@@ -45,7 +47,7 @@ const updateSingleEvent = async(event) => {
             patchQuery += `event_date = $/event_date/,`
         }
         if (recipe_info) {
-            patchQuery += `recipe_info = $/recipe_info/,`
+            patchQuery += `recipe_id = $/recipe_id/,`
         }
         if (active) {
             patchQuery += `active = $/active/,`
@@ -63,16 +65,16 @@ const updateSingleEvent = async(event) => {
     }
 }
 
-const removeEvent = async(id) => {
+const removeEvent = async (id) => {
     return db.one(`DELETE FROM events WHERE id = $1`, id)
 }
 
 module.exports = {
-    getAllEvents, 
+    getAllEvents,
     getEventById,
     getEventByUserId, 
     getEventsByActive,
     createNewEvent, 
-    updateSingleEvent, 
+    updateSingleEvent,
     removeEvent
 }

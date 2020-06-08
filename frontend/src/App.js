@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route, Switch, withRouter, useHistory } from "react-router-dom";
+import { Route, Switch, withRouter, useHistory, useParams } from "react-router-dom";
 import Error from "./Components/Error";
 import AuthContainer from "./containers/AuthContainer";
 import UserDashboard from './Components/users/UserDashboard'
@@ -9,7 +9,8 @@ import NavBar from './Components/Nav'
 import axios from 'axios';
 import Settings from "./Components/users/Settings";
 import APIRecipe from "./Components/recipes/ApiRecipeExpand";
-
+import NewEvent from "./Components/events/NewEvent";
+import NewRecipe from './Components/recipes/NewRecipe'
 
 const App = () => {
 
@@ -42,6 +43,10 @@ const App = () => {
     }
   }
 
+  // const { id } = useParams()
+  // console.log(id)
+
+  
   return (
     <div className="App">
       <NavBar
@@ -85,26 +90,45 @@ const App = () => {
         <Route exact path='/home'>
           <UserDashboard
             user={user}
+            isLoggedIn={isLoggedIn}
           />
         </Route>
 
         <Route exact path='/profile'>
           <UserPublic
             user={user}
+            isLoggedIn={isLoggedIn}
           />
         </Route>
-        <Route exact path ='/settings'>
+        <Route exact path='/settings'>
           <Settings
-          user={user}
-           />
+            user={user}
+            isLoggedIn={isLoggedIn}
+          />
         </Route>
-        <Route exact path='/singlerecipe' component={SingleRecipe} />
-        <Route exact path ='/recipe/random/:id'>
-          <APIRecipe 
+        <Route exact path='/recipe/random/:recipe_id'>
+          <APIRecipe
+            user={user}
+            isLoggedIn={isLoggedIn}
+          />
+        </Route>
+        <Route exact path = '/cookbook/recipe/:recipe_id'>
+          <SingleRecipe
+          user={user}
+          isLoggedIn={isLoggedIn}
+          />
+        </Route>
+        <Route exact path = '/events/new'>
+          <NewEvent
           user={user}
           />
         </Route>
-
+        <Route exact path = '/cookbook/new'>
+          <NewRecipe
+          user={user}
+          isLoggedIn={isLoggedIn}
+          />
+        </Route>
         <Route exact path='/logout'></Route>
         <Route path="*" render={() => <Error />} />
       </Switch>
