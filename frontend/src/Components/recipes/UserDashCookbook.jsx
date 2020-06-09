@@ -2,38 +2,39 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import CookbookRecipeCard from './CookbookCard'
 import {Link} from 'react-router-dom'
+import {Button} from '@material-ui/core'
 
 const UserDashCookbook = ({ user }) => {
-    console.log(user)
-    const [cbrecipeArr, setCbRecipeArr] = useState([])
+    const [cookbookArr, setCookbookArr] = useState([])
 
     useEffect(() => {
         const getRecipeFromCookbook = async () => {
-            // let user_id = user.id
-            let { data } = await axios.get(`/recipes/user/${user.id}`)
+            let user_id = user.id
+            let { data } = await axios.get(`/api/recipes/user/${user.id}`)
             console.log(data)
             let cookbookRecipes = data.payload
-            setCbRecipeArr(cookbookRecipes)
+            setCookbookArr(cookbookRecipes)
         }
-        getRecipeFromCookbook()
+        // getRecipeFromCookbook()
     }, [])
 
-    const cookbookThumbnail = cbrecipeArr.map(el =>
-        <CookbookRecipeCard
-            id={el.id}
-            name={el.recipe_name}
-            img={el.recipe_img}
-        />
-    )
-
-    if (cbrecipeArr.length === 0) {
+  
+    if (cookbookArr.length === 0) {
         return(
-            <div>
-              <Link to='/cookbook/new'><button>Add a Recipe</button></Link>
+            <div className='dashboard-cookbook'>
+              <Link to='/cookbook/new'><Button>Add a Recipe</Button></Link>
             </div>
         )
 
     } else {
+        const cookbookThumbnail = cookbookArr.map(el =>
+            <CookbookRecipeCard
+                id={el.id}
+                name={el.recipe_name}
+                img={el.recipe_img}
+            />
+        )
+    
         return (
             <div className='dashboard-cookbook'>
                 {cookbookThumbnail}

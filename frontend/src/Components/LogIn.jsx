@@ -1,74 +1,71 @@
 import React from "react"
-import { Link, Redirect} from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { TextField, Button, Typography } from '@material-ui/core'
+import { authStyles } from './styling/AuthStyling'
 
-const Landing =({username, password, setUsername, setPassword, isLoggedIn, setLoggedIn, loginUser}) => {
+const LogIn = ({ username, password, setUsername, setPassword, isLoggedIn, setLoggedIn, loginUser }) => {
+  const classes = authStyles()
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    loginUser()
+  }
 
-const handleSubmit = (e) =>{
-  e.preventDefault()
-  loginUser()
-}
+  if (isLoggedIn) {
+    return <Redirect to='/home' />
+  }
+  return (
+    <>
+      <div className="container">
+        <form onSubmit={handleSubmit}>
+          <Typography
+            variant='h3'
+          >Log In</Typography>
 
-if(isLoggedIn){
-  return <Redirect to='/home'/>
-} 
-    return (
-      <>
-        <div className="container">
           <div>
-            <form onSubmit={handleSubmit}>
-              <h2>Log-In Page</h2>
-              <div>
-                <div>
-                  <input
-                    className="validate"
-                    type="username"
-                    id="username"
-                    name="username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                  />
-                  <label htmlFor="username">Username</label>
-                </div>
-              </div>
-              <div>
-                <div>
-                  <input
-                    className="validate"
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={password}
-                    onChange={(e)=>setPassword(e.target.value)}
-                    required
-                  />
-                  <label htmlFor="password">Password</label>
-                </div>
-              </div>
-              <div>
-                <div>
-                  <Link to="/signup">
-                    <button
-                      type="button"
-                      name="action"
-                    >
-                      New?
-                      <br />
-                      Sign Up here.
-                    </button>
-                  </Link>
-                </div>
-                <div>
-                  <button type="submit" name="action">
-                    Log-In
-                  </button>
-                </div>
-              </div>
-            </form>
+            <TextField
+              variant='filled'
+              margin='normal'
+              className={classes.textField}
+              type="username"
+              id="username"
+              label="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
           </div>
-        </div>
-      </>
-    );
+
+
+          <div>
+            <TextField
+              variant='filled'
+              margin='normal'
+              className={classes.textField}
+              type="password"
+              id="password"
+              label="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <div>
+            <div>
+              <Link to="/signup" className={classes.link}>
+                New? Sign Up here.
+                  </Link>
+            </div>
+            <div>
+              <Button type="submit" name="action">
+                Log-In
+                  </Button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </>
+  );
 }
 
-export default Landing;
+export default LogIn;

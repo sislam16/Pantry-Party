@@ -58,7 +58,7 @@ router.get('/username', async(req, res, next) =>{
 
 //update user info
 router.patch('/update/info/:id', async (req, res, next)=>{
-    const id = req.params.id
+    const id = req.user.id
     const { email, firstname, lastname, avatar, bio } = req.body
 
     try{
