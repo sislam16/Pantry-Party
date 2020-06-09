@@ -90,7 +90,7 @@ router.patch('/update/password/:id', async (req, res, next) => {
     const { password } = req.body
 
     try {
-        let updateUserPassword = await userQueries.updatePassword(password)
+        let updateUserPassword = await userQueries.updatePassword(id, password)
         res.json({
             payload: updateUserPassword,
             message: 'Success! User password has been updated!'
