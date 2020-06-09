@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import useSocket from 'use-socket.io-client';
 import axios from 'axios';
 
-import useUserMedia from '../useUserMedia/useUserMedia'
+import useUserMedia from './useUserMedia'
 
 const Broadcast = () => {
     const [broadcaster, setBroadcaster] = useState('');
@@ -22,7 +22,7 @@ const Broadcast = () => {
         ]
     };
 
-    const ENDPOINT = "https://dougtv.herokuapp.com/";
+    const ENDPOINT = "http://127.0.0.1:3001";
     const [socket] = useSocket(ENDPOINT);
 
     const videoRef = useRef();
@@ -105,7 +105,7 @@ const Broadcast = () => {
 
     const launchBroadcast = async () => {
         try {
-            let response = await axios.post(`/api/broadcasters/new/${broadcaster}`, {
+            let response = await axios.post(`/api/events/${broadcaster}`, {
                 username: name
             })
             let broadcasterData = response.data.payload

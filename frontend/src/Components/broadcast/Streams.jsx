@@ -7,7 +7,7 @@ import LinksContainer from '../LinksContainer/LinksContainer'
 const Streams = () => {
     const [broadcasters, setBroadcasters] = useState([])
 
-    const ENDPOINT = "https://dougtv.herokuapp.com/";
+    const ENDPOINT = "http://127.0.0.1:3001";
     const [socket] = useSocket(ENDPOINT);
 
     useEffect(() => {
