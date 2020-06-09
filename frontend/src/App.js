@@ -130,6 +130,9 @@ const App = () => {
           isLoggedIn={isLoggedIn}
           />
         </Route>
+        <Route exact path='/live'>
+          
+        </Route>
         <Route exact path='/logout'></Route>
         <Route exact path ='/'><Landing/></Route>
         <Route path="*" render={() => <Error />} />
