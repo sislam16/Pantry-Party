@@ -10,9 +10,11 @@ const Settings = ({ user }) => {
     const [bio, setBio] = useState(user.bio)
 
     const handleUpdate = async () => {
-
+        console.log('update info')
+        let user_id = user.id
         try {
-            let updateInfo = await axios.post('')
+            let updateInfo = await axios.post(`/api/users/update/info/${user_id}`, [username, firstname, lastname, bio])
+            console.log(updateInfo)
         } catch (error) {
             console.log('error:', error)
         }
@@ -40,11 +42,7 @@ const Settings = ({ user }) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log('submitting updated info')
-        try {
-
-        } catch (error) {
-            console.log('error', error)
-        }
+        handleUpdate();
     }
 
     if (edit === false) {
@@ -104,7 +102,7 @@ const Settings = ({ user }) => {
                         {bio}
                     </TextField> <br />
 
-                    <Button onClick={handleSubmit}>Submit</Button>
+                    <Button onClick={handleUpdate}>Submit</Button>
                 </form>
             </div>
         )
