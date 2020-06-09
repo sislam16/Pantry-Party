@@ -16,6 +16,9 @@ var hashtagsRouter = require('./routes/hashtags');
 
 
 const app = express();
+const http = require("http");
+const server = http.createServer(app);
+const io = require("socket.io")(server, { origins: '*:*' });
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -39,5 +42,51 @@ app.use('/api/recipes', recipesRouter);
 app.use('/api/ingredients', ingredientsRouter);
 app.use('/api/hashtags', hashtagsRouter);
 
+io.sockets.on("error", e => console.log(e));
+
+io.sockets.on("connection", socket => {
+    socket.on("broadcaster", id => {
+        broadcaster = id;
+        console.log("broadcaster set", broadcaster)
+        socket.emit("broadcaster", broadcaster);
+    });
+    socket.on("watcher", broadcasterId => {
+        socket.to(broadcasterId).emit("watcher", socket.id);
+        console.log("watcher set", socket.id)
+        console.log("broadcasterId", broadcasterId)
+    });
+    socket.on("offer", (id, message) => {
+        socket.to(id).emit("offer", socket.id, message);
+        console.log("offer sent", message)
+    });
+    socket.on("answer", (id, message) => {
+        socket.to(id).emit("answer", socket.id, message);
+        console.log("answer sent")
+    });
+    socket.on("candidate", (id, message) => {
+        socket.to(id).emit("candidate", socket.id, message);
+        console.log("candidate", message)
+    });
+    socket.on('new-broadcaster', (broadcaster) => {
+        socket.broadcast.emit('active-broadcaster', broadcaster)
+        console.log("active-broadcaster emitted")
+    })
+    socket.on('new message', data => {
+        console.log(data.room);
+        socket.broadcast
+            .to(data.room)
+            .emit('receive message', data)
+    });
+    socket.on('room', data => {
+        console.log('room join');
+        console.log(data);
+        socket.join(data.room);
+    });
+    socket.on('leave room', data => {
+        console.log('leaving room');
+        console.log(data);
+        socket.leave(data.room)
+    });
+});
 
 module.exports = app;
