@@ -134,6 +134,7 @@ const App = () => {
             isLoggedIn={isLoggedIn}
           />
         </Route>
+
         <Route exact path="/streams" >
           <Streams />
         </Route>
