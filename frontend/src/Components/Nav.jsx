@@ -53,13 +53,13 @@ const NavBar = ({ logoutUser, isLoggedIn }) => {
                         <SettingsIcon />
                     </IconButton>
 
-                  <IconButton
-                  edge='start'
-                  color='inherit'
-                  aria-label='menu'
-                  onClick={()=>{rerouteNav('live')}}>
-                      <LiveTvIcon />
-                  </IconButton>
+                    <IconButton
+                        edge='start'
+                        color='inherit'
+                        aria-label='menu'
+                        onClick={() => { rerouteNav('streams') }}>
+                        <LiveTvIcon />
+                    </IconButton>
 
                     <IconButton
                         edge="start"

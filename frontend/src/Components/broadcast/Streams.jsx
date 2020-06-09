@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useSocket from 'use-socket.io-client';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import LinksContainer from './LinksContainer'
+import LinksContainer from './LinksContainer';
 
 const Streams = () => {
     const [broadcasters, setBroadcasters] = useState([])

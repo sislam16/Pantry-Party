@@ -134,14 +134,23 @@ const App = () => {
             isLoggedIn={isLoggedIn}
           />
         </Route>
-        <Route path="/streams" component={Streams} />
-        <Route path="/broadcast/:eventId" component={Broadcast} />
-        <Route path="/watch/:broadcasterId" component={Watch} />
-        <Route exact path='/live'>
-          
+
+        <Route exact path="/streams" >
+          <Streams />
         </Route>
+
+        <Route exact path="/broadcast">
+          <Broadcast />
+        </Route>
+        <Route exact path="/watch/:broadcasterId">
+          <Watch />
+        </Route>
+
         <Route exact path='/logout'></Route>
-        <Route exact path='/'><Landing /></Route>
+        
+        <Route exact path='/'>
+          <Landing />
+        </Route>
         <Route path="*" render={() => <Error />} />
       </Switch>
 

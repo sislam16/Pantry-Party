@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { TextField, Button, Checkbox, Typography } from '@material-ui/core'
+import {recipeStyles} from '../styling/recipesStyling'
 
 const NewRecipe = () => {
+    const classes = recipeStyles()
+    
     const [recipe_name, setRecipeName] = useState('')
     const [recipe_img, setRecipeImg] = useState('')
     const [ingredients, setIngredients] = useState('')
@@ -31,7 +34,7 @@ const NewRecipe = () => {
         <div>
             <Typography variant='h4'>Add Recipe to Cookbook </Typography>
 
-            <form action="" className='newRecipeForm' onSubmit={handleSubmit}>
+            <form action="" className='newRecipe' onSubmit={handleSubmit}>
                 <TextField variant='filled' id="standard-size-small" type="text" label='Recipe Name' onChange={e => setRecipeName(e.target.value)} margin='normal' /> <br />
                 <TextField variant='filled' id="standard-size-small" type='text' label='recipe_img' onChange={e => setRecipeImg(e.target.value)} margin='normal' /><br />
                 <TextField variant='filled' id="standard-size-small" type="text" label='Directions' onChange={e => setDirections(e.target.value)} margin='normal' helperText="Separate steps by ','" /><br />
