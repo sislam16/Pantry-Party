@@ -7,6 +7,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import LiveTvIcon from '@material-ui/icons/LiveTv';
+import navlogo from './additional/Pantry-Party-P.png'
 
 const NavBar = ({ logoutUser, isLoggedIn }) => {
     const classes = navStyles()
@@ -20,9 +21,7 @@ const NavBar = ({ logoutUser, isLoggedIn }) => {
         return (
             <AppBar position="static" className={classes.appBar}>
                 <Toolbar>
-                <Typography edge='start'variant="h6" className={classes.title}>
-                        Pantry Party
-                    </Typography>
+                    {/* <img src ={navlogo} className ={classes.logo} /> */}
 
                     <IconButton
                         edge="start"
@@ -58,7 +57,7 @@ const NavBar = ({ logoutUser, isLoggedIn }) => {
                   edge='start'
                   color='inherit'
                   aria-label='menu'
-                  onClick={()=>{rerouteNav('/live')}}>
+                  onClick={()=>{rerouteNav('live')}}>
                       <LiveTvIcon />
                   </IconButton>
 

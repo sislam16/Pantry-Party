@@ -22,7 +22,7 @@ const Streams = () => {
 
     const findActiveStreams = async () => {
         console.log("findActiveStreams called")
-        let activeStreams = await axios.get(`/api/broadcasters/active`)
+        let activeStreams = await axios.get(`/api/events/active`)
         let streams = activeStreams.data.payload
         setBroadcasters(streams)
     }

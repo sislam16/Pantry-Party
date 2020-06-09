@@ -137,6 +137,9 @@ const App = () => {
         <Route path="/streams" component={Streams} />
         <Route path="/broadcast" component={Broadcast} />
         <Route path="/watch/:broadcasterId" component={Watch} />
+        <Route exact path='/live'>
+          
+        </Route>
         <Route exact path='/logout'></Route>
         <Route exact path='/'><Landing /></Route>
         <Route path="*" render={() => <Error />} />

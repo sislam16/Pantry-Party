@@ -13,6 +13,9 @@ export const navStyles = makeStyles((theme) =>({
         flexGrow: 1,
       }, 
       appBar:{
-        backgroundColor: customTheme.palette.secondary.main
+        backgroundColor: customTheme.palette.primary.main
       },
+      // logo:{
+      //   height:'10%',
+      // },
 }))
