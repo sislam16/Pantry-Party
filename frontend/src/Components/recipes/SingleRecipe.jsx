@@ -32,11 +32,11 @@ const SingleRecipe = () => {
     return (
         <div className='recipe-page'>
             <div className='Recipe-header'>
-                {/* <h1>{recipe.recipe_name}</h1> */}
+                <h1>{recipe.recipe_name}</h1>
             </div>
 
             <div className='Recipe-img'>
-                {/* <img src={recipe_img} /> */}
+                <img src={recipe.recipe_img} />
             </div>
 
             <div className='Recipe-ingredients'>
