@@ -2,6 +2,9 @@ import { makeStyles } from '@material-ui/core'
 import customTheme from './customTheme'
 
 export const recipeStyles = makeStyles((theme) => ({
+    newRecipe:{
+        backgroundColor: 'white',
+    },
     background: {
         backgroundColor: customTheme.palette.primary.main,
     },
