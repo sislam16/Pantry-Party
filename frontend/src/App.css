@@ -1,7 +1,12 @@
 html, body{
   /* background: rgb(235,147,9);
   background: linear-gradient(90deg, rgba(235,147,9,1) 2%, rgba(237,210,9,1) 80%, rgba(255,229,4,1) 93%); */
-  background: #f7e7ce;
+  /* background: #f7e7ce; */
+  height: 100vh;
+}
+.landing{
+  padding-top: 200px;
+  background-color: #0066b2;
   height: 100vh;
 }
 .App {
