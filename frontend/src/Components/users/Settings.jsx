@@ -11,10 +11,11 @@ const Settings = ({ user }) => {
 
     const handleUpdate = async () => {
         console.log('update info')
-        let user_id = user.id
+        // let user_id = user.id
         try {
-            let updateInfo = await axios.post(`/api/users/update/info/${user_id}`, [username, firstname, lastname, bio])
+            let updateInfo = await axios.patch(`/api/users/update/info`, [username, firstname, lastname, bio])
             console.log(updateInfo)
+            setEdit(false)
         } catch (error) {
             console.log('error:', error)
         }
@@ -39,11 +40,11 @@ const Settings = ({ user }) => {
     //     e.preventDefault()
     //     console.log(e.target.value)
     // }
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log('submitting updated info')
-        handleUpdate();
-    }
+    // const handleSubmit = (e) => {
+    //     e.preventDefault()
+    //     console.log('submitting updated info')
+    //     handleUpdate();
+    // }
 
     if (edit === false) {
         return (
