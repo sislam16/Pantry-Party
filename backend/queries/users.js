@@ -24,7 +24,7 @@ const updateUserInfo = async (id, username, firstname, lastname, avatar, bio) =>
     UPDATE users SET username=$2, firstname=$3, lastname=$4, avatar=$5, bio=$6
     WHERE id=$1 
     `
-    return await db.one(updateQuery, [id, email, firstname, lastname, avatar, bio])
+    return await db.one(updateQuery, [id, username, firstname, lastname, avatar, bio])
 }
 
 const updatePassword = async (id, password) => {

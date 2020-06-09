@@ -57,7 +57,7 @@ router.get('/username', async (req, res, next) => {
 })
 
 //update user info
-router.patch('/update/info/:id', async (req, res, next) => {
+router.patch('/update/info', async (req, res, next) => {
     const id = req.user.id
     const { username, firstname, lastname, avatar, bio } = req.body
     let info = {
