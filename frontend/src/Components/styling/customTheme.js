@@ -4,15 +4,15 @@ const customTheme = createMuiTheme({
   palette: {
     primary: {
       // light: will be calculated from palette.primary.main,
-      main: '#FAEBD7',
+      main: '#0066b2',
       // dark: will be calculated from palette.primary.main,
       // contrastText: will be calculated to contrast with palette.primary.main
     },
     secondary: {
-      light: '#CD853F',
-      main: '#ff6600',
+      light: '#0066b2',
+      main: '#ffffff',
       // dark: will be calculated from palette.secondary.main,
-      contrastText: '#ffcc00',
+      contrastText: '#fdbd10',
     },
     // Used by `getContrastText()` to maximize the contrast between
     // the background and the text.

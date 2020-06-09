@@ -1,21 +1,19 @@
 import { makeStyles } from '@material-ui/core'
 import customTheme from './customTheme'
 
-
-export const authStyles = makeStyles((theme) => ({
-    background:{
+export const eventStyles = makeStyles((theme) => ({
+    background: {
         backgroundColor: customTheme.palette.primary.main,
-        height:'100%'
     },
     button: {
         backgroundColor: 'orange',
-        margin: theme.spacing(3),
+            margin: theme.spacing(3),
     },
     textField: {
         margin: 'normal',
-        label: customTheme.palette.secondary.main,
-        error: theme.palette.error.dark,
-        '& label.Mui-focused': {
+            label: customTheme.palette.secondary.main,
+                error: theme.palette.error.dark,
+                    '& label.Mui-focused': {
             color: 'green',
         },
         '& .MuiOutlinedInput-root': {
@@ -31,8 +29,7 @@ export const authStyles = makeStyles((theme) => ({
         }
     },
     link: {
-        color:'white',
-        textDecoration: 'none',
+        color: 'white',
+            textDecoration: 'none',
     }
-
 }))
