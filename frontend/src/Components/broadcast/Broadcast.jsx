@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import useSocket from 'use-socket.io-client';
+import { useParams } from 'react-router-dom'
 import axios from 'axios';
 
 import useUserMedia from './useUserMedia'
@@ -13,6 +14,8 @@ const Broadcast = () => {
         audio: true,
         video: { facingMode: "user" }
     });
+
+    let { eventId } = useParams();
 
     const config = {
         iceServers: [
