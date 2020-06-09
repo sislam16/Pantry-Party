@@ -108,8 +108,9 @@ const Broadcast = () => {
 
     const launchBroadcast = async () => {
         try {
-            let response = await axios.post(`/api/events/${broadcaster}`, {
-                username: name
+            let response = await axios.patch(`/api/events/update/${eventId}`, {
+                active: true,
+                broadcaster_id: socket.id
             })
             let broadcasterData = response.data.payload
             socket.emit('new-broadcaster', broadcasterData)
