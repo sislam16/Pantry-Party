@@ -11,8 +11,12 @@ import axios from 'axios';
 import Settings from "./Components/users/Settings";
 import APIRecipe from "./Components/recipes/ApiRecipeExpand";
 import NewEvent from "./Components/events/NewEvent";
-import NewRecipe from './Components/recipes/NewRecipe'
-import Landing from './Components/Landing'
+import NewRecipe from './Components/recipes/NewRecipe';
+import Landing from './Components/Landing';
+import Streams from './Components/broadcast/Streams';
+import Broadcast from './Components/broadcast/Broadcast';
+import Watch from './Components/broadcast/Watch';
+
 
 const App = () => {
   const [username, setUsername] = useState("")
@@ -47,7 +51,7 @@ const App = () => {
   // const { id } = useParams()
   // console.log(id)
 
-  
+
   return (
     <div className="App">
       <NavBar
@@ -113,28 +117,31 @@ const App = () => {
             isLoggedIn={isLoggedIn}
           />
         </Route>
-        <Route exact path = '/cookbook/recipe/:recipe_id'>
+        <Route exact path='/cookbook/recipe/:recipe_id'>
           <SingleRecipe
-          user={user}
-          isLoggedIn={isLoggedIn}
+            user={user}
+            isLoggedIn={isLoggedIn}
           />
         </Route>
-        <Route exact path = '/events/new'>
+        <Route exact path='/events/new'>
           <NewEvent
-          user={user}
+            user={user}
           />
         </Route>
-        <Route exact path = '/cookbook/new'>
+        <Route exact path='/cookbook/new'>
           <NewRecipe
-          user={user}
-          isLoggedIn={isLoggedIn}
+            user={user}
+            isLoggedIn={isLoggedIn}
           />
         </Route>
+        <Route path="/streams" component={Streams} />
+        <Route path="/broadcast" component={Broadcast} />
+        <Route path="/watch/:broadcasterId" component={Watch} />
         <Route exact path='/live'>
           
         </Route>
         <Route exact path='/logout'></Route>
-        <Route exact path ='/'><Landing/></Route>
+        <Route exact path='/'><Landing /></Route>
         <Route path="*" render={() => <Error />} />
       </Switch>
 
