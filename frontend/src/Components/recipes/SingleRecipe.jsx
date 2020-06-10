@@ -6,6 +6,7 @@ GROUP 7: Suzette Islam, Douglas MacKrell
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import IngredientsContainer from './IngredientsContainer';
 
 const SingleRecipe = () => {
     const [recipe, setRecipe] = useState({})
@@ -52,7 +53,8 @@ const SingleRecipe = () => {
             </div>
 
             <div className='Recipe-ingredients'>
-
+                <p>Ingredients</p>
+                <IngredientsContainer ingredients={ ingredients } />
             </div>
 
             <div className='Recipe-steps'>
