@@ -41,6 +41,16 @@ const Broadcast = () => {
     console.log("videoRef =", videoRef);
 
     useEffect(() => {
+        getEvent();
+    }, []);
+
+    useEffect(() => {
+        if (currEvent.recipe_id) {
+            handleGetRecipeDirections();
+        }
+    }, [currEvent])
+
+    useEffect(() => {
         socket.on("broadcaster", id => {
             setBroadcaster(id)
             console.log("broadcaster id:", broadcaster);
