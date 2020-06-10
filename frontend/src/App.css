@@ -25,6 +25,22 @@ html, body{
   margin-bottom: 20px;
 }
 
+.dashboard-cookbook{
+  border:2px solid black;
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  margin-bottom: 20px; 
+}
+
+.events-componentUD{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-column-start:1;
+  grid-column-end:4;
+  margin-bottom: 20px;
+}
 .api-img img{
   width: 250px;
   height:auto
