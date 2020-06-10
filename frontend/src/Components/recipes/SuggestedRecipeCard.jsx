@@ -9,8 +9,6 @@ const SuggestedRecipeCard = ({recipeName, imgSrc, id}) => {
         <Card className='api-recipe' id={id} > 
         <div className = 'api-title'><Typography variant='h5'>{recipeName}</Typography></div>
             <div className = 'api-img'><img src ={imgSrc} /></div>
-            
-            
         </Card>
         </Link>
     )
