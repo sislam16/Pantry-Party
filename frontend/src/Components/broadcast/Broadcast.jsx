@@ -52,12 +52,12 @@ const Broadcast = () => {
         }
     }, [currEvent])
 
-    useEffect(() => {
-        socket.on("broadcaster", id => {
-            setBroadcaster(id)
-            console.log("broadcaster id:", broadcaster);
-        })
-    }, [socket]);
+    // useEffect(() => {
+    //     socket.on("broadcaster", id => {
+    //         setBroadcaster(id)
+    //         console.log("broadcaster id:", broadcaster);
+    //     })
+    // }, [socket]);
 
     useEffect(() => {
         socket.on("watcher", id => {
@@ -116,10 +116,10 @@ const Broadcast = () => {
         videoRef.current.play();
     };
 
-    const handleNewBroadcaster = () => {
-        socket.emit('broadcaster', socket.id)
-        console.log("broadcaster emitted", socket.id)
-    };
+    // const handleNewBroadcaster = () => {
+    //     socket.emit('broadcaster', socket.id)
+    //     console.log("broadcaster emitted", socket.id)
+    // };
 
     const handleGetRecipeDirections = async () => {
         let recipeDirections = await (await axios.get(`/api/recipes/${currEvent.recipe_id}`)).data.payload.directions;
@@ -176,13 +176,13 @@ const Broadcast = () => {
         <div>
             <h1>Smile! You're on camera!</h1>
             <video className="video" autoPlay={true} muted ref={videoRef} onCanPlay={handleCanPlay} playsInline muted />
-            <button onClick={() => handleNewBroadcaster()}>Connect</button>
+            {/* <button onClick={() => handleNewBroadcaster()}>Connect</button> */}
             <button onClick={() => launchBroadcast()}>Start Broadcast</button>
             <button onClick={() => disconnectBroadcaster()}>Disconnect</button>
-            <h3>Viewers {numberOfViewers}</h3>
+            <h3>Viewers: {numberOfViewers}</h3>
             <DirectionsDisplay directions={ directions } stepsCounter={ stepsCounter } />
-            <button onClick={() => incrementSteps()}>Next Step</button>
             <button onClick={() => decrementSteps()}>Previous Step</button>
+            <button onClick={() => incrementSteps()}>Next Step</button>
             <p>To start a stream, first enter a publicly visible USERNAME and click CONNECT to connect to the server.</p>
             <p>Don't worry, your livestream broadcast won't be accessible until you click the START BROADCAST button!</p>
             <p>When you're done with your broadcast, click DISCONNECT to remove your stream from public view and then close your tab to close your camera!</p>
