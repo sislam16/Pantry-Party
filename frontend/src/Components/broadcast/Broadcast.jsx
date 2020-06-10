@@ -146,14 +146,13 @@ const Broadcast = () => {
 
     const launchBroadcast = async () => {
         try {
+            let broadcasterId = socket.id
             let response = await axios.patch(`/api/events/update/${eventId}`, {
                 active: true,
-                broadcaster_id: socket.id
+                broadcast_id: broadcasterId
             })
-            let broadcasterData = response.data.payload
-            socket.emit('new-broadcaster', broadcasterData)
-            console.log(broadcasterData)
-            return broadcasterData
+            socket.emit('new-broadcaster')
+            return response
         } catch (error) {
             console.log('err:', error);
         }
