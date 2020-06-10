@@ -62,7 +62,6 @@ io.sockets.on("connection", socket => {
     });
     socket.on("offer", (id, message) => {
         socket.to(id).emit("offer", socket.id, message);
-        console.log("offer sent", message)
     });
     socket.on("answer", (id, message) => {
         socket.to(id).emit("answer", socket.id, message);
@@ -70,12 +69,24 @@ io.sockets.on("connection", socket => {
     });
     socket.on("candidate", (id, message) => {
         socket.to(id).emit("candidate", socket.id, message);
-        console.log("candidate", message)
     });
     socket.on('new-broadcaster', (broadcaster) => {
         socket.broadcast.emit('active-broadcaster', broadcaster)
         console.log("active-broadcaster emitted")
     });
+    socket.on('directions-request', (broadcasterId) => {
+        console.log('directions requested from watcher')
+        socket.to(broadcasterId).emit('directions-request')
+    })
+    socket.on('directions-response', (directions, stepsCounter) => {
+        socket.broadcast.emit('directions-response', directions, stepsCounter)
+    })
+    socket.on('increment-steps', () => {
+        socket.broadcast.emit('increment-steps')
+    })
+    socket.on('decrement-steps', () => {
+        socket.broadcast.emit('decrement-steps')
+    })
     socket.on('stop-broadcaster', () => {
         socket.broadcast.emit('stop-broadcaster')
     });

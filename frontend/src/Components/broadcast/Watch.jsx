@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom'
 import useSocket from 'use-socket.io-client'
+import DirectionsDisplay from './DirectionsDisplay';
 
 const Watch = () => {
+    const [stepsCounter, setStepsCounter] = useState(0)
+    const [directions, setDirections] = useState([])
     let { broadcasterId } = useParams();
-    console.log(broadcasterId)
 
     const config = {
         iceServers: [
@@ -19,6 +21,7 @@ const Watch = () => {
 
     let peerConnection
     const videoRef = useRef();
+    let watcherId = socket.id
 
     useEffect(() => {
         socket.on("offer", (id, description) => {
@@ -55,6 +58,25 @@ const Watch = () => {
     }, [socket])
 
     useEffect(() => {
+        socket.on("directions-response", (directions, stepsCounter) =>{
+            setDirections(directions)
+            setStepsCounter(stepsCounter)
+        })
+    }, [socket]);
+
+    useEffect(() => {
+        socket.on('increment-steps', () => {
+            setStepsCounter(stepsCounter + 1)
+        })
+    })
+
+    useEffect(() => {
+        socket.on('decrement-steps', () => {
+            setStepsCounter(stepsCounter - 1)
+        })
+    })
+
+    useEffect(() => {
         socket.on("broadcastDisconnect", () => {
             peerConnection.close();
         });
@@ -70,6 +92,7 @@ const Watch = () => {
 
     const handleWatcher = () => {
         socket.emit("watcher", broadcasterId);
+        socket.emit("directions-request", broadcasterId, watcherId);
     }
 
     return (
@@ -77,6 +100,7 @@ const Watch = () => {
             <h1>Watch page</h1>
             <video className="video" autoPlay={true} ref={videoRef} />
             <button onClick={() => handleWatcher()}>Connect</button>
+            <DirectionsDisplay directions={ directions } stepsCounter={ stepsCounter } />
         </div>
     )
 }

@@ -51,18 +51,6 @@ const Broadcast = () => {
         }
     }, [currEvent])
 
-    // useEffect(() => {
-    //     if (Object.keys(peerConnections).length !== 0){
-    //         setNumberOfViewers(Object.keys(peerConnections).length);
-    //     }
-    // }, [])
-    // useEffect(() => {
-    //     socket.on("broadcaster", id => {
-    //         setBroadcaster(id)
-    //         console.log("broadcaster id:", broadcaster);
-    //     })
-    // }, [socket]);
-
     useEffect(() => {
         socket.on("watcher", id => {
             console.log("watcher received from Server")
@@ -102,6 +90,13 @@ const Broadcast = () => {
             peerConnections[id].addIceCandidate(new RTCIceCandidate(candidate));
         });
     }, [socket]);
+
+    useEffect(() => {
+        socket.on("directions-request", () =>{
+            console.log("directions request heard by broadcaster")
+            socket.emit("directions-response", directions, stepsCounter)
+        })
+    })
 
     useEffect(() => {
         // closes connection when client disconnects
