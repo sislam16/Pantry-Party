@@ -139,7 +139,7 @@ const App = () => {
           <Streams />
         </Route>
 
-        <Route exact path="/broadcast">
+        <Route exact path="/broadcast/:eventId">
           <Broadcast />
         </Route>
         <Route exact path="/watch/:broadcasterId">

@@ -41,11 +41,13 @@ const Broadcast = () => {
     console.log("videoRef =", videoRef);
 
     useEffect(() => {
+        console.log("getEvent called")
         getEvent();
     }, []);
 
     useEffect(() => {
         if (currEvent.recipe_id) {
+            console.log("handleGetRecipeDirections called")
             handleGetRecipeDirections();
         }
     }, [currEvent])
@@ -120,7 +122,7 @@ const Broadcast = () => {
     };
 
     const handleGetRecipeDirections = async () => {
-        let recipeDirections = await (await axios.get(`api/recipes/${currEvent.recipe_id}`)).data.payload.directions;
+        let recipeDirections = await (await axios.get(`/api/recipes/${currEvent.recipe_id}`)).data.payload.directions;
         let splitDirections = recipeDirections.split(",")
         setDirections(splitDirections)
         socket.emit('broadcast-directions', splitDirections)
@@ -137,7 +139,8 @@ const Broadcast = () => {
     }
 
     const getEvent = async () => {
-        let broadcastEvent = await axios.get(`api/events/${eventId}`).data.payload;
+        let broadcastEvent = await (await axios.get(`/api/events/${eventId}`)).data.payload;
+        console.log("broadcastEvent", broadcastEvent)
         setCurrEvent(broadcastEvent)
     }
 
