@@ -2,7 +2,6 @@ import React, { useState, useEffect, useParams } from 'react'
 import axios from 'axios'
 import { TextField, Button, Typography, MenuItem } from '@material-ui/core'
 import EventComponentUD from './EventsComponent'
-import { Autocomplete } from '@material-ui/lab/';
 
 const NewEvent = ({ user }) => {
     console.log('user', user)
