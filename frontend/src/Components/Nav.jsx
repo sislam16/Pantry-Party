@@ -44,6 +44,14 @@ const NavBar = ({ logoutUser, isLoggedIn }) => {
                     </IconButton>
 
                     <IconButton
+                        edge='start'
+                        color='inherit'
+                        aria-label='menu'
+                        onClick={() => { rerouteNav('streams') }}>
+                        <LiveTvIcon />
+                    </IconButton>
+                    
+                    <IconButton
                         edge="start"
                         className={classes.menuButton}
                         color="inherit"
@@ -53,13 +61,7 @@ const NavBar = ({ logoutUser, isLoggedIn }) => {
                         <SettingsIcon />
                     </IconButton>
 
-                    <IconButton
-                        edge='start'
-                        color='inherit'
-                        aria-label='menu'
-                        onClick={() => { rerouteNav('streams') }}>
-                        <LiveTvIcon />
-                    </IconButton>
+
 
                     <IconButton
                         edge="start"
