@@ -5,8 +5,8 @@ import DirectionsDisplay from './DirectionsDisplay';
 
 const Watch = () => {
     const [stepsCounter, setStepsCounter] = useState(0)
+    const [directions, setDirections] = useState([])
     let { broadcasterId } = useParams();
-    console.log(broadcasterId)
 
     const config = {
         iceServers: [
@@ -21,6 +21,7 @@ const Watch = () => {
 
     let peerConnection
     const videoRef = useRef();
+    let watcherId = socket.id
 
     useEffect(() => {
         socket.on("offer", (id, description) => {
@@ -57,6 +58,25 @@ const Watch = () => {
     }, [socket])
 
     useEffect(() => {
+        socket.on("directions-response", (directions, stepsCounter) =>{
+            setDirections(directions)
+            setStepsCounter(stepsCounter)
+        })
+    }, [socket]);
+
+    useEffect(() => {
+        socket.on('increment-steps', () => {
+            setStepsCounter(stepsCounter + 1)
+        })
+    })
+
+    useEffect(() => {
+        socket.on('decrement-steps', () => {
+            setStepsCounter(stepsCounter - 1)
+        })
+    })
+
+    useEffect(() => {
         socket.on("broadcastDisconnect", () => {
             peerConnection.close();
         });
@@ -72,6 +92,7 @@ const Watch = () => {
 
     const handleWatcher = () => {
         socket.emit("watcher", broadcasterId);
+        socket.emit("directions-request", broadcasterId, watcherId);
     }
 
     return (
