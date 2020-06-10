@@ -15,7 +15,7 @@ const UserDashCookbook = ({ user }) => {
             let cookbookRecipes = data.payload
             setCookbookArr(cookbookRecipes)
         }
-        // getRecipeFromCookbook()
+        getRecipeFromCookbook()
     }, [])
 
   
@@ -38,6 +38,7 @@ const UserDashCookbook = ({ user }) => {
         return (
             <div className='dashboard-cookbook'>
                 {cookbookThumbnail}
+                <Link to='/cookbook/new'><Button>Add a Recipe</Button></Link>
             </div>
         )
 
