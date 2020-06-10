@@ -193,9 +193,9 @@ INSERT INTO ingredients (ingredient_name, amount, measurement, recipe_id)
         ('Basi', '3-4', 'leafs', 7);
 
 INSERT INTO events (event_name, user_id, event_date, event_description, recipe_id, active, broadcast_id)
-    VALUES ('hey', 1, '2020-04-04', 'cooking with friends', 1, true, '1234'), 
-        ('why', 2, '2020-03-04', 'cooking with friends', 2, true, '2345'),
-        ('omg', 3, '2020-01-04', 'cooking with parents', 3, true, '3456'),
+    VALUES ('Tomato Sauce Night', 1, '2020-04-04', 'Cooking my favorite tomato sauce recipe with friends', 1, true, '1234'), 
+        ('How To Make The Best Chili Mac n''Cheese', 2, '2020-03-04', 'Learn every step from a pro!', 2, true, '2345'),
+        ('Buffalo Chicken Stuffed Peppers', 3, '2020-01-04', 'Warning! I make them super spicy!', 3, true, '3456'),
         ('no', 1, '2020-03-04', 'cooking with friends', 1, false, null), 
         ('hey', 2, '2020-02-04', 'cooking with friends', 2, false, null);
 
