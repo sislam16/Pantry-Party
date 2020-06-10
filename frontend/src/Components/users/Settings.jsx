@@ -11,9 +11,8 @@ const Settings = ({ user }) => {
 
     const handleUpdate = async () => {
         console.log('update info')
-        // let user_id = user.id
         try {
-            let updateInfo = await axios.patch(`/api/users/update/info`, [username, firstname, lastname, bio])
+            let updateInfo = await axios.patch(`/api/users/update/info/`, {username, firstname, lastname, bio})
             console.log(updateInfo)
             setEdit(false)
         } catch (error) {
