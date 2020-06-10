@@ -9,10 +9,12 @@ import { useParams } from 'react-router-dom';
 
 const SingleRecipe = () => {
     const [recipe, setRecipe] = useState({})
+    const [ingredients, setIngredients] = useState([])
+    const [hashtags, setHashtags] = useState([])
     const { recipe_id } = useParams()
 
     useEffect(() => {
-        const displayRecipe = async () => {
+        const fetchRecipe = async () => {
             try {
                 let { data } = await axios.get(`/api/recipes/full/${recipe_id}`)
                 console.log(data.payload)
@@ -24,7 +26,17 @@ const SingleRecipe = () => {
                 console.log(error)
             }
         }
-        displayRecipe();
+        const bundleIngredients = () => {
+            recipeIngredients = recipe.payload[1];
+            setIngredients(recipeIngredients);
+        }
+        const bundleHashtags = () => {
+            recipeHashtags = recipe.payload[2];
+            setHashtags(recipeHashtags);
+        }
+        fetchRecipe();
+        bundleIngredients();
+        bundleHashtags();
     }, [])
 
 
