@@ -186,9 +186,8 @@ const Broadcast = () => {
             <DirectionsDisplay directions={directions} stepsCounter={stepsCounter} />
             <button onClick={() => decrementSteps()}>Previous Step</button>
             <button onClick={() => incrementSteps()}>Next Step</button>
-            <p>To start a stream, first enter a publicly visible USERNAME and click CONNECT to connect to the server.</p>
-            <p>Don't worry, your livestream broadcast won't be accessible until you click the START BROADCAST button!</p>
-            <p>When you're done with your broadcast, click DISCONNECT to remove your stream from public view and then close your tab to close your camera!</p>
+            <p>Don't worry, your live stream broadcast won't be accessible until you click the START BROADCAST button!</p>
+            <p>When you're done with your broadcast, click DISCONNECT to remove your stream from public view, and then close your tab to close your camera!</p>
         </div>
     )
 }
