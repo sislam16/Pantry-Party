@@ -7,7 +7,6 @@ import useUserMedia from './useUserMedia'
 import DirectionsDisplay from './DirectionsDisplay';
 
 const Broadcast = () => {
-    const [broadcaster, setBroadcaster] = useState('');
     const [currEvent, setCurrEvent] = useState({})
     const [directions, setDirections] = useState([])
     const [stepsCounter, setStepsCounter] = useState(0)
@@ -53,6 +52,11 @@ const Broadcast = () => {
     }, [currEvent])
 
     // useEffect(() => {
+    //     if (Object.keys(peerConnections).length !== 0){
+    //         setNumberOfViewers(Object.keys(peerConnections).length);
+    //     }
+    // }, [])
+    // useEffect(() => {
     //     socket.on("broadcaster", id => {
     //         setBroadcaster(id)
     //         console.log("broadcaster id:", broadcaster);
@@ -82,6 +86,8 @@ const Broadcast = () => {
                 .then(() => {
                     socket.emit("offer", id, peerConnection.localDescription);
                 });
+                
+            setNumberOfViewers(Object.keys(peerConnections).length)
         });
     }, [socket]);
 
@@ -93,8 +99,6 @@ const Broadcast = () => {
 
     useEffect(() => {
         socket.on("candidate", (id, candidate) => {
-            let updatedViewersNum = numberOfViewers + 1
-            setNumberOfViewers(updatedViewersNum)
             peerConnections[id].addIceCandidate(new RTCIceCandidate(candidate));
         });
     }, [socket]);
@@ -160,8 +164,8 @@ const Broadcast = () => {
 
     const disconnectBroadcaster = async () => {
         try {
-            let offTheAir = await axios.patch(`/api/broadcasters/${broadcaster}`, {
-                broadcaster_active: "false"
+            let offTheAir = await axios.patch(`/api/events/update/${eventId}`, {
+                active: false
             })
             socket.emit('stop-broadcaster')
             console.log(offTheAir)
@@ -179,7 +183,7 @@ const Broadcast = () => {
             <button onClick={() => launchBroadcast()}>Start Broadcast</button>
             <button onClick={() => disconnectBroadcaster()}>Disconnect</button>
             <h3>Viewers: {numberOfViewers}</h3>
-            <DirectionsDisplay directions={ directions } stepsCounter={ stepsCounter } />
+            <DirectionsDisplay directions={directions} stepsCounter={stepsCounter} />
             <button onClick={() => decrementSteps()}>Previous Step</button>
             <button onClick={() => incrementSteps()}>Next Step</button>
             <p>To start a stream, first enter a publicly visible USERNAME and click CONNECT to connect to the server.</p>
