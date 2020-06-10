@@ -76,6 +76,9 @@ io.sockets.on("connection", socket => {
         socket.broadcast.emit('active-broadcaster', broadcaster)
         console.log("active-broadcaster emitted")
     });
+    socket.on('stop-broadcaster', () => {
+        socket.broadcast.emit('stop-broadcaster')
+    });
     socket.on('disconnectPeer', () => {
         socket.emit('disconnectPeer')
     });

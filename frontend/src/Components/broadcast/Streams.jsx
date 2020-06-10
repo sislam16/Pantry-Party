@@ -12,14 +12,15 @@ const Streams = () => {
 
     useEffect(() => {
         socket.on('active-broadcaster', () => {
-            // console.log("active-broadcaster emitted")
-            // console.log("broadcasters active-broadcasters", broadcasters)
-            // console.log("broadcaster active-broadcasters", broadcaster)
-            // let broadcastersCopy = [...broadcasters, broadcaster]
-            // setBroadcasters(broadcastersCopy);
             findActiveStreams();
         })
-    }, [socket, broadcasters])
+    }, [socket])
+
+    useEffect(() => {
+        socket.on('stop-broadcaster', () => {
+            findActiveStreams();
+        })
+    }, [socket])
 
     const findActiveStreams = async () => {
         console.log("findActiveStreams called")

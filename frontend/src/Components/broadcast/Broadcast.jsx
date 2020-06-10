@@ -157,7 +157,7 @@ const Broadcast = () => {
         try {
             let broadcasterId = socket.id
             let response = await axios.patch(`/api/events/update/${eventId}`, {
-                active: true,
+                active: 'true',
                 broadcast_id: broadcasterId
             })
             socket.emit('new-broadcaster')
@@ -170,7 +170,7 @@ const Broadcast = () => {
     const disconnectBroadcaster = async () => {
         try {
             let offTheAir = await axios.patch(`/api/events/update/${eventId}`, {
-                active: false
+                active: 'false'
             })
             socket.emit('stop-broadcaster')
             console.log(offTheAir)
