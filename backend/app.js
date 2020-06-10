@@ -75,7 +75,16 @@ io.sockets.on("connection", socket => {
     socket.on('new-broadcaster', (broadcaster) => {
         socket.broadcast.emit('active-broadcaster', broadcaster)
         console.log("active-broadcaster emitted")
-    })
+    });
+    socket.on('stop-broadcaster', () => {
+        socket.broadcast.emit('stop-broadcaster')
+    });
+    socket.on('disconnectPeer', () => {
+        socket.emit('disconnectPeer')
+    });
+    socket.on('broadcastDisconnect', () => {
+        socket.emit('broadcastDisconnect')
+    });
     socket.on('new message', data => {
         console.log(data.room);
         socket.broadcast

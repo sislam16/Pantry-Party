@@ -46,7 +46,7 @@ const updateSingleEvent = async(event) => {
         if (event_date) {
             patchQuery += `event_date = $/event_date/,`
         }
-        if (recipe_info) {
+        if (recipe_id) {
             patchQuery += `recipe_id = $/recipe_id/,`
         }
         if (active) {

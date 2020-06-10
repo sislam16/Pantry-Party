@@ -7,7 +7,6 @@ import useUserMedia from './useUserMedia'
 import DirectionsDisplay from './DirectionsDisplay';
 
 const Broadcast = () => {
-    const [broadcaster, setBroadcaster] = useState('');
     const [currEvent, setCurrEvent] = useState({})
     const [directions, setDirections] = useState([])
     const [stepsCounter, setStepsCounter] = useState(0)
@@ -41,11 +40,28 @@ const Broadcast = () => {
     console.log("videoRef =", videoRef);
 
     useEffect(() => {
-        socket.on("broadcaster", id => {
-            setBroadcaster(id)
-            console.log("broadcaster id:", broadcaster);
-        })
-    }, [socket]);
+        console.log("getEvent called")
+        getEvent();
+    }, []);
+
+    useEffect(() => {
+        if (currEvent.recipe_id) {
+            console.log("handleGetRecipeDirections called")
+            handleGetRecipeDirections();
+        }
+    }, [currEvent])
+
+    // useEffect(() => {
+    //     if (Object.keys(peerConnections).length !== 0){
+    //         setNumberOfViewers(Object.keys(peerConnections).length);
+    //     }
+    // }, [])
+    // useEffect(() => {
+    //     socket.on("broadcaster", id => {
+    //         setBroadcaster(id)
+    //         console.log("broadcaster id:", broadcaster);
+    //     })
+    // }, [socket]);
 
     useEffect(() => {
         socket.on("watcher", id => {
@@ -70,6 +86,8 @@ const Broadcast = () => {
                 .then(() => {
                     socket.emit("offer", id, peerConnection.localDescription);
                 });
+
+            setNumberOfViewers(Object.keys(peerConnections).length)
         });
     }, [socket]);
 
@@ -81,8 +99,6 @@ const Broadcast = () => {
 
     useEffect(() => {
         socket.on("candidate", (id, candidate) => {
-            let updatedViewersNum = numberOfViewers + 1
-            setNumberOfViewers(updatedViewersNum)
             peerConnections[id].addIceCandidate(new RTCIceCandidate(candidate));
         });
     }, [socket]);
@@ -90,27 +106,32 @@ const Broadcast = () => {
     useEffect(() => {
         // closes connection when client disconnects
         socket.on("disconnectPeer", id => {
-            setNumberOfViewers(numberOfViewers - 1);
+            console.log("disconnectPeer triggered")
             peerConnections[id].close();
             delete peerConnections[id];
+            setNumberOfViewers(Object.keys(peerConnections).length);
         });
+    }, [socket]);
+
+    useEffect(() => {
         // close the socket if the user closes the window
         window.onunload = window.onbeforeunload = () => {
             socket.close();
+            socket.emit('disconnectBroadcaster')
         };
-    }, [socket, window]);
+    }, [window])
 
     const handleCanPlay = () => {
         videoRef.current.play();
     };
 
-    const handleNewBroadcaster = () => {
-        socket.emit('broadcaster', socket.id)
-        console.log("broadcaster emitted", socket.id)
-    };
+    // const handleNewBroadcaster = () => {
+    //     socket.emit('broadcaster', socket.id)
+    //     console.log("broadcaster emitted", socket.id)
+    // };
 
     const handleGetRecipeDirections = async () => {
-        let recipeDirections = await (await axios.get(`api/recipes/${currEvent.recipe_id}`)).data.payload.directions;
+        let recipeDirections = await (await axios.get(`/api/recipes/${currEvent.recipe_id}`)).data.payload.directions;
         let splitDirections = recipeDirections.split(",")
         setDirections(splitDirections)
         socket.emit('broadcast-directions', splitDirections)
@@ -127,20 +148,20 @@ const Broadcast = () => {
     }
 
     const getEvent = async () => {
-        let broadcastEvent = await axios.get(`api/events/${eventId}`).data.payload;
+        let broadcastEvent = await (await axios.get(`/api/events/${eventId}`)).data.payload;
+        console.log("broadcastEvent", broadcastEvent)
         setCurrEvent(broadcastEvent)
     }
 
     const launchBroadcast = async () => {
         try {
+            let broadcasterId = socket.id
             let response = await axios.patch(`/api/events/update/${eventId}`, {
-                active: true,
-                broadcaster_id: socket.id
+                active: 'true',
+                broadcast_id: broadcasterId
             })
-            let broadcasterData = response.data.payload
-            socket.emit('new-broadcaster', broadcasterData)
-            console.log(broadcasterData)
-            return broadcasterData
+            socket.emit('new-broadcaster')
+            return response
         } catch (error) {
             console.log('err:', error);
         }
@@ -148,8 +169,8 @@ const Broadcast = () => {
 
     const disconnectBroadcaster = async () => {
         try {
-            let offTheAir = await axios.patch(`/api/broadcasters/${broadcaster}`, {
-                broadcaster_active: "false"
+            let offTheAir = await axios.patch(`/api/events/update/${eventId}`, {
+                active: 'false'
             })
             socket.emit('stop-broadcaster')
             console.log(offTheAir)
@@ -163,13 +184,13 @@ const Broadcast = () => {
         <div>
             <h1>Smile! You're on camera!</h1>
             <video className="video" autoPlay={true} muted ref={videoRef} onCanPlay={handleCanPlay} playsInline muted />
-            <button onClick={() => handleNewBroadcaster()}>Connect</button>
+            {/* <button onClick={() => handleNewBroadcaster()}>Connect</button> */}
             <button onClick={() => launchBroadcast()}>Start Broadcast</button>
             <button onClick={() => disconnectBroadcaster()}>Disconnect</button>
-            <h3>Viewers {numberOfViewers}</h3>
-            <DirectionsDisplay directions={ directions } stepsCounter={ stepsCounter } />
-            <button onClick={() => incrementSteps()}>Next Step</button>
+            <h3>Viewers: {numberOfViewers}</h3>
+            <DirectionsDisplay directions={directions} stepsCounter={stepsCounter} />
             <button onClick={() => decrementSteps()}>Previous Step</button>
+            <button onClick={() => incrementSteps()}>Next Step</button>
             <p>To start a stream, first enter a publicly visible USERNAME and click CONNECT to connect to the server.</p>
             <p>Don't worry, your livestream broadcast won't be accessible until you click the START BROADCAST button!</p>
             <p>When you're done with your broadcast, click DISCONNECT to remove your stream from public view and then close your tab to close your camera!</p>
