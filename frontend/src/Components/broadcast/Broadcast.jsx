@@ -4,10 +4,13 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios';
 
 import useUserMedia from './useUserMedia'
+import DirectionsDisplay from './DirectionsDisplay';
 
 const Broadcast = () => {
     const [broadcaster, setBroadcaster] = useState('');
-    const [name, setName] = useState('');
+    const [currEvent, setCurrEvent] = useState({})
+    const [directions, setDirections] = useState([])
+    const [stepsCounter, setStepsCounter] = useState(0)
     const [peerConnections, setPeerConnections] = useState({});
     const [numberOfViewers, setNumberOfViewers] = useState(0)
     const [constraints, setConstraints] = useState({
@@ -106,6 +109,28 @@ const Broadcast = () => {
         console.log("broadcaster emitted", socket.id)
     };
 
+    const handleGetRecipeDirections = async () => {
+        let recipeDirections = await (await axios.get(`api/recipes/${currEvent.recipe_id}`)).data.payload.directions;
+        let splitDirections = recipeDirections.split(",")
+        setDirections(splitDirections)
+        socket.emit('broadcast-directions', splitDirections)
+    }
+
+    const incrementSteps = () => {
+        setStepsCounter(stepsCounter + 1)
+        socket.emit('increment-steps')
+    }
+
+    const decrementSteps = () => {
+        setStepsCounter(stepsCounter - 1)
+        socket.emit('decrement-steps')
+    }
+
+    const getEvent = async () => {
+        let broadcastEvent = await axios.get(`api/events/${eventId}`).data.payload;
+        setCurrEvent(broadcastEvent)
+    }
+
     const launchBroadcast = async () => {
         try {
             let response = await axios.patch(`/api/events/update/${eventId}`, {
@@ -138,13 +163,13 @@ const Broadcast = () => {
         <div>
             <h1>Smile! You're on camera!</h1>
             <video className="video" autoPlay={true} muted ref={videoRef} onCanPlay={handleCanPlay} playsInline muted />
-            <div>
-                <input placeholder="Enter your username" className="joinInput" type="text" onChange={(event) => setName(event.target.value)} />
-            </div>
             <button onClick={() => handleNewBroadcaster()}>Connect</button>
-            <button onClick={(e) => (!name) ? e.preventDefault : launchBroadcast()}>Start Broadcast</button>
+            <button onClick={() => launchBroadcast()}>Start Broadcast</button>
             <button onClick={() => disconnectBroadcaster()}>Disconnect</button>
             <h3>Viewers {numberOfViewers}</h3>
+            <DirectionsDisplay directions={ directions } stepsCounter={ stepsCounter } />
+            <button onClick={() => incrementSteps()}>Next Step</button>
+            <button onClick={() => decrementSteps()}>Previous Step</button>
             <p>To start a stream, first enter a publicly visible USERNAME and click CONNECT to connect to the server.</p>
             <p>Don't worry, your livestream broadcast won't be accessible until you click the START BROADCAST button!</p>
             <p>When you're done with your broadcast, click DISCONNECT to remove your stream from public view and then close your tab to close your camera!</p>
