@@ -7,7 +7,7 @@ const LinksContainer = ({ broadcasters }) => {
         // console.log("linksContainer", broadcasters)
         for (let broadcaster of broadcasters){
             // console.log("broadcaster", broadcaster)
-            links.push(<BroadcasterLink broadcaster={broadcaster} key={broadcaster.socket_id} />)
+            links.push(<BroadcasterLink broadcaster={broadcaster} key={broadcaster.id} />)
         }
         return <ul className="links-container" >{ links }</ul>
     }

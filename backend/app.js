@@ -5,7 +5,6 @@ const logger = require('morgan');
 const session = require('express-session');
 const passport = require('./auth/passport');
 
-
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const eventsRouter = require('./routes/events');
@@ -14,11 +13,17 @@ var recipesRouter = require('./routes/recipes');
 var ingredientsRouter = require('./routes/ingredients');
 var hashtagsRouter = require('./routes/hashtags');
 
+var port = Number(process.env.PORT) || '3001';
 
 const app = express();
+
+var cors = require('cors')
+app.use(cors())
+
 const http = require("http");
 const server = http.createServer(app);
 const io = require("socket.io")(server, { origins: '*:*' });
+;
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -26,8 +31,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser('NOT_A_GOOD_SECRET'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-    secret:'NOT_A_GOOD_SECRET', 
-    resave: false, 
+    secret: 'NOT_A_GOOD_SECRET',
+    resave: false,
     saveUninitialized: true
 })
 );
@@ -88,5 +93,7 @@ io.sockets.on("connection", socket => {
         socket.leave(data.room)
     });
 });
+
+server.listen(port, () => console.log(`Server is running on port ${port}`));
 
 module.exports = app;
