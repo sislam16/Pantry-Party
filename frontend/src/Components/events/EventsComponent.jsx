@@ -10,7 +10,7 @@ const EventComponentUD = ({user}) => {
         const getEvents = async () => {
             let user_id = user.id
             try {
-                let { data } = await axios.get(`/events/user/${user_id}`)
+                let { data } = await axios.get(`/api/events/user/${user_id}`)
                 let events = data.payload
                 setEventsArr(events)
                 console.log(eventsArr)
@@ -18,7 +18,7 @@ const EventComponentUD = ({user}) => {
                 console.log(error)
             }
         }
-        // getEvents()
+        getEvents();
     }, [])
 
     const eventsThumbnail = eventsArr.map(el=>(
