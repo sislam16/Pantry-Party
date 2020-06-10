@@ -25,7 +25,6 @@ const createIngredient = async (bodyObj) => {
         RETURNING *;`;
 
     let recipe = await db.one(postQuery, [bodyObj.ingredient_name, bodyObj.amount, bodyObj.measurement, bodyObj.recipe_id]);
-
     return recipe
 }
 
