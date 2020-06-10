@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useParams } from 'react'
 import axios from 'axios'
+import {useHistory} from 'react-router-dom'
 import { TextField, Button, Typography, MenuItem } from '@material-ui/core'
 import EventComponentUD from './EventsComponent'
 
 const NewEvent = ({ user }) => {
-    console.log('user', user)
-    // const [eventsArr, setEventsArr] = useState([])
+    const history = useHistory()
+
     const [event_name, setEventName] = useState('')
     const [event_date, setEventDate] = useState('')
     const [event_description, setEventDescription] = useState('')
@@ -37,8 +38,6 @@ const NewEvent = ({ user }) => {
             return newArr
             
     }
-    console.log(cookbookArr)
-
 
     const createNewEvent = async (e) => {
         console.log('here')
@@ -53,15 +52,15 @@ const NewEvent = ({ user }) => {
             }
             let response = await axios.post(`/api/events/new`, bodyObj)
             let event = response.data.payload
-            setNewEvent(event)
+            history.push('/home')
         } catch (error) {
             console.log('error:', error)
         }
     }
+
     const handleChange = (e) =>{
         e.preventDefault()
         setRecipeId(e.target.value)
-        console.log(e.target.value)
     }
 
     return (
