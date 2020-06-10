@@ -44,7 +44,30 @@ const createRecipe = async (bodyObj) => {
         RETURNING *;`;
 
     let recipe = await db.one(postQuery, [bodyObj.user_id, bodyObj.recipe_name, bodyObj.directions, bodyObj.recipe_img, bodyObj.recipe_active, bodyObj.recipe_public]);
+    
+    const promises = []
+console.log('/n/n')
+    let ingredients = bodyObj.ingredients
+    ingredients.forEach(el => {
+        const bodyObj = {
+            ingredient_name: el.ingredient, 
+            amount: el.amount, 
+            measurement: el.measure, 
+            recipe_id: recipe.id
+        }
+        promises.push(ingredientsQueries.createIngredient(bodyObj))
+    })
 
+    let hashtags = bodyObj.hashtags
+    hashtags.forEach(el =>{
+        const bodyObj = {
+            tag_body: el, 
+            recipe_id: recipe.id
+        }
+        promises.push(hashtagsQueries.createHashtag(bodyObj))
+    })
+    await Promise.all(promises)
+    
     return recipe
 }
 

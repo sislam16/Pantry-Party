@@ -51,21 +51,26 @@ router.get("/user/:user_id", async (req, res, next) => {
 });
 
 // createRecipe: create a new core recipe instance
-router.post("/new/:user_id", async (req, res, next) => {
+router.post("/new", async (req, res, next) => {
     try {
-        const user_id = req.params.user_id;
+        const user_id = req.user.id;
         const recipe_name = req.body.recipe_name;
         const directions = req.body.directions;
         const recipe_img = req.body.recipe_img;
-        const recipe_active = req.body.recipe_active;
-        const recipe_public = req.body.recipe_public;
+        const recipe_active = req.body.recipe_active; // add to frontend
+        const recipe_public = req.body.recipe_public; //add to frontend
+        const ingredients = req.body.ingredients
+        const hashtags = req.body.hashtags
+
         const response = await recipesQueries.createRecipe({
             user_id: user_id,
             recipe_name: recipe_name,
             directions: directions,
             recipe_img: recipe_img,
             recipe_active: recipe_active,
-            recipe_public: recipe_public
+            recipe_public: recipe_public,
+            ingredients: ingredients, 
+            hashtags: hashtags
         });
         res.json({
             status: "success",
@@ -73,6 +78,7 @@ router.post("/new/:user_id", async (req, res, next) => {
             payload: response
         });
     } catch (err) {
+        console.log(err)
         res.json({
             status: "failure",
             message: "Oops! All Errors!",

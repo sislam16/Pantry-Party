@@ -21,9 +21,7 @@ const createHashtag = async (bodyObj) => {
             recipe_id
         ) VALUES ($1, $2)
         RETURNING *;`;
-
     let recipe = await db.one(postQuery, [bodyObj.tag_body, bodyObj.recipe_id]);
-
     return recipe
 }
 
