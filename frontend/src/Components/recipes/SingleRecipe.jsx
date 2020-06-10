@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import IngredientsContainer from './IngredientsContainer';
+import HashtagsContainer from './HashtagsContainer';
 
 const SingleRecipe = () => {
     const [recipe, setRecipe] = useState({})
@@ -68,7 +69,8 @@ const SingleRecipe = () => {
             </div>
 
             <div className='Recipe-hashtags'>
-
+                <p>Hashtags</p>
+                <HashtagsContainer hashtags={ hashtags } />
             </div>
         </div>
     )
