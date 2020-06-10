@@ -1,8 +1,6 @@
 import React from 'react'
 import axios from 'axios';
 
-//do axios call to get all info about the user 
-
 const UserPublic = ({ user }) => {
 
     return (
