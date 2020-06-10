@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom'
 import useSocket from 'use-socket.io-client'
+import DirectionsDisplay from './DirectionsDisplay';
 
 const Watch = () => {
+    const [stepsCounter, setStepsCounter] = useState(0)
     let { broadcasterId } = useParams();
     console.log(broadcasterId)
 
@@ -77,6 +79,7 @@ const Watch = () => {
             <h1>Watch page</h1>
             <video className="video" autoPlay={true} ref={videoRef} />
             <button onClick={() => handleWatcher()}>Connect</button>
+            <DirectionsDisplay directions={ directions } stepsCounter={ stepsCounter } />
         </div>
     )
 }

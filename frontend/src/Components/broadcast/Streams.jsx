@@ -41,9 +41,6 @@ const Streams = () => {
             <div className="Join-InnerContainer">
                 <h1 className="heading">It's Pantry Party Time!</h1>
                 <h3>Available live streams are listed below!</h3>
-                {/* <Link to={`/broadcast`}>
-                    <button className={'button mt-20'} type="submit">Start Broadcasting</button>
-                </Link> */}
                 <div>
                     <LinksContainer broadcasters={ broadcasters } />
                 </div>
