@@ -7,7 +7,7 @@ const HashtagsContainer = ({ hashtags }) => {
         for (let hashtag of hashtags){
             hashtagsArr.push(<Hashtag hashtag={hashtag} key={hashtag.id} />)
         }
-        return <ul className="hashtags-container" >{ hashtags }</ul>
+        return <ul className="hashtags-container" >{ hashtagsArr }</ul>
     }
     return <p>No Hashtags</p>
 }

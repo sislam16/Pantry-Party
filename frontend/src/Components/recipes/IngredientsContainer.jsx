@@ -7,7 +7,7 @@ const IngredientsContainer = ({ ingredients }) => {
         for (let ingredient of ingredients){
             ingredientsArr.push(<Ingredient ingredient={ingredient} key={ingredient.id} />)
         }
-        return <ul className="ingredients-container" >{ links }</ul>
+        return <ul className="ingredients-container" >{ ingredientsArr }</ul>
     }
     return <p>No Ingredients</p>
 }
