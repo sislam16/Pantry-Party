@@ -67,10 +67,10 @@ CREATE TABLE notifications (
 
 -- SEED DATA
 
-INSERT INTO users (firstname, lastname, email, password)
-    VALUES ('Suzette', 'Islam', 'suzette@gmail.com', '123ok'), 
-            ('Maliq', 'Taylor', 'maliq@gmail.com', 'ok123'),
-            ('Douglas', 'MacKrell', 'douglas@gmail.com', 'ok123');
+INSERT INTO users (firstname, lastname, email, username, password)
+    VALUES ('Suzette', 'Islam', 'suzette@gmail.com', 'Suzette!', '123ok'), 
+            ('Maliq', 'Taylor', 'maliq@gmail.com', 'PowerHouse93', 'ok123'),
+            ('Douglas', 'MacKrell', 'douglas@gmail.com', 'DouglasMacKrell', 'ok123');
 
 
 INSERT INTO followers (followed_id, follower_id)
