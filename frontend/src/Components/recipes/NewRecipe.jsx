@@ -15,7 +15,6 @@ const NewRecipe = () => {
     const [hashtags, setHashtags] = useState('')
 
     const handleSubmit = async () => {
-        console.log('here')
         // e.preventDefault()
         let bodyObj = {
             recipe_name: recipe_name,
