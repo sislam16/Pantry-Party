@@ -12,6 +12,7 @@ const SingleRecipe = () => {
     const [recipe, setRecipe] = useState({})
     const [ingredients, setIngredients] = useState([])
     const [hashtags, setHashtags] = useState([])
+    const [directions, setDirections] = useState([])
     const { recipe_id } = useParams()
 
     useEffect(() => {
@@ -28,16 +29,21 @@ const SingleRecipe = () => {
             }
         }
         const bundleIngredients = () => {
-            recipeIngredients = recipe.payload[1];
+            recipeIngredients = recipe[1];
             setIngredients(recipeIngredients);
         }
         const bundleHashtags = () => {
-            recipeHashtags = recipe.payload[2];
+            recipeHashtags = recipe[2];
             setHashtags(recipeHashtags);
+        }
+        const splitDirections = () => {
+            directionsStr = recipe[0].directions;
+            setDirections(directionsStr.split(","))
         }
         fetchRecipe();
         bundleIngredients();
         bundleHashtags();
+        splitDirections();
     }, [])
 
 
