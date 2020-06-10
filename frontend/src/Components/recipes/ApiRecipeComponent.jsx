@@ -3,7 +3,6 @@ import axios from 'axios'
 import SuggestedRecipeCard from './SuggestedRecipeCard'
 
 const ApiRecipesComponent =({user }) =>{
-    
         // similar to component did mount
     const [recipeArr, setRecipeArr] = useState([])
         useEffect(() => {
