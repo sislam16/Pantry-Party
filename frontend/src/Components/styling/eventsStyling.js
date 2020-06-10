@@ -28,8 +28,4 @@ export const eventStyles = makeStyles((theme) => ({
             }
         }
     },
-    link: {
-        color: 'white',
-            textDecoration: 'none',
-    }
 }))
