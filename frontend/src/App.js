@@ -128,6 +128,9 @@ const App = () => {
             user={user}
           />
         </Route>
+        <Route exact path = '/cookbook'>
+          
+        </Route>
         <Route exact path='/cookbook/new'>
           <NewRecipe
             user={user}

@@ -27,7 +27,7 @@ const createNewEvent = async (event) =>{
         recipe_id) 
     VALUES ($1, $2, $3, $4, $5)
     RETURNING *;`
-    return await db.none(insertQuery, [event.user_id, event.event_name, event.event_date, event.event_description, event.recipe_id])
+    return await db.one(insertQuery, [event.user_id, event.event_name, event.event_date, event.event_description, event.recipe_id])
 }
 
 const updateSingleEvent = async(event) => {
