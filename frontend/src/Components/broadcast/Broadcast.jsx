@@ -86,7 +86,7 @@ const Broadcast = () => {
                 .then(() => {
                     socket.emit("offer", id, peerConnection.localDescription);
                 });
-                
+
             setNumberOfViewers(Object.keys(peerConnections).length)
         });
     }, [socket]);
@@ -106,15 +106,20 @@ const Broadcast = () => {
     useEffect(() => {
         // closes connection when client disconnects
         socket.on("disconnectPeer", id => {
-            setNumberOfViewers(numberOfViewers - 1);
+            console.log("disconnectPeer triggered")
             peerConnections[id].close();
             delete peerConnections[id];
+            setNumberOfViewers(Object.keys(peerConnections).length);
         });
+    }, [socket]);
+
+    useEffect(() => {
         // close the socket if the user closes the window
         window.onunload = window.onbeforeunload = () => {
             socket.close();
+            socket.emit('disconnectBroadcaster')
         };
-    }, [socket, window]);
+    }, [window])
 
     const handleCanPlay = () => {
         videoRef.current.play();
