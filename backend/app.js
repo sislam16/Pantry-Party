@@ -27,8 +27,9 @@ const io = require("socket.io")(server, { origins: '*:*' });
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser('NOT_A_GOOD_SECRET'));
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     secret: 'NOT_A_GOOD_SECRET',
@@ -46,6 +47,10 @@ app.use('/api/events', eventsRouter);
 app.use('/api/recipes', recipesRouter);
 app.use('/api/ingredients', ingredientsRouter);
 app.use('/api/hashtags', hashtagsRouter);
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
+});
 
 io.sockets.on("error", e => console.log(e));
 

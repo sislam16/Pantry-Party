@@ -1,6 +1,3 @@
-DROP DATABASE IF EXISTS pantry_party;
-CREATE DATABASE pantry_party;
-\c pantry_party;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY, 
@@ -12,7 +9,7 @@ CREATE TABLE users (
     avatar VARCHAR, 
     bio VARCHAR, 
     history VARCHAR, 
-    active BOOLEAN 
+    active BOOLEAN DEFAULT TRUE
 );
 
 CREATE TABLE followers (
@@ -68,7 +65,7 @@ CREATE TABLE notifications (
 -- SEED DATA
 
 INSERT INTO users (firstname, lastname, email, username, password)
-    VALUES ('Suzette', 'Islam', 'suzette@gmail.com', 'Suzette!', '123ok'), 
+    VALUES ('Suzette', 'Islam', 'suzette@gmail.com', 'Suzette!', '$2b$12$4bv5wP91yYEN2RmAwjf0IOLeK01mhOeTxgRxc5AidfvbltxPPe9fy'), 
             ('Maliq', 'Taylor', 'maliq@gmail.com', 'PowerHouse93', 'ok123'),
             ('Douglas', 'MacKrell', 'douglas@gmail.com', 'DouglasMacKrell', 'ok123');
 

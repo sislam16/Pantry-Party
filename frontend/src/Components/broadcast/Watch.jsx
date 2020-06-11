@@ -16,7 +16,7 @@ const Watch = () => {
         ]
     };
 
-    const ENDPOINT = "http://127.0.0.1:3001";
+    const ENDPOINT = "https://pantry-party.herokuapp.com/";
     const [socket] = useSocket(ENDPOINT);
 
     let peerConnection
