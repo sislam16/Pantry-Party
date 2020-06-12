@@ -99,7 +99,7 @@ const Watch = () => {
     return (
         <Container>
         <div>
-            <Typography variant='h3' style={{fontWeight:'bold'}}>Watch page</Typography><br/>
+            <Typography variant='h3' style={{fontWeight:'bold', color:'#ed7902', marginTop:'20px'}}>Watch live!</Typography><br/>
             <video className="video" autoPlay={true} ref={videoRef} /><br/>
             <Button onClick={() => handleWatcher()}>Connect</Button><br/>
             <DirectionsDisplay directions={ directions } stepsCounter={ stepsCounter } />
