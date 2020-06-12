@@ -41,6 +41,15 @@ html, body{
   margin-bottom: 20px;
 }
 
+.cookbookDisplay{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr); 
+}
+
+.allEventsDisplay{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+}
 
 .api-img img{
   width: 250px;
@@ -52,4 +61,12 @@ html, body{
 
 .dashboard-cookbook{
   margin-bottom: 20px;
+}
+
+ul{
+  list-style-type: none;
+}
+
+ol{
+  list-style-position: inside;
 }
