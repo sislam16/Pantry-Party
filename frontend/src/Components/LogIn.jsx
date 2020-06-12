@@ -12,12 +12,12 @@ const LogIn = ({ username, password, setUsername, setPassword, isLoggedIn, setLo
   }
 
   return (
-    <div className='login'style={{height:'100vh', backgroundColor:'#0066b2'}}>
+    <div className='login'style={{height:'100vh', marginTop:'20px'}}>
       <Container>
       <Typography
             variant='h3'
-          style={{fontWeight:'bold', paddingTop:'20px', color:'ed7902'}}>Log In</Typography> <br/>
-        <form onSubmit={handleSubmit} style={{marginTop:'2 0px'}}>
+          style={{fontWeight:'bold', paddingTop:'20px', color:'#ed7902'}}>Log In</Typography> <br/>
+        <form onSubmit={handleSubmit} style={{marginTop:'10px'}}>
           <div>
             <TextField
               variant='filled'
