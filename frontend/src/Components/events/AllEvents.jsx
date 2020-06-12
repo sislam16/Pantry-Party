@@ -11,6 +11,7 @@ const AllEvents = ({ user }) => {
         const getEvents = async () => {
             try {
                 let { data } = await axios.get(`/api/events/user/${user.id}`)
+                console.log()
                 setAllEvents(data.payload)
             } catch (error) {
                 console.log('error', error)
