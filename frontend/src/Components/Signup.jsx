@@ -4,6 +4,7 @@ import {TextField, Button, Typography, Container} from '@material-ui/core'
 import {authStyles} from './styling/AuthStyling'
 
 const  Signup = ({ username, password, email, firstname, lastname, isLoggedIn, signupUser, setUsername, setPassword, setEmail, setFirstname, setLastname, setLoggedIn}) =>{
+  const classes = authStyles()
   const handleSubmit = (e) =>{
     e.preventDefault()
     signupUser()
@@ -11,7 +12,7 @@ const  Signup = ({ username, password, email, firstname, lastname, isLoggedIn, s
 
 
     return (
-        <div className="container">
+        <div className="container" style={{marginTop:'20px'}}>
           <Container>
             <form onSubmit={handleSubmit}>
               <Typography
@@ -81,9 +82,8 @@ const  Signup = ({ username, password, email, firstname, lastname, isLoggedIn, s
               <div>
                 <div>
                   <Link
-                    className="buttonlink"
+                    className={classes.link}
                     to="/login"
-                    style={{ color: "white" }}
                   >
                   
                       Already have an account?

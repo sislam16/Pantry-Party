@@ -51,12 +51,25 @@ const APIRecipe = ({ user }) => {
         apiIngredientsList(apiRecipe)
 
     }, [apiRecipe])
+    
+  
+    const allIngredients = (obj) =>{
+        const arr=[]
+        for(let key in obj){
+          let ing = obj[key] + ' ' + key
+          arr.push(ing)
+        }
+        return arr
+    }
 
+    const ingArr = allIngredients(ingredientList).map(el=>(
+        <li>{el}</li>
+    ))
 
     const directionList = directionsArr.map((el) => (
         <li>{el}</li>
     ))
-    console.log('ingredientList', ingredientList)
+    // console.log('ingredientList', ingredientList)
     return (
         <Container>
             <div className="meal-db-recipe">
@@ -66,6 +79,7 @@ const APIRecipe = ({ user }) => {
                 />
                 <br></br>
                 <Typography variant='h5' style={{fontWeight:'bold'}}>Ingredients:</Typography>
+                <ul>{ingArr}</ul>
                 <Typography variant='h5' style={{fontWeight:'bold'}}>Directions:</Typography>
                 <ol>{directionList}</ol>
 

@@ -68,7 +68,7 @@ CREATE TABLE notifications (
 -- SEED DATA
 
 INSERT INTO users (firstname, lastname, email, username, password)
-    VALUES ('Suzette', 'Islam', 'suzette@gmail.com', 'Suzette!', '123ok'), 
+    VALUES ('Suzette', 'Islam', 'suzette@gmail.com', 'Suzette!', '$2b$12$4bv5wP91yYEN2RmAwjf0IOLeK01mhOeTxgRxc5AidfvbltxPPe9fy'), 
             ('Maliq', 'Taylor', 'maliq@gmail.com', 'PowerHouse93', 'ok123'),
             ('Douglas', 'MacKrell', 'douglas@gmail.com', 'DouglasMacKrell', 'ok123');
 

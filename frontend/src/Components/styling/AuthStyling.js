@@ -31,7 +31,7 @@ export const authStyles = makeStyles((theme) => ({
         }
     },
     link: {
-        color:'#ed7902',
+        color:'#0066b2',
         fontWeight:'bold',
         textDecoration: 'none',
     }
