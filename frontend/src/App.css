@@ -1,5 +1,6 @@
 html, body{
-  background: #f7e7ce;
+  /* font-family: 'Poppins', sans-serif; */
+  /* background: #f7e7ce; */
   height: 100vh;
 }
 .landing{
@@ -11,7 +12,6 @@ html, body{
   text-align: center;
   
 }
-
 .newRecipe{
   background-color: white;
   display: inline-block;
@@ -26,7 +26,6 @@ html, body{
 }
 
 .dashboard-cookbook{
-  border:2px solid black;
   display:grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-column-start: 1;
@@ -41,6 +40,17 @@ html, body{
   grid-column-end:4;
   margin-bottom: 20px;
 }
+
+.cookbookDisplay{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr); 
+}
+
+.allEventsDisplay{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
 .api-img img{
   width: 250px;
   height:auto
@@ -51,4 +61,12 @@ html, body{
 
 .dashboard-cookbook{
   margin-bottom: 20px;
+}
+
+ul{
+  list-style-type: none;
+}
+
+ol{
+  list-style-position: inside;
 }

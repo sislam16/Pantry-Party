@@ -2,9 +2,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import useSocket from 'use-socket.io-client';
 import { useParams } from 'react-router-dom'
 import axios from 'axios';
-
 import useUserMedia from './useUserMedia'
 import DirectionsDisplay from './DirectionsDisplay';
+import {Typography, Container, Button} from '@material-ui/core'
 
 const Broadcast = () => {
     const [currEvent, setCurrEvent] = useState({})
@@ -176,19 +176,24 @@ const Broadcast = () => {
     };
 
     return (
+        <Container>
         <div>
-            <h1>Smile! You're on camera!</h1>
-            <video className="video" autoPlay={true} muted ref={videoRef} onCanPlay={handleCanPlay} playsInline muted />
+            <Typography variant='h3' style={{color:'#ed7902', fontWeight:'bold', marginTop:'20px'}}>Smile! You're on camera!</Typography>
+            <video className="video" autoPlay={true} muted ref={videoRef} onCanPlay={handleCanPlay} playsInline muted /><br/>
             {/* <button onClick={() => handleNewBroadcaster()}>Connect</button> */}
-            <button onClick={() => launchBroadcast()}>Start Broadcast</button>
-            <button onClick={() => disconnectBroadcaster()}>Disconnect</button>
-            <h3>Viewers: {numberOfViewers}</h3>
+            <Button onClick={() => launchBroadcast()}>Start Broadcast</Button>
+            <Button onClick={() => disconnectBroadcaster()}>Disconnect</Button>
+            <Typography variant='h5' style={{fontWeight:'bold'}}>Viewers: {numberOfViewers}</Typography> <br/>
             <DirectionsDisplay directions={directions} stepsCounter={stepsCounter} />
-            <button onClick={() => decrementSteps()}>Previous Step</button>
-            <button onClick={() => incrementSteps()}>Next Step</button>
-            <p>Don't worry, your live stream broadcast won't be accessible until you click the START BROADCAST button!</p>
-            <p>When you're done with your broadcast, click DISCONNECT to remove your stream from public view, and then close your tab to close your camera!</p>
+
+            <Button onClick={() => decrementSteps()}>Previous Step</Button>
+            <Button onClick={() => incrementSteps()}>Next Step</Button><br/>
+            <Typography variant='p'><span style={{fontWeight:'bold'}}>1.</span> To start a stream, first enter a publicly visible USERNAME and click CONNECT to connect to the server.</Typography><br/>
+            <Typography variant='p'><span style={{fontWeight:'bold'}}>2.</span> Don't worry, your livestream broadcast won't be accessible until you click the START BROADCAST button!</Typography><br/>
+            <Typography variant='p' style={{paddingBottom:'20px'}}><span style={{fontWeight:'bold'}}>3.</span> When you're done with your broadcast, click DISCONNECT to remove your stream from public view and then close your tab to close your camera!</Typography><br/>
+
         </div>
+        </Container>
     )
 }
 

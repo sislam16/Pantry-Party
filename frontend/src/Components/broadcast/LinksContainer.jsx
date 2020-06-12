@@ -1,6 +1,6 @@
 import React from "react"
 import BroadcasterLink from './BroadcasterLink'
-
+import {Typography} from '@material-ui/core'
 const LinksContainer = ({ broadcasters }) => {
     let links = []
     if (broadcasters.length > 0) {
@@ -11,7 +11,7 @@ const LinksContainer = ({ broadcasters }) => {
         }
         return <ul className="links-container" >{ links }</ul>
     }
-    return <p>No Streams</p>
+    return <Typography variant='p' style={{fontWeight:'bold'}}>No Streams</Typography>
 }
 
 export default LinksContainer

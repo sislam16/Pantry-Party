@@ -12,10 +12,12 @@ import Settings from "./Components/users/Settings";
 import APIRecipe from "./Components/recipes/ApiRecipeExpand";
 import NewEvent from "./Components/events/NewEvent";
 import NewRecipe from './Components/recipes/NewRecipe';
+import Cookbook from './Components/recipes/Cookbook';
 import Landing from './Components/Landing';
 import Streams from './Components/broadcast/Streams';
 import Broadcast from './Components/broadcast/Broadcast';
 import Watch from './Components/broadcast/Watch';
+import AllEvents from './Components/events/AllEvents';
 
 
 const App = () => {
@@ -105,32 +107,46 @@ const App = () => {
             isLoggedIn={isLoggedIn}
           />
         </Route>
+
         <Route exact path='/settings'>
           <Settings
             user={user}
             isLoggedIn={isLoggedIn}
           />
         </Route>
+
         <Route exact path='/recipe/random/:recipe_id'>
           <APIRecipe
             user={user}
             isLoggedIn={isLoggedIn}
           />
         </Route>
+
         <Route exact path='/cookbook/recipe/:recipe_id'>
           <SingleRecipe
             user={user}
             isLoggedIn={isLoggedIn}
           />
         </Route>
+
+        <Route exact path='/events'>
+          <AllEvents
+          user={user}
+          />
+        </Route>
+
         <Route exact path='/events/new'>
           <NewEvent
             user={user}
           />
         </Route>
-        <Route exact path = '/cookbook'>
-          
+
+        <Route exact path='/cookbook'>
+          <Cookbook
+            user={user}
+          />
         </Route>
+
         <Route exact path='/cookbook/new'>
           <NewRecipe
             user={user}
@@ -150,7 +166,7 @@ const App = () => {
         </Route>
 
         <Route exact path='/logout'></Route>
-        
+
         <Route exact path='/'>
           <Landing />
         </Route>

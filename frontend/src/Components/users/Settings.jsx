@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-import { TextField, Button, Typography } from '@material-ui/core'
+import { TextField, Button, Typography, Container } from '@material-ui/core'
 
 const Settings = ({ user }) => {
     const [edit, setEdit] = useState(false)
@@ -12,7 +12,7 @@ const Settings = ({ user }) => {
     const handleUpdate = async () => {
         console.log('update info')
         try {
-            let updateInfo = await axios.patch(`/api/users/update/info/`, {username, firstname, lastname, bio})
+            let updateInfo = await axios.patch(`/api/users/update/info/`, { username, firstname, lastname, bio })
             console.log(updateInfo)
             setEdit(false)
         } catch (error) {
@@ -47,25 +47,29 @@ const Settings = ({ user }) => {
 
     if (edit === false) {
         return (
-            <div>
-                <Typography>Settings</Typography>
-                <form>
-                    <label htmlFor="username">username:</label> <p>{user.username}</p>
-                    <label htmlFor="firstname">firstname:</label> <p>{user.firstname}</p>
-                    <label htmlFor="lastname">lastname:</label> <p>{user.lastname}</p>
-                    <label htmlFor="bio">Bio:</label> <p>{user.bio}</p>
-                    <Button onClick={handleEdit}>Edit</Button> <Button onClick={deactivateAccount}>Deactivate Account</Button>
+            <Container style={{marginTop:'20px'}}>
+                <Typography variant='h3' style={{fontWeight:'bold', color:'#ed7902'}}>Settings</Typography><br />
+                <form className='editInfo'>
+                    <Typography variant='h6'style={{fontWeight:'bold'}}>username:</Typography>
+                    <Typography variant='p'>{user.username}</Typography> <br />
+                    <Typography variant='h6'style={{fontWeight:'bold'}}>firstname:</Typography>
+                    <Typography variant='p'>{user.firstname}</Typography><br />
+                    <Typography variant='h6'style={{fontWeight:'bold'}}>lastname:</Typography>
+                    <Typography variant='p'>{user.lastname}</Typography><br />
+                    <Typography variant='h6'style={{fontWeight:'bold'}}>Bio:</Typography>
+                    <Typography variant='p'>{user.bio}</Typography><br/>
+                 <Button onClick={handleEdit} >Edit</Button> <Button onClick={deactivateAccount}>Deactivate Account</Button>
                 </form>
-            </div>
+            </Container>
         )
     } else {
         console.log('username', username)
         return (
-            <div>
+            <Container style={{marginTop:'20px'}}>
                 <Typography
-                variant='h2'
+                    variant='h3'
                 >Settings</Typography>
-                <form>
+                <form className='editInfo'>
                     <TextField
                         variant="filled"
                         margin='normal'
@@ -98,13 +102,13 @@ const Settings = ({ user }) => {
                         margin='normal'
                         label="Bio"
                         value={bio}
-                        onChange={(e)=>setBio(e.target.value)}>
+                        onChange={(e) => setBio(e.target.value)}>
                         {bio}
                     </TextField> <br />
 
                     <Button onClick={handleUpdate}>Submit</Button>
                 </form>
-            </div>
+            </Container>
         )
     }
 }

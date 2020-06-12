@@ -21,10 +21,10 @@ const NavBar = ({ logoutUser, isLoggedIn }) => {
         return (
             <AppBar position="static" className={classes.appBar}>
                 <Toolbar>
-                    {/* <img src ={navlogo} className ={classes.logo} /> */}
-
+                    <span><img src ={navlogo} className ={classes.logo} style={{height:'40px'}}/></span>
+                    
                     <IconButton
-                        edge="start"
+                        edge="false"
                         className={classes.menuButton}
                         color="inherit"
                         aria-label="menu"
@@ -34,7 +34,7 @@ const NavBar = ({ logoutUser, isLoggedIn }) => {
                     </IconButton>
 
                     <IconButton
-                        edge="start"
+                        edge="false"
                         className={classes.menuButton}
                         color="inherit"
                         aria-label="menu"
@@ -44,7 +44,7 @@ const NavBar = ({ logoutUser, isLoggedIn }) => {
                     </IconButton>
 
                     <IconButton
-                        edge='start'
+                        edge='false'
                         color='inherit'
                         aria-label='menu'
                         onClick={() => { rerouteNav('streams') }}>
@@ -52,7 +52,7 @@ const NavBar = ({ logoutUser, isLoggedIn }) => {
                     </IconButton>
                     
                     <IconButton
-                        edge="start"
+                        edge="false"
                         className={classes.menuButton}
                         color="inherit"
                         aria-label="menu"
@@ -64,7 +64,7 @@ const NavBar = ({ logoutUser, isLoggedIn }) => {
 
 
                     <IconButton
-                        edge="start"
+                        edge="false"
                         className={classes.menuButton}
                         color="inherit"
                         aria-label="menu"
