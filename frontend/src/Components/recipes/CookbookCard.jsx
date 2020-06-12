@@ -8,7 +8,7 @@ const CookbookRecipeCard = ({ recipe_name, recipe_img, id }) => {
 
     return (
         <Link to={`/cookbook/recipe/${id}`}>
-            <Card className='api-recipe' id={id} variant='outlined'>
+            <Card className='api-recipe' id={id} style={{backgroundColor:'#fdbd10', height:'100%', border:'2px solid black', margin:'5px'}}>
                <div> <Typography variant ='h5'>{recipe_name}</Typography></div>
                 <div><img src={recipe_img} className='api-img' alt='recipe'/>{recipe_img}</div>
             </Card>
