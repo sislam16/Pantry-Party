@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom'
 import useSocket from 'use-socket.io-client'
 import DirectionsDisplay from './DirectionsDisplay';
+import {Button, Container, Typography} from '@material-ui/core'
 
 const Watch = () => {
     const [stepsCounter, setStepsCounter] = useState(0)
@@ -96,12 +97,14 @@ const Watch = () => {
     }
 
     return (
+        <Container>
         <div>
-            <h1>Watch page</h1>
-            <video className="video" autoPlay={true} ref={videoRef} />
-            <button onClick={() => handleWatcher()}>Connect</button>
+            <Typography variant='h3' style={{fontWeight:'bold'}}>Watch page</Typography><br/>
+            <video className="video" autoPlay={true} ref={videoRef} /><br/>
+            <Button onClick={() => handleWatcher()}>Connect</Button><br/>
             <DirectionsDisplay directions={ directions } stepsCounter={ stepsCounter } />
         </div>
+        </Container>
     )
 }
 

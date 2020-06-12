@@ -1,15 +1,18 @@
 import React from "react"
+import { Typography, Container } from '@material-ui/core'
 
 const DirectionsDisplay = ({ directions, stepsCounter }) => {
     if (directions.length > 0) {
         return (
-            <div className="directions-display">
-                <h3>Step {stepsCounter + 1}:</h3>
-                <p>{directions[stepsCounter]}</p>
-            </div>
+            <Container>
+                <div className="directions-display">
+                    <Typography variant='h6' style={{fontWeight:'bold'}}>Step {stepsCounter + 1}:</Typography>
+                    <Typography variant='p'>{directions[stepsCounter]}</Typography>
+                </div>
+            </Container>
         )
     }
-    return <p>No Directions</p>
+    return <Typography variant='p'>No Directions</Typography>
 }
 
 export default DirectionsDisplay
