@@ -185,11 +185,13 @@ const Broadcast = () => {
             <Button onClick={() => disconnectBroadcaster()}>Disconnect</Button>
             <Typography variant='h5' style={{fontWeight:'bold'}}>Viewers: {numberOfViewers}</Typography> <br/>
             <DirectionsDisplay directions={directions} stepsCounter={stepsCounter} />
+
             <Button onClick={() => decrementSteps()}>Previous Step</Button>
             <Button onClick={() => incrementSteps()}>Next Step</Button><br/>
             <Typography variant='p'><span style={{fontWeight:'bold'}}>1.</span> To start a stream, first enter a publicly visible USERNAME and click CONNECT to connect to the server.</Typography><br/>
             <Typography variant='p'><span style={{fontWeight:'bold'}}>2.</span> Don't worry, your livestream broadcast won't be accessible until you click the START BROADCAST button!</Typography><br/>
             <Typography variant='p' style={{paddingBottom:'20px'}}><span style={{fontWeight:'bold'}}>3.</span> When you're done with your broadcast, click DISCONNECT to remove your stream from public view and then close your tab to close your camera!</Typography><br/>
+
         </div>
         </Container>
     )
