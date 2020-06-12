@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import EventsDisplayCard from '../events/EventsDisplayCard'
 import axios from 'axios'
-import {Link} from 'react-router-dom'
-import {Button} from '@material-ui/core'
+import { Link } from 'react-router-dom'
+import { Button, Container, Typography } from '@material-ui/core'
 
-const EventComponentUD = ({user}) => {
+const EventComponentUD = ({ user }) => {
     const [eventsArr, setEventsArr] = useState([])
     useEffect(() => {
         const getEvents = async () => {
@@ -13,7 +13,6 @@ const EventComponentUD = ({user}) => {
                 let { data } = await axios.get(`/api/events/user/${user_id}`)
                 let events = data.payload
                 setEventsArr(events)
-                console.log(eventsArr)
             } catch (error) {
                 console.log(error)
             }
@@ -21,7 +20,7 @@ const EventComponentUD = ({user}) => {
         getEvents();
     }, [])
 
-    const eventsThumbnail = eventsArr.map(el=>(
+    const eventsThumbnailAll = eventsArr.map(el => (
         <EventsDisplayCard
             id={el.id}
             event_name={el.event_name}
@@ -31,21 +30,35 @@ const EventComponentUD = ({user}) => {
         />
     ))
 
-console.log('thumbnail', eventsThumbnail)
-console.log('hey', eventsArr)
+    const newArr=[]
+    const getFourEvents = () =>{
+        for(let i=0; i <= 3; i++){
+            if(eventsThumbnailAll[i]){
+                newArr.push(eventsThumbnailAll[i])
+            }
+        }
+    }
 
-if(eventsArr.length === 0){
-    return(
-        <div>
-       <Link to='/events/new'><Button>Create Event</Button> </Link>
-        </div>
-    )
-} else{
-    return (
-        <div className = 'events-componentUD'>
-            {eventsThumbnail}
-        </div>
-    )
-}
+getFourEvents(eventsThumbnailAll)
+
+
+    if (eventsArr.length === 0) {
+        return (
+            <div>
+                <Link to='/events/new'><Button>Create Event</Button> </Link>
+            </div>
+        )
+    } else {
+        return (
+            <Container>
+                <Typography variant='h5' style={{fontWeight:'bold'}}>Upcoming Events</Typography> <br/>
+                <div className='events-componentUD'>
+                    {newArr}
+                    <Link to='/events' className='allEventbtn'><Button>View Events</Button></Link>
+                </div>
+            </Container>
+
+        )
+    }
 }
 export default EventComponentUD
