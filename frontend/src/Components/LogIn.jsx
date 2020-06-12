@@ -1,26 +1,23 @@
 import React from "react"
-import { Link, Redirect } from "react-router-dom";
-import { TextField, Button, Typography } from '@material-ui/core'
+import { Link, Redirect, useHistory } from "react-router-dom";
+import { TextField, Button, Typography, Container } from '@material-ui/core'
 import { authStyles } from './styling/AuthStyling'
 
 const LogIn = ({ username, password, setUsername, setPassword, isLoggedIn, setLoggedIn, loginUser }) => {
+  const history =useHistory()
   const classes = authStyles()
   const handleSubmit = (e) => {
     e.preventDefault()
     loginUser()
   }
 
-  if (isLoggedIn) {
-    return <Redirect to='/home' />
-  }
   return (
-    <>
-      <div className="container">
-        <form onSubmit={handleSubmit}>
-          <Typography
+    <div className='login'style={{height:'100vh', backgroundColor:'#0066b2'}}>
+      <Container>
+      <Typography
             variant='h3'
-          >Log In</Typography>
-
+          style={{fontWeight:'bold', paddingTop:'20px', color:'ed7902'}}>Log In</Typography> <br/>
+        <form onSubmit={handleSubmit} style={{marginTop:'2 0px'}}>
           <div>
             <TextField
               variant='filled'
@@ -57,14 +54,14 @@ const LogIn = ({ username, password, setUsername, setPassword, isLoggedIn, setLo
                   </Link>
             </div>
             <div>
-              <Button type="submit" name="action">
+              <Button onClick={handleSubmit}>
                 Log-In
                   </Button>
             </div>
           </div>
         </form>
-      </div>
-    </>
+      </Container>
+    </div>
   );
 }
 
