@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {TextField, Button, Typography} from '@material-ui/core'
+import {TextField, Button, Typography, Container} from '@material-ui/core'
 import {authStyles} from './styling/AuthStyling'
 
 const  Signup = ({ username, password, email, firstname, lastname, isLoggedIn, signupUser, setUsername, setPassword, setEmail, setFirstname, setLastname, setLoggedIn}) =>{
@@ -11,12 +11,11 @@ const  Signup = ({ username, password, email, firstname, lastname, isLoggedIn, s
 
 
     return (
-      <>
         <div className="container">
-          <div>
+          <Container>
             <form onSubmit={handleSubmit}>
               <Typography
-              variant='h3'>Sign-Up</Typography>
+              variant='h3' style={{fontWeight:'bold', color:'#ed7902'}}>Sign-Up</Typography>
               <div>
                 <div>
                   <TextField
@@ -104,9 +103,8 @@ const  Signup = ({ username, password, email, firstname, lastname, isLoggedIn, s
                 </div>
               </div>
             </form>
+            </Container>
           </div>
-        </div>
-      </>
     );
   }
 

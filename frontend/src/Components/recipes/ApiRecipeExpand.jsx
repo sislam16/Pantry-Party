@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import Youtube from 'react-youtube'
+import { Container, Typography, List, ListItem } from '@material-ui/core'
 
 const APIRecipe = ({ user }) => {
     const [apiRecipe, setApiRecipe] = useState({})
@@ -29,7 +30,7 @@ const APIRecipe = ({ user }) => {
         getFullRecipeById()
     }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         const apiIngredientsList = (apiRecipe) => {
             let ingredientObj = {}
             let measurementArr = []
@@ -57,18 +58,19 @@ const APIRecipe = ({ user }) => {
     ))
     console.log('ingredientList', ingredientList)
     return (
+        <Container>
+            <div className="meal-db-recipe">
+                <Typography variant='h3' style={{fontWeight:'bold', color:'#fdbd10'}}>{apiRecipe.strMeal}</Typography>
+                <Youtube
+                    videoId={ytVideoId}
+                />
+                <br></br>
+                <Typography variant='h5' style={{fontWeight:'bold'}}>Ingredients:</Typography>
+                <Typography variant='h5' style={{fontWeight:'bold'}}>Directions:</Typography>
+                <ol>{directionList}</ol>
 
-        <div className="meal-db-recipe">
-            <h1>{apiRecipe.strMeal}</h1>
-            <Youtube
-                videoId={ytVideoId}
-            />
-            <br></br>
-            <h3>Ingredients:</h3>
-            <h3>Directions:</h3>
-            <ol>{directionList}</ol>
-
-        </div>
+            </div>
+        </Container>
     )
 }
 

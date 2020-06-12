@@ -16,22 +16,23 @@ export const authStyles = makeStyles((theme) => ({
         label: customTheme.palette.secondary.main,
         error: theme.palette.error.dark,
         '& label.Mui-focused': {
-            color: 'green',
+            color: '#0066b2',
         },
         '& .MuiOutlinedInput-root': {
             '& fieldset': {
-                borderColor: 'green'
+                borderColor: '#0066b2'
             },
             '&:hover fieldset': {
-                borderColor: 'green',
+                borderColor: '#0066b2',
             },
             '&.Mui-focused fieldset': {
-                borderColor: 'green'
+                borderColor: '#0066b2'
             }
         }
     },
     link: {
-        color:'white',
+        color:'#ed7902',
+        fontWeight:'bold',
         textDecoration: 'none',
     }
 
