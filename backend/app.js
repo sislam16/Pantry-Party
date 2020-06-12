@@ -18,6 +18,9 @@ var port = Number(process.env.PORT) || '3001';
 
 const app = express();
 
+// enable ssl redirect
+app.use(sslRedirect());
+
 var cors = require('cors')
 app.use(cors())
 
@@ -40,9 +43,6 @@ app.use(session({
 );
 app.use(passport.initialize());
 app.use(passport.session());
-
-// enable ssl redirect
-app.use(sslRedirect());
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter)
