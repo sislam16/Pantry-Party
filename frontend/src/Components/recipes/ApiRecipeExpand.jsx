@@ -69,11 +69,11 @@ const APIRecipe = ({ user }) => {
     const directionList = directionsArr.map((el) => (
         <li>{el}</li>
     ))
-    // console.log('ingredientList', ingredientList)
+
     return (
         <Container>
             <div className="meal-db-recipe">
-                <Typography variant='h3' style={{fontWeight:'bold', color:'#fdbd10'}}>{apiRecipe.strMeal}</Typography>
+                <Typography variant='h3' style={{fontWeight:'bold', color:'#ed7902', marginTop:'20px'}}>{apiRecipe.strMeal}</Typography>
                 <Youtube
                     videoId={ytVideoId}
                 />
