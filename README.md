@@ -1,54 +1,7 @@
 # Pantry-Party
 Our application allows users to host a virtual cooking party. Users will have the option to find recipes and follow an interactactive cooking video for recipes or input their personal recipe and follow the directions on a streaming platform. Pantry Party allows users to virtually interact with others and cook a meal in the comfort of their home - giving them the ability to share a meal together while apart.
 
-## Database Schema
-### Tables and Columns 
-* __Users__
-  * `id` : Integer Primary Key
-  * `firstname`: String
-  * `lastname`: String
-  * `email`: String
-  * `password`: String
-  * `avatar`: String
-  * `bio`: String
-  * `active`: Boolean
-  
-* __Recipes__
-  * `id` : Integer Primary Key
-  * `user_id`: Integer REFERENCES users(id)
-  * `recipe_name`: String
-  * `directions`: String
-  * `recipe_img`: String
-  * `ingredients`: String
-  * `location`: String
-  * `type`: String
-  
-* __Followers__
-  * `id`: Integer Primary Key
-  * `user_id`: Integer REFERENCES users(id)
-  * `follower_id`: Integer REFERENCES users(id)
-  
-* __Calendar__
-  * `id`: Integer Primary Key
-  * `user_id`: Integer REFERENCES users(id)
-  * `active`: BOOLEAN
-  
-* __Events__
-  * `id`: Integer Primary Key
-  * `party_name`: String
-  * `calendar_id`: Integer REFERENCES calendar(id)
-  * `party_description`: String
-  * `recipe_id`: Integer REFERENCES recipe(id)
-  
-* __Notifications__
-  * `id`: Integer Primary Key
-  * `event_id`: Integer REFERENCES event(id)
-  * `users_id`: Integer REFERENCES users(id)
-  * `recipe_id`: Integer REFERENCES recipe(id)
-  * `follower`: Integer REFERENCES followers(follower_id)
-  * `status`: String
-
-### Diagram 
+## Database Schema 
 ![database](./assets/database_schemaG7.png)
 
 ## Backend Routes/API
@@ -70,20 +23,6 @@ Our application allows users to host a virtual cooking party. Users will have th
   |GET | `/recipe/search/:location`| Get single recipe by location of origin.| N/A|
   |POST| `/recipe/new`| Create new recipe.| recipe_name, directions, recipe_img, ingredients, location, type|
   |PATCH| `/recipe/update/:recipe_id`| Update single recipe.| recipe_name, directions, recipe_img, ingredients, location, type|
- 
-* __Followers__
-  | Method | Endpoint  | Description    | Body Data    |
-  |--------|-----------|----------------|--------------|
-  |GET| `/followers/all/:user_id`| Gets all followers for user.| N/A|
-  |GET| `/followers/following/all/:user_id`| Gets all accounts user is following.| N/A|
-  |POST | `/followers/:user_id/:follower_id`| Create new follower. |follower_id|
-  |DELETE| `/followers/:user_id/:follower_id`| Delete single follow. | N/A|
-  
-* __Calendar__
-  | Method | Endpoint  | Description    | Body Data    |
-  |--------|-----------|----------------|--------------|
-  |GET| `/calendar/:user_id`| Get calendar for user.| N/A|
-  |PATCH| `/calendar/update/:user_id`| Update single calendar.| active|
   
 * __Events__
   | Method | Endpoint  | Description    | Body Data    |
@@ -93,11 +32,7 @@ Our application allows users to host a virtual cooking party. Users will have th
   |POST|`/event/new/:calendar_id`| Create new event.|party_name, calendar_id, party_description, recipe_id|
   |PATCH| `/event/update/:event_id`| Update single event.|party_name, calendar_id, party_description, recipe_id|
   |DELETE| `/event/remove/:event_id`| Delete single event.| N/A|
-  
-* __Notifications__
-  | Method | Endpoint  | Description    | Body Data    |
-  |--------|-----------|----------------|--------------|
-  |GET|
+
 
 ## Frontend
 ### Routes
@@ -131,24 +66,11 @@ Our application allows users to host a virtual cooking party. Users will have th
   |--------|-----------|
   |/cookbook|Get all recipe the current user has input.|
   |/cookbook/:user_id|Displays all recipes of specific user with user_id.|
-
-* __Calendar__
-  | Route | Feature  |
-  |--------|-----------|
-  |/calendar|Displays current users calendar.|
-  |/calendar/:user_id| Displays calendar for another user with their id id the calendar is public.|
   
 * __Events__
   | Route | Feature  |
   |--------|-----------|
   |/events/:event_id| Displays the information for a specific event.|
-
-* __Discover__
-  | Route | Feature  |
-  |--------|-----------|
-  |/discover| Displays 4 random users for new users.|
-  |/discover/search/:username| Users can search for others by username.|
-  |/discover/search/:hashtag| Users can different hashtags relating to recipes.|
 
 * __Stream__ 
   | Route | Feature  |
