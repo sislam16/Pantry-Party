@@ -4,3 +4,9 @@ __Landing/Login__
 
 __Sign up__
 ![Sign up](./Signup.png)
+
+__User Dashboard__
+![User dashboard](./userDash.png)
+
+__Suggested Recipe Expand__
+![API_expand](./API_expand.png)
