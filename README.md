@@ -99,6 +99,11 @@ Our application allows users to host a virtual cooking party. Users will have th
   |--------|-----------|
   |/stream/:event_id|Creates stream for a specific event.|
 
+## Technical Milestones
+* WebRTC and Websockets
+* Distribution of data to multiple tables with one call
+* Material-UI
+
 ## Future Implementations
 * Explore Page
 * Live Text Chat
