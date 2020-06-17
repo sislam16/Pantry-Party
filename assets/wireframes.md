@@ -13,3 +13,6 @@ __Suggested Recipe Expand__
 
 __Cookbook/New Recipe Form__
 ![Cookbook/Form](./Cookbook_new.png)
+
+__Events/New Event Form__
+![Events/Form](./Events_new.png)
