@@ -1,37 +1,59 @@
-# Pantry-Party
+# Pantry Party
 Our application allows users to host a virtual cooking party. Users will have the option to find recipes and follow an interactactive cooking video for recipes or input their personal recipe and follow the directions on a streaming platform. Pantry Party allows users to virtually interact with others and cook a meal in the comfort of their home - giving them the ability to share a meal together while apart.
 
 ## Database Schema 
 ![database](./assets/database_schemaG7.png)
 
 ## Backend Routes/API
+* __Auth__
+  | Method | Endpoint  | Description    | Body Data    |
+  |--------|-----------|----------------|--------------|
+  |GET| `/auth/logout`| Logs out current user.|N/A|
+  |POST| `/auth/signup`| Sign up new user.| firstname, lastname, email, username, password, avatar, bio|
+  |POST| `/auth/login`| Logs in existing user.|username, password|
+  
+
 * __Users__
   | Method | Endpoint  | Description    | Body Data    |
   |--------|-----------|----------------|--------------|
-  |GET| `/users`| Gets all of the users.| N/A|
-  |GET| `/users/:id`| Get a single user by id.| N/A|
-  |POST| `/users/new`| Creates new user.| firstname, lastname, email, password, avatar, bio, active|
-  |PATCH| `/users/update/:id`| Update single user.|firstname, lastname, email, password, avatar, bio, active|
-  |DELETE| `/users/remove/:id`| Delete single user.|N/A|
+  |GET| `/api/users`| Retrieves all users.| N/A|
+  |GET| `/api/users//id/:id`| Get a single user by id.| N/A|
+  |GET| `/api/users/username`| Gets user by username.|N/A|
+  |PATCH| `/api/users/update/info`| Update single user.|id, username, firstname, lastname, avatar, bio, active|
+  |PATCH| `/api/users/update/password/:id`| Update single user's password.|id, password|
 
 * __Recipes__
   | Method | Endpoint  | Description    | Body Data    |
   |--------|-----------|----------------|--------------|
-  |GET| `/recipe/:recipe_id`| Gets single recipe in users database.| N/A|
-  |GET| `/recipe/search/:recipe_type`| Get single recipe by type of dish.| N/A|
-  |GET| `/recipe/search/:ingredient`| Get single recipe by ingredient.| N/A|
-  |GET | `/recipe/search/:location`| Get single recipe by location of origin.| N/A|
-  |POST| `/recipe/new`| Create new recipe.| recipe_name, directions, recipe_img, ingredients, location, type|
-  |PATCH| `/recipe/update/:recipe_id`| Update single recipe.| recipe_name, directions, recipe_img, ingredients, location, type|
-  
+  |GET| `/api/recipes/:recipe_id`| Gets single recipe in users database.| N/A|
+  |GET| `/api/recipes/user/:user_id`| Gets all recipes by user.| N/A|
+  |POST| `/api/recipes/new`| Create new recipe.| recipe_name, directions, recipe_img, recipe_active, recipe_public ingredients, hashtags|
+  |PATCH| `/api/recipes/update/:recipe_id`| Update single recipe.| recipe_name, directions, recipe_img, recipe_active, recipe_public, ingredients, ingredients, hashtags|
+ 
+* __Ingredients__
+  | Method | Endpoint  | Description    | Body Data    |
+  |--------|-----------|----------------|--------------|
+  |GET |`/api/ingredients/:recipe_id`| Gets all ingredients by recipe_id.|N/A|
+  |POST|`/api/ingredients/:recipe_id`| Create new ingredient.|ingredient_name, amount, measurement, recipe_id|
+  |PATCH| `/api/ingredients/:ingredient_id`| Update single ingredient.|ingredient_name, amount, measurement|
+
+* __Hashtags__
+  | Method | Endpoint  | Description    | Body Data    |
+  |--------|-----------|----------------|--------------|
+  |GET |`/api/hashtags/:recipe_id`| Gets all hashtags by recipe_id.|N/A|
+  |POST|`/api/hashtags/:recipe_id`| Create new hashtag.|tag_body, recipe_id|
+  |PATCH| `/api/hashtags/:hashtag_id`| Update single hashtag.|tag_body recipe_id|
+
 * __Events__
   | Method | Endpoint  | Description    | Body Data    |
   |--------|-----------|----------------|--------------|
-  |GET |`/event/all/:calendar_id`| Gets all event for user.|N/A|
-  |GET | `/event/:event_id`| Get single event. | N/A|
-  |POST|`/event/new/:calendar_id`| Create new event.|party_name, calendar_id, party_description, recipe_id|
-  |PATCH| `/event/update/:event_id`| Update single event.|party_name, calendar_id, party_description, recipe_id|
-  |DELETE| `/event/remove/:event_id`| Delete single event.| N/A|
+  |GET |`/api/events/`| Gets all events in database.|N/A|
+  |GET |`/api/events/active`| Gets all active events.|N/A|
+  |GET | `/api/events/:event_id`| Get single event by event id. | N/A|
+  |GET |`/api/events/user/:user_id`| Gets all events by user id.|N/A|
+  |POST|`/api/events/new`| Create new event.|party_name, calendar_id, party_description, recipe_id|
+  |PATCH| `/api/events/update/:event_id`| Update single event.|event_name, event_date, event_description, recipe_id|
+  |DELETE| `/api/events/remove`| Delete single event.| N/A|
 
 
 ## Frontend
@@ -76,6 +98,12 @@ Our application allows users to host a virtual cooking party. Users will have th
   | Route | Feature  |
   |--------|-----------|
   |/stream/:event_id|Creates stream for a specific event.|
+
+## Future Implementations
+* Explore Page
+* Live Text Chat
+* Followers
+* Saving public recipes to Cookbook
 
 ### Wireframes
 Find wireframes [here](./assets/wireframes.md).
