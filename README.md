@@ -1,5 +1,5 @@
 # Pantry Party
-Pantry Party is a platform where users are able to connect with others by hosting a virtual cooking party. Users will have the option to find recipes and follow an interactactive cooking video for recipes or input their personal recipe and follow the directions on a streaming platform. Pantry Party allows users to virtually interact with others and cook a meal in the comfort of their home - giving them the ability to share a meal together while apart.
+Pantry Party is an interactive live streaming platform where users are able to connect with others by hosting a virtual cooking party. Users will have the option to find random recipes and create recipes for their cookbook that allow them to begin a stream. Once a stream is initialized by a broadcaster, they are able to cook live and display the directions to their recipes as they go to the public. With this live virtual interaction, users are able to cook a meal with friends while they are physically apart. 
 
 ## Database Schema 
 ![database](./assets/database_schemaG7.png)
