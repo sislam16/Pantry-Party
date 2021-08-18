@@ -8,6 +8,8 @@ var app = require('../app.js');
 var debug = require('debug')('backend:server');
 var http = require('http');
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 var cors = require('cors')
 app.use(cors())
 /**
