@@ -1,103 +1,60 @@
-# Pantry-Party
-Our application allows users to host a virtual cooking party. Users will have the option to find recipes and follow an interactactive cooking video for recipes or input their personal recipe and follow the directions on a streaming platform. Pantry Party allows users to virtually interact with others and cook a meal in the comfort of their home - giving them the ability to share a meal together while apart.
+# Pantry Party
+Pantry Party is an interactive live streaming platform where users are able to connect with others by hosting a virtual cooking party. Users will have the option to find random recipes and create recipes for their cookbook that allow them to begin a stream. Once a stream is initialized by a broadcaster, they are able to cook live and display the directions to their recipes as they go to the public. With this live virtual interaction, users are able to cook a meal with friends while they are physically apart. 
 
-## Database Schema
-### Tables and Columns 
-* __Users__
-  * `id` : Integer Primary Key
-  * `firstname`: String
-  * `lastname`: String
-  * `email`: String
-  * `password`: String
-  * `avatar`: String
-  * `bio`: String
-  * `active`: Boolean
-  
-* __Recipes__
-  * `id` : Integer Primary Key
-  * `user_id`: Integer REFERENCES users(id)
-  * `recipe_name`: String
-  * `directions`: String
-  * `recipe_img`: String
-  * `ingredients`: String
-  * `location`: String
-  * `type`: String
-  
-* __Followers__
-  * `id`: Integer Primary Key
-  * `user_id`: Integer REFERENCES users(id)
-  * `follower_id`: Integer REFERENCES users(id)
-  
-* __Calendar__
-  * `id`: Integer Primary Key
-  * `user_id`: Integer REFERENCES users(id)
-  * `active`: BOOLEAN
-  
-* __Events__
-  * `id`: Integer Primary Key
-  * `party_name`: String
-  * `calendar_id`: Integer REFERENCES calendar(id)
-  * `party_description`: String
-  * `recipe_id`: Integer REFERENCES recipe(id)
-  
-* __Notifications__
-  * `id`: Integer Primary Key
-  * `event_id`: Integer REFERENCES event(id)
-  * `users_id`: Integer REFERENCES users(id)
-  * `recipe_id`: Integer REFERENCES recipe(id)
-  * `follower`: Integer REFERENCES followers(follower_id)
-  * `status`: String
-
-### Diagram 
-![database](./assets/database_schemaG7.png)
+## Database Schema 
+![database](./assets/PantryPartydb.png)
 
 ## Backend Routes/API
+* __Auth__
+  | Method | Endpoint  | Description    | Body Data    |
+  |--------|-----------|----------------|--------------|
+  |GET| `/auth/logout`| Logs out current user.|N/A|
+  |POST| `/auth/signup`| Sign up new user.| firstname, lastname, email, username, password, avatar, bio|
+  |POST| `/auth/login`| Logs in existing user.|username, password|
+  
+
 * __Users__
   | Method | Endpoint  | Description    | Body Data    |
   |--------|-----------|----------------|--------------|
-  |GET| `/users`| Gets all of the users.| N/A|
-  |GET| `/users/:id`| Get a single user by id.| N/A|
-  |POST| `/users/new`| Creates new user.| firstname, lastname, email, password, avatar, bio, active|
-  |PATCH| `/users/update/:id`| Update single user.|firstname, lastname, email, password, avatar, bio, active|
-  |DELETE| `/users/remove/:id`| Delete single user.|N/A|
+  |GET| `/api/users`| Retrieves all users.| N/A|
+  |GET| `/api/users//id/:id`| Get a single user by id.| N/A|
+  |GET| `/api/users/username`| Gets user by username.|N/A|
+  |PATCH| `/api/users/update/info`| Update single user.|id, username, firstname, lastname, avatar, bio, active|
+  |PATCH| `/api/users/update/password/:id`| Update single user's password.|id, password|
 
 * __Recipes__
   | Method | Endpoint  | Description    | Body Data    |
   |--------|-----------|----------------|--------------|
-  |GET| `/recipe/:recipe_id`| Gets single recipe in users database.| N/A|
-  |GET| `/recipe/search/:recipe_type`| Get single recipe by type of dish.| N/A|
-  |GET| `/recipe/search/:ingredient`| Get single recipe by ingredient.| N/A|
-  |GET | `/recipe/search/:location`| Get single recipe by location of origin.| N/A|
-  |POST| `/recipe/new`| Create new recipe.| recipe_name, directions, recipe_img, ingredients, location, type|
-  |PATCH| `/recipe/update/:recipe_id`| Update single recipe.| recipe_name, directions, recipe_img, ingredients, location, type|
+  |GET| `/api/recipes/:recipe_id`| Gets single recipe in users database.| N/A|
+  |GET| `/api/recipes/user/:user_id`| Gets all recipes by user.| N/A|
+  |POST| `/api/recipes/new`| Create new recipe.| recipe_name, directions, recipe_img, recipe_active, recipe_public ingredients, hashtags|
+  |PATCH| `/api/recipes/update/:recipe_id`| Update single recipe.| recipe_name, directions, recipe_img, recipe_active, recipe_public, ingredients, ingredients, hashtags|
  
-* __Followers__
+* __Ingredients__
   | Method | Endpoint  | Description    | Body Data    |
   |--------|-----------|----------------|--------------|
-  |GET| `/followers/all/:user_id`| Gets all followers for user.| N/A|
-  |GET| `/followers/following/all/:user_id`| Gets all accounts user is following.| N/A|
-  |POST | `/followers/:user_id/:follower_id`| Create new follower. |follower_id|
-  |DELETE| `/followers/:user_id/:follower_id`| Delete single follow. | N/A|
-  
-* __Calendar__
+  |GET |`/api/ingredients/:recipe_id`| Gets all ingredients by recipe_id.|N/A|
+  |POST|`/api/ingredients/:recipe_id`| Create new ingredient.|ingredient_name, amount, measurement, recipe_id|
+  |PATCH| `/api/ingredients/:ingredient_id`| Update single ingredient.|ingredient_name, amount, measurement|
+
+* __Hashtags__
   | Method | Endpoint  | Description    | Body Data    |
   |--------|-----------|----------------|--------------|
-  |GET| `/calendar/:user_id`| Get calendar for user.| N/A|
-  |PATCH| `/calendar/update/:user_id`| Update single calendar.| active|
-  
+  |GET |`/api/hashtags/:recipe_id`| Gets all hashtags by recipe_id.|N/A|
+  |POST|`/api/hashtags/:recipe_id`| Create new hashtag.|tag_body, recipe_id|
+  |PATCH| `/api/hashtags/:hashtag_id`| Update single hashtag.|tag_body recipe_id|
+
 * __Events__
   | Method | Endpoint  | Description    | Body Data    |
   |--------|-----------|----------------|--------------|
-  |GET |`/event/all/:calendar_id`| Gets all event for user.|N/A|
-  |GET | `/event/:event_id`| Get single event. | N/A|
-  |POST|`/event/new/:calendar_id`| Create new event.|party_name, calendar_id, party_description, recipe_id|
-  |PATCH| `/event/update/:event_id`| Update single event.|party_name, calendar_id, party_description, recipe_id|
-  |DELETE| `/event/remove/:event_id`| Delete single event.| N/A|
-  
-* __Notifications__
-  | Method | Endpoint  | Description    | Body Data    |
-  |--------|-----------|----------------|--------------|
-  |GET|
+  |GET |`/api/events/`| Gets all events in database.|N/A|
+  |GET |`/api/events/active`| Gets all active events.|N/A|
+  |GET | `/api/events/:event_id`| Get single event by event id. | N/A|
+  |GET |`/api/events/user/:user_id`| Gets all events by user id.|N/A|
+  |POST|`/api/events/new`| Create new event.|party_name, calendar_id, party_description, recipe_id|
+  |PATCH| `/api/events/update/:event_id`| Update single event.|event_name, event_date, event_description, recipe_id|
+  |DELETE| `/api/events/remove`| Delete single event.| N/A|
+
 
 ## Frontend
 ### Routes
@@ -131,29 +88,27 @@ Our application allows users to host a virtual cooking party. Users will have th
   |--------|-----------|
   |/cookbook|Get all recipe the current user has input.|
   |/cookbook/:user_id|Displays all recipes of specific user with user_id.|
-
-* __Calendar__
-  | Route | Feature  |
-  |--------|-----------|
-  |/calendar|Displays current users calendar.|
-  |/calendar/:user_id| Displays calendar for another user with their id id the calendar is public.|
   
 * __Events__
   | Route | Feature  |
   |--------|-----------|
   |/events/:event_id| Displays the information for a specific event.|
 
-* __Discover__
-  | Route | Feature  |
-  |--------|-----------|
-  |/discover| Displays 4 random users for new users.|
-  |/discover/search/:username| Users can search for others by username.|
-  |/discover/search/:hashtag| Users can different hashtags relating to recipes.|
-
 * __Stream__ 
   | Route | Feature  |
   |--------|-----------|
   |/stream/:event_id|Creates stream for a specific event.|
+
+## Technical Milestones
+* WebRTC and Websockets
+* Distribution of data to multiple tables with one call
+* Material-UI
+
+## Future Implementations
+* Explore Page
+* Live Text Chat
+* Followers
+* Saving public recipes to Cookbook
 
 ### Wireframes
 Find wireframes [here](./assets/wireframes.md).
